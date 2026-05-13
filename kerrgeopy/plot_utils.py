@@ -67,6 +67,7 @@ def plot(
     color="red",
     tau=np.inf,
     point_density=200,
+    axes_limits=None,
 ):
     r"""Creates a plot of the orbit
 
@@ -99,6 +100,8 @@ def plot(
     point_density : int, optional
         number of points to plot per unit of mino time, defaults to
         200
+    axes_limits : tuple, optional
+        limits for the axes (x_min, x_max, y_min, y_max, z_min, z_max), if None, limits are set automatically based on the trajectory and event horizon
 
     Returns
     -------
@@ -159,12 +162,14 @@ def plot(
     )
 
     # set axis limits
-    x_values = np.concatenate((trajectory_x, x_sphere.flatten()))
-    y_values = np.concatenate((trajectory_y, y_sphere.flatten()))
-    z_values = np.concatenate((trajectory_z, z_sphere.flatten()))
-    ax.set_xlim([x_values.min(), x_values.max()])
-    ax.set_ylim([y_values.min(), y_values.max()])
-    ax.set_zlim([z_values.min(), z_values.max()])
+    if axes_limits is None:
+        x_values = np.concatenate((trajectory_x, x_sphere.flatten()))
+        y_values = np.concatenate((trajectory_y, y_sphere.flatten()))
+        z_values = np.concatenate((trajectory_z, z_sphere.flatten()))
+        axes_limits = (x_values.min(), x_values.max(), y_values.min(), y_values.max(), z_values.min(), z_values.max())
+    ax.set_xlim(axes_limits[0:2])
+    ax.set_ylim(axes_limits[2:4])
+    ax.set_zlim(axes_limits[4:6])
     # set viewing angle
     ax.view_init(elevation, azimuth)
     # set equal aspect ratio and orthogonal projection
@@ -202,6 +207,7 @@ def animate(
     axis_limit=None,
     plot_components=False,
     txt=lambda t: f"\lambda = {t:.2f}",
+    axes_limits=None,
 ):
     r"""Saves an animation of the orbit as an mp4 file.
     Note that this function requires ffmpeg to be installed and may take several
@@ -261,6 +267,8 @@ def animate(
         function that takes mino time as input and outputs a string to
         be displayed on the plot, defaults to a function that displays
         the mino time with 2 decimal places
+    axes_limits : tuple, optional
+        limits for the axes (x_min, x_max, y_min, y_max, z_min, z_max), if None, limits are set automatically based on the trajectory and event horizon
     """
     lambda_range = lambda1 - lambda0
     point_density = 240  # number of points per unit of mino time
@@ -346,23 +354,25 @@ def animate(
     body = ax.scatter([], [], [], c="black")
 
     # set axis limits so that the black hole is centered
-    x_values = np.concatenate((trajectory_x, x_sphere.flatten()))
-    y_values = np.concatenate((trajectory_y, y_sphere.flatten()))
-    z_values = np.concatenate((trajectory_z, z_sphere.flatten()))
-    limit = abs(
-        max(
-            x_values.min(),
-            y_values.min(),
-            z_values.min(),
-            x_values.max(),
-            y_values.max(),
-            z_values.max(),
-            key=abs,
+    if axes_limits is None:
+        x_values = np.concatenate((trajectory_x, x_sphere.flatten()))
+        y_values = np.concatenate((trajectory_y, y_sphere.flatten()))
+        z_values = np.concatenate((trajectory_z, z_sphere.flatten()))
+        limit = abs(
+            max(
+                x_values.min(),
+                y_values.min(),
+                z_values.min(),
+                x_values.max(),
+                y_values.max(),
+                z_values.max(),
+                key=abs,
+            )
         )
-    )
-    ax.set_xlim(-limit, limit)
-    ax.set_ylim(-limit, limit)
-    ax.set_zlim(-limit, limit)
+        axes_limits = (-limit, limit) * 3
+    ax.set_xlim(axes_limits[0:2])
+    ax.set_ylim(axes_limits[2:4])
+    ax.set_zlim(axes_limits[4:6])
     # set equal aspect ratio and orthogonal projection
     ax.set_aspect("equal")
     # https://matplotlib.org/stable/gallery/mplot3d/projections.html
