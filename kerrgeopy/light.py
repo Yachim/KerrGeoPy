@@ -608,7 +608,9 @@ def _case_2_radial(a, eta, ell, initial_r, nu_r, distant=False):
     def I_1(lambda_):
         return r_3 * lambda_ + r_43 * Pi_1(lambda_)
     def I_2(lambda_):
-        return dr(lambda_) / (r(lambda_) - r_3) - nu_r * radial_potential(initial_r) ** 0.5 / (initial_r - r_3) - (r_1 * r_4 + r_2 * r_3) / 2 * lambda_ - E_1(lambda_)
+        if not distant:
+            return dr(lambda_) / (r(lambda_) - r_3) - nu_r * radial_potential(initial_r) ** 0.5 / (initial_r - r_3) - (r_1 * r_4 + r_2 * r_3) / 2 * lambda_ - E_1(lambda_)
+        return dr(lambda_) / (r(lambda_) - r_3) + r_3 - (r_1 * r_4 + r_2 * r_3) / 2 * lambda_ - E_1(lambda_)
     def I_plusminus(r_plusminus):
         return lambda lambda_: - lambda_ / (r_plusminus - r_3) - Pi_plusminus(r_plusminus)(lambda_)
     
@@ -720,13 +722,11 @@ def _case_3_radial(a, eta, ell, initial_r, nu_r, distant=False):
             (B - A) + (B + A) * cn
         ))
     def I_1(lambda_):
-        if not distant:
-            return (B * r_2 + A * r_1) / (B + A) * lambda_ + Pi_1(lambda_)
         return (B * r_2 + A * r_1) / (B + A) * lambda_ + Pi_1(lambda_)
     def I_2(lambda_):
         if not distant:
-            return ((B * r_2 + A * r_1) / (B + A)) ** 2 * lambda_ + ((B * r_2 + A * r_1) / (B + A)) * Pi_1(lambda_) + (A * B) ** 0.5 * Pi_2(lambda_)
-        return ((B * r_2 + A * r_1) / (B + A)) ** 2 * lambda_ + 2 * (B * r_2 + A * r_1) / (B + A) * (2 * r_21 * (A * B) ** 0.5) / (B ** 2 - A ** 2) * R_1(alpha_0, ellipj(X(lambda_), k_3)[3], k_3) + (A * B) ** 0.5 * Pi_2(lambda_) + (A ** 2 - B ** 2) / (2 * r_21) - r_1 - r_2 + (A * r_1 + B * r_2) / (A + B)
+            return ((B * r_2 + A * r_1) / (B + A)) ** 2 * lambda_ + 2 * (B * r_2 + A * r_1) / (B + A) * Pi_1(lambda_) + (A * B) ** 0.5 * Pi_2(lambda_)
+        return ((B * r_2 + A * r_1) / (B + A)) ** 2 * lambda_ + 2 * (B * r_2 + A * r_1) / (B + A) * (2 * r_21 * (A * B) ** 0.5) / (B ** 2 - A ** 2) * R_1(alpha_0, ellipj(X(lambda_), k_3)[3], k_3) + (A * B) ** 0.5 * Pi_2(lambda_) + (A ** 2 - B ** 2) / (2 * r_21) - (r_1 + r_2) + (A * r_1 + B * r_2) / (A + B)
     def I_plusminus(r_plusminus):
         return lambda lambda_: - (
             (A + B) * lambda_
@@ -925,7 +925,9 @@ def _r(a, eta, ell, initial_r, nu_r, distant=False):
         return np.real(2 * a / (r_plus - r_minus) * ((r_plus - a * ell / 2) * I_plus(lambda_) - (r_minus - a * ell / 2) * I_minus(lambda_)))
     def I_t(lambda_):
         # (*) line 228, 293, 365, 428
-        return np.real(4 / (r_plus - r_minus) * (r_plus * (r_plus - a * ell / 2) * I_plus(lambda_) - r_minus * (r_minus - a * ell / 2) * I_minus(lambda_)) + 4 * lambda_ + 2 * I_1(lambda_) + I_2(lambda_))
+        if not distant:
+            return np.real(4 / (r_plus - r_minus) * (r_plus * (r_plus - a * ell / 2) * I_plus(lambda_) - r_minus * (r_minus - a * ell / 2) * I_minus(lambda_)) + 4 * lambda_ + 2 * I_1(lambda_) + I_2(lambda_))
+        return np.real(4 / (r_plus - r_minus) * (r_plus * (r_plus - a * ell / 2) * I_plus(lambda_) - r_minus * (r_minus - a * ell / 2) * I_minus(lambda_)) + 4 * lambda_ + 2 * I_1(lambda_) + I_2(lambda_)) + 2 * np.log(2)
     
     return r, I_phi, I_t, lambda_x
 
@@ -971,7 +973,8 @@ def trajectory(a, eta, ell, initial_pos, nu_theta, nu_r, distant=False):
     def t(lambda_):
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            np.real(initial_pos[0] + a ** 2 * G_t(lambda_) + I_t(lambda_))
+            np.real(initial_pos[0] + a ** 2 * G_t(lambda_) + I_t(lambda_)) if not distant else
+            np.real(a ** 2 * G_t(lambda_) + I_t(lambda_) + r(lambda_) + 2 * np.log(r(lambda_) / 2))   
         )
     
     return t, r, theta, phi, lambda_x
@@ -1135,6 +1138,7 @@ class LightOrbit:
         color="red",
         tau=np.inf,
         point_density=200,
+        axes_limits=None,
     ):
         r"""Creates a plot of the orbit
 
@@ -1165,6 +1169,8 @@ class LightOrbit:
         point_density : int, optional
             number of points to plot per unit of mino time, defaults to
             200
+        axes_limits : tuple, optional
+            limits for the axes (x_min, x_max, y_min, y_max, z_min, z_max), if None, limits are set automatically based on the trajectory and event horizon
 
         Returns
         -------
@@ -1188,6 +1194,7 @@ class LightOrbit:
             color,
             tau,
             point_density,
+            axes_limits,
         )
 
     def is_visible(self, points, elevation, azimuth):
@@ -1232,6 +1239,7 @@ class LightOrbit:
         background_color=None,
         axis_limit=None,
         plot_components=False,
+        axes_limits=None,
     ):
         r"""Saves an animation of the orbit as an mp4 file.
         Note that this function requires ffmpeg to be installed and may take several
@@ -1285,6 +1293,8 @@ class LightOrbit:
         plot_components : bool, optional
             if true, plots the components of the trajectory in addition
             to the trajectory itself, defaults to False
+        axes_limits : tuple, optional
+            limits for the axes (x_min, x_max, y_min, y_max, z_min, z_max), if None, limits are set automatically based on the trajectory and event horizon
         """
         if lambda1 is None:
             lambda1 = self.lambda_x
@@ -1311,5 +1321,135 @@ class LightOrbit:
             background_color,
             axis_limit,
             plot_components,
-            lambda t: f"$a = {self.a}\quad \eta = {self.eta:.3f}\quad \ell = {self.ell:.3f}\quad \lambda = {t:.2f}$"
+            lambda t: f"$a = {self.a}\quad \eta = {self.eta:.3f}\quad \ell = {self.ell:.3f}\quad \lambda = {t:.2f}$",
+            axes_limits,
+        )
+
+class DistantLightOrbit(LightOrbit):
+    r"""Class representing a distant lightlike orbit in Kerr spacetime defined using initial conditions.
+
+    Parameters
+    ----------
+    a : double
+        spin parameter
+    initial_theta : double
+        initial polar angle :math:`\theta_0`
+    initial_phi : double
+        initial azimuthal angle :math:`\phi_0`
+    alpha : double
+        bardeen coordinate :math:`\alpha`
+    beta : double
+        bardeen coordinate :math:`\beta`
+    M : double, optional
+        mass of the primary in solar masses, if not specified, units are in terms of M
+
+    Attributes
+    ----------
+    a
+        spin parameter
+    initial_theta : double
+        initial polar angle :math:`\theta_0`
+    alpha : double
+        bardeen coordinate :math:`\alpha`
+    beta : double
+        bardeen coordinate :math:`\beta`
+    M
+        mass of the primary in solar masses
+    E
+        energy :math:`E = -p_t`
+    L
+        angular momentum :math:`L = p_\phi`
+    Q
+        Carter constant :math:`Q = p_\theta^2 + \cos^2\theta (a^2 p_t^2 + p_\phi^2/\sin^2\theta)`
+    eta
+        Carter constant per square energy :math:`\eta = Q/E^2`
+    ell
+        angular momentum per energy :math:`\ell = L/E`
+    escapes : boolean
+        true if the photon escapes to infinity
+    lambda_x : double
+        Mino time of capture/escape to infinity
+    escape_coordinates : tuple(double, double)
+        :math:`(\theta, \phi)` coordinates at which photon escapes to infinity or (-1, -1) if captured
+    """
+
+    def __init__(self, a, initial_theta, initial_phi, alpha, beta, M=None):
+        self.a = a
+        self.initial_theta = initial_theta
+        self.initial_phi = initial_phi
+        self.alpha = alpha
+        self.beta = beta
+        self.M = M if M is None else mass_in_kg(M)
+
+        self.ell = -alpha * np.sin(initial_theta)
+        self.eta = beta ** 2 - a ** 2 * np.cos(initial_theta) ** 2 + self.ell ** 2 / np.tan(initial_theta) ** 2
+
+        self.E = 1
+        self.L = self.ell * self.E
+        self.Q = self.eta * self.E ** 2
+
+        if self.eta < (0 if abs(self.ell) >= a else -(abs(self.ell) - a) ** 2):
+            raise ValueError("Forbidden motion")
+
+        self.escapes = photon_escapes(self.a, self.eta, self.ell, np.inf)
+
+    def trajectory(
+        self, distance_units="natural", time_units="natural"
+    ):
+        r"""Computes the components of the trajectory as a function of Mino time.
+
+        Parameters
+        ----------
+        distance_units : str, optional
+            units to compute the radial component of the trajectory in
+            (options are "natural", "mks", "cgs", "au" and "km"),
+            defaults to "natural"
+        time_units : str, optional
+            units to compute the time component of the trajectory in
+            (options are "natural", "mks", "cgs", and "days"), defaults
+            to "natural"
+
+        Returns
+        -------
+        tuple(function, function, function, function)
+            tuple of functions :math:`(t(\lambda), r(\lambda),
+            \theta(\lambda), \phi(\lambda))`
+        """
+        if ((distance_units != "natural") or (time_units != "natural")) and self.M is None:
+            raise ValueError("M must be specified to convert to physical units")
+
+        distance_conversion_func = {
+            "natural": lambda x, M: x,
+            "mks": distance_in_meters,
+            "cgs": distance_in_cm,
+            "au": distance_in_au,
+            "km": distance_in_km,
+        }
+        time_conversion_func = {
+            "natural": lambda x, M: x,
+            "mks": time_in_seconds,
+            "cgs": time_in_seconds,
+            "days": time_in_days,
+        }
+
+        nu_r = -1
+        nu_theta = np.sign(self.beta)
+
+        *trajectory_, lambda_x = trajectory(
+            self.a,
+            self.eta,
+            self.ell,
+            np.array([0, np.inf, self.initial_theta, self.initial_phi]),
+            nu_theta,
+            nu_r,
+            True
+        )
+        self.lambda_x = lambda_x
+        self.escape_coordinates = (trajectory_[2](lambda_x), trajectory_[3](lambda_x)) if self.escapes else (-1, -1)
+
+        return (
+            lambda lambda_: time_conversion_func[time_units](trajectory_[0](lambda_), self.M),
+            lambda lambda_: distance_conversion_func[distance_units](trajectory_[1](lambda_), self.M),
+            trajectory_[2],
+            trajectory_[3]
         )

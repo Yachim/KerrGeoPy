@@ -7,7 +7,8 @@ from kerrgeopy.frequencies import *
 from kerrgeopy.initial_conditions import *
 from kerrgeopy.constants import *
 from kerrgeopy.plot_utils import *
-from kerrgeopy.light import LightOrbit
+from kerrgeopy.light import LightOrbit, DistantLightOrbit
+from kerrgeopy.images import KerrImage
 from kerrgeopy.stable import StableOrbit
 from kerrgeopy.plunge import PlungingOrbit
 from kerrgeopy.orbit import Orbit
