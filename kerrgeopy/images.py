@@ -4,6 +4,22 @@ from PIL import Image
 from tqdm import tqdm
 
 class KerrImage:
+    """Class used to compute the image of a Kerr black hole as seen by a distant observer, using the escape coordinates of light rays.
+
+    Parameters
+    ----------
+    a : float
+        spin parameter of the black hole
+    theta : float
+        inclination angle of the observer in radians
+    size : tuple(int, int)
+        size of the image in pixels
+    max_bardeen : float
+        maximum Bardeen coordinate to consider for the image determining the field of view
+    M : float, optional
+        mass of the black hole. If not specified, units are in terms of M
+    """
+    
     def __init__(self, a, theta, size, max_bardeen, M = None):
         self.a = a
         self.theta = theta
@@ -13,6 +29,7 @@ class KerrImage:
         self.M = M
 
     def compute(self):
+        """Computes uvs for each pixel in the image."""
         self.uvs.fill(-1)
         x_lim = self.size[0] // 2
         y_lim = self.size[1] // 2
@@ -28,6 +45,18 @@ class KerrImage:
                         self.uvs[y + y_lim, x + x_lim] = ((phi % (2 * np.pi)) / (2 * np.pi), theta / np.pi)
 
     def image(self, bg = None):
+        """Generates the image from the computed uvs.
+
+        Parameters
+        ----------
+        bg : PIL.Image, optional
+            background image to use for the pixels that escape. If None, the uvs will be used to determine the color of the pixels
+        
+        Returns
+        -------
+        PIL.Image
+            the generated image
+        """
         pixels = np.zeros((*self.size, 3), dtype=np.uint8)
 
         mask = (self.uvs[..., 0] == -1) & (self.uvs[..., 1] == -1)
