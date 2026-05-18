@@ -1,7 +1,4 @@
-# If not said otherwise, all equations are from Podrápský's thesis.
-# Some equations differ in thesis and Mathematica kernel. In such cases, the equation from the kernel is used,
-# unless marked by (**) (Usually when kernel takes real part). Otherwise labeled by (*).
-# TODO: use only mpmath
+"""Module containing the LightOrbit class for computing null geodesics in Kerr spacetime, as well as DistantLightOrbit for computing null geodesics with infinite initial radial coordinate"""
 from .frequencies import _ellippiinc
 from .spacetime import KerrSpacetime
 from .plot_utils import plot, is_visible, animate
@@ -9,132 +6,61 @@ from .units import mass_in_kg, time_in_seconds, time_in_days, distance_in_meters
 
 from math import e, pi
 import numpy as np
-from mpmath import ellipfun, quad, ellippi
-from scipy.special import ellipj, ellipk, ellipkinc, ellipeinc, elliprf, elliprj, elliprd
+from scipy.special import ellipj, ellipk, ellipkinc, ellipeinc
 
 from os import environ
 
-def _derivative(f, x, h=1e-12):
-    """Computes the numerical derivative of a function f at x using central difference method.
-
-    Parameters
-    ----------
-    f : function
-        function to differentiate
-    x : double
-        point at which to compute the derivative
-    h : double, optional
-        step size for numerical differentiation, defaults to 1e-12
-
-    Returns
-    -------
-        double
-    """
-    df = (f(x + h) - f(x - h)) / (2 * h)
-    df = np.where(np.isnan(df), (f(x + h) - f(x)) / h, df)
-    df = np.where(np.isnan(df), (f(x) - f(x - h)) / h, df)
-
-    return df
-
-_sn = lambda u, m: np.real_if_close(np.complex128(np.vectorize(lambda u_, m_: ellipfun("sn", u_, m_))(u, m)))
-_cn = lambda u, m: np.real_if_close(np.complex128(np.vectorize(lambda u_, m_: ellipfun("cn", u_, m_))(u, m)))
-_dn = lambda u, m: np.real_if_close(np.complex128(np.vectorize(lambda u_, m_: ellipfun("dn", u_, m_))(u, m)))
-
-def _E_am(u, m):
-    r"""Computes elliptic integral of Jacobi amplitude :math:`E(am(u|m)|m)` using numerical integration.
-
+def _ellipj(u, m):
+    """Generalization of scipy's ellipj for all m <= 1.
+ 
     Parameters
     ----------
     u : double
-        argument of the elliptic integral
+        argument of the elliptic functions
     m : double
-        parameter of the elliptic integral
+        parameter of the elliptic functions
 
     Returns
     -------
-        double
+        (sn, cn, dn, am): tuple(double, double, double, double)
     """
-    return np.real_if_close(np.complex128(np.vectorize(lambda x: quad(lambda t: _dn(t, m)**2, [0, x]))(u)))
+    u, m = np.broadcast_arrays(u, m)
 
-def _Pi_am(u, n, m):
-    r"""Computes elliptic integral of Jacobi amplitude :math:`\Pi(n; am(u|m) | m)` using numerical integration.
+    dtype = np.result_type(u, m, np.float64)
+    sn = np.empty(u.shape, dtype=dtype)
+    cn = np.empty(u.shape, dtype=dtype)
+    dn = np.empty(u.shape, dtype=dtype)
+    am = np.empty(u.shape, dtype=dtype)
+
+    mask_lt0 = m < 0
+    if np.any(mask_lt0):
+        ult0 = u[mask_lt0]
+        mlt0 = m[mask_lt0]
+
+        sn0, cn0, dn0, _ = ellipj((1 - mlt0) ** 0.5 * ult0, mlt0 / (mlt0 - 1))
+        sn[mask_lt0] = sn0 / dn0 / (1 - mlt0) ** 0.5
+        cn[mask_lt0] = cn0 / dn0
+        dn[mask_lt0] = 1 / dn0
+        am[mask_lt0] = ellipj((1 - mlt0) ** 0.5 * ult0 + ellipk(mlt0 / (mlt0 - 1)), mlt0 / (mlt0 - 1))[3] - np.pi / 2
     
-    Parameters
-    ----------
-    u : double
-        argument of the elliptic integral
-    n : double
-        characteristic of the elliptic integral
-    m : double
-        parameter of the elliptic integral
+    mask_std = ~mask_lt0
+    if np.any(mask_std):
+        ustd = u[mask_std]
+        mstd = m[mask_std]
 
-    Returns
-    -------
-        double
-    """
-    return np.real_if_close(np.complex128(np.vectorize(lambda x: quad(lambda t: 1/(1 - n*_sn(t, m)**2), [0, x]))(u)))
+        sn0, cn0, dn0, am0 = ellipj(ustd, mstd)
 
-def _ellipkinc_carlson(phi, m):
-    r"""Incomplete elliptic integral of the first kind expressed using Carlson's symmetric form.
+        sn[mask_std] = sn0
+        cn[mask_std] = cn0
+        dn[mask_std] = dn0
+        am[mask_std] = am0
 
-    Parameters
-    ----------
-    phi : double
-        amplitude of the elliptic integral
-    m : double
-        parameter of the elliptic integral
-    
-    Returns
-    -------
-        double
-    """
-
-    s = np.sin(phi)
-    c = np.cos(phi)
-
-    return s * elliprf(c ** 2, 1 - m * s ** 2, 1)
-
-def _ellipeinc_carlson(phi, m):
-    r"""Incomplete elliptic integral of the second kind expressed using Carlson's symmetric form.
-
-    Parameters
-    ----------
-    phi : double
-        amplitude of the elliptic integral
-    m : double
-        parameter of the elliptic integral
-    
-    Returns
-    -------
-        double
-    """
-
-    s = np.sin(phi)
-    c = np.cos(phi)
-
-    return s * elliprf(c ** 2, 1 - m * s ** 2, 1) - m * s ** 3 / 3 * elliprd(c ** 2, 1 - m * s ** 2, 1)
-
-def _ellippiinc_carlson(phi, n, m):
-    r"""Incomplete elliptic integral of the third kind expressed using Carlson's symmetric form.
-
-    Parameters
-    ----------
-    phi : double
-        amplitude of the elliptic integral
-    n : double
-        characteristic of the elliptic integral
-    m : double
-        parameter of the elliptic integral
-    
-    Returns
-    -------
-        double
-    """
-
-    s = np.sin(phi)
-    c = np.cos(phi)
-
-    return s * elliprf(c ** 2, 1 - m * s ** 2, 1) + n * s ** 3 / 3 * elliprj(c ** 2, 1 - m * s ** 2, 1, 1 - n * s ** 2)
+    return (
+        sn,
+        cn,
+        dn,
+        am,
+    )
 
 def _ellipeinc_prime(phi, m):
     r"""Derivative of the incomplete elliptic integral of the second kind with respect to the parameter m, :math:`\partial E(\varphi | m)/\partial m`.
@@ -154,12 +80,24 @@ def _ellipeinc_prime(phi, m):
     return (ellipeinc(phi, m) - ellipkinc(phi, m)) / (2 * m)
 
 def _sc(u, m):
-    """sc function defined under equation 1.41. Definition as per Gralla & Lupsasca above equation B109."""
-    sn, cn, _, _ = ellipj(u, m)
+    """sc function defined under equation 1.41. Definition as per Gralla & Lupsasca above equation B109.
+    
+    Parameters
+    ----------
+    u : double
+        argument of the sc function
+    m : double
+        parameter of the sc function
+
+    Returns
+    -------
+        double
+    """
+    sn, cn, _, _ = _ellipj(u, m)
     return sn / cn
 
 def _polar_roots(a, eta, ell):
-    """Computes the roots of the polar potential (equation 1.15), equation 1.20.
+    r"""Computes the roots of the polar potential (equation 1.15), equation 1.20.
 
     Parameters
     ----------
@@ -204,29 +142,39 @@ def _ordinary_theta(a, eta, ell, initial_theta, nu_theta, lambda_x=np.inf):
     u_plus, u_minus = _polar_roots(a, eta, ell)
     m = u_plus / u_minus
 
+    phi = np.asin(np.clip(np.cos(initial_theta) / u_plus ** 0.5, 0, 1))
+    if environ.get("KG_DEBUG", "0") == "1":
+        print(f"{phi=}, {np.cos(initial_theta) / u_plus ** 0.5}")
+
     # Equation 1.23
-    cal_G_i_theta = -1 / (-u_minus * a ** 2) ** 0.5 * ellipkinc(np.real(np.asin(np.complex128(np.cos(initial_theta) / u_plus ** 0.5))), m) # (*)
-    cal_G_i_phi   = -1 / (-u_minus * a ** 2) ** 0.5 * _ellippiinc(np.real(np.asin(np.complex128(np.cos(initial_theta) / u_plus ** 0.5))), u_plus, m) # (*)
-    cal_G_i_t = 2 * u_plus / (-u_minus * a ** 2) ** 0.5 * _ellipeinc_prime(np.real(np.asin(np.complex128(np.cos(initial_theta) / u_plus ** 0.5))), m) # (*)
+    cal_G_i_theta = -1 / (-u_minus * a ** 2) ** 0.5 * ellipkinc(phi, m)
+    cal_G_i_phi   = -1 / (-u_minus * a ** 2) ** 0.5 * _ellippiinc(phi, u_plus, m)
+    cal_G_i_t = 2 * u_plus / (-u_minus * a ** 2) ** 0.5 * _ellipeinc_prime(phi, m)
 
     # Equation 1.24
     def Psi(lambda_):
-        return ellipj((1 - m) ** 0.5 * (-u_minus * a ** 2) ** 0.5 * (lambda_ + nu_theta * cal_G_i_theta) + ellipk(m / (m - 1)), m / (m - 1))[3] - pi / 2
+        return _ellipj((-u_minus * a ** 2) ** 0.5 * (lambda_ + nu_theta * cal_G_i_theta), m)[3]
 
     # Equation 1.22
     def theta(lambda_):
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            np.real(np.acos(
+            np.acos(
                 -nu_theta * u_plus ** 0.5 * np.sin(Psi(lambda_))
-            ))
+            )
         )
     
     def G_phi(lambda_):
-        # (*) line 77
+        nonlimit = lambda lambda__: ell * (1 / (-u_minus * a ** 2) ** 0.5 * _ellippiinc(Psi(lambda__), u_plus, m) - nu_theta * cal_G_i_phi)
+        if not np.isclose(ell, 0) and np.isfinite(nonlimit(lambda_x)):
+            return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
+                np.nan,
+                nonlimit(lambda_)
+            )
+        # Kernel line 106
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            1 / (-u_minus * a ** 2) ** 0.5 * np.vectorize(lambda x: _ellippiinc(x, u_plus, m))(Psi(lambda_)) - nu_theta * cal_G_i_phi
+            (-1 if ell < 0 else 1) / (-u_minus * a ** 2) ** 0.5 * np.round(Psi(lambda_) / np.pi) * np.pi * (a ** 2 + eta) ** 0.5 / (1 - 1 / u_minus) ** 0.5
         )
 
     def G_t(lambda_):
@@ -263,37 +211,33 @@ def _vortical_theta(a, eta, ell, initial_theta, nu_theta, lambda_x=np.inf):
 
     h = np.sign(np.cos(initial_theta))
     # Equation 1.27
-    upsilon_i = np.asin(np.complex128((np.cos(initial_theta) ** 2 - u_minus) / (u_plus - u_minus)) ** 0.5)
+    upsilon_i = np.asin(np.clip((np.cos(initial_theta) ** 2 - u_minus) / (u_plus - u_minus), 0, 1) ** 0.5)
+    if environ.get("KG_DEBUG", "0") == "1":
+        print(f"{upsilon_i=}, {(np.cos(initial_theta) ** 2 - u_minus) / (u_plus - u_minus)}")
 
     # Equation 1.26
-    cal_G_i_theta = -h / (u_minus * a ** 2) ** 0.5 * _ellipkinc_carlson(upsilon_i, m) # (*) line 122
-    cal_G_i_phi = -h / ((1 - u_minus) * (u_minus * a ** 2) ** 0.5) * _ellippiinc_carlson(upsilon_i, (u_plus - u_minus) / (1 - u_minus), m) # (*) line 127
-    cal_G_i_t = -h * (u_minus / a ** 2) ** 0.5 * _ellipeinc_carlson(upsilon_i, m)
-
-    # The argument of upsilon, upsilon(lambda) = am(upsilon_arg(lambda) | m)
-    def upsilon_arg(lambda_):
-        return (u_minus * a ** 2) ** 0.5 * (lambda_ + nu_theta * cal_G_i_theta)
+    cal_G_i_theta = -h / (u_minus * a ** 2) ** 0.5 * ellipkinc(upsilon_i, m)
+    cal_G_i_phi = -h / ((1 - u_minus) * (u_minus * a ** 2) ** 0.5) * _ellippiinc(upsilon_i, (u_plus - u_minus) / (1 - u_minus), m)
+    cal_G_i_t = -h * (u_minus / a ** 2) ** 0.5 * ellipeinc(upsilon_i, m)
 
     # Equation 1.27
     def upsilon(lambda_):
-        if m < 0:
-            return ellipj(np.sqrt(1 - m) * upsilon_arg(lambda_) - ellipk(m / (m - 1)), m / (m - 1))[3] - pi / 2
-        return ellipj(upsilon_arg(lambda_), m)[3]
+        return _ellipj((u_minus * a ** 2) ** 0.5 * (lambda_ + nu_theta * cal_G_i_theta), m)[3]
 
     # equation 1.25
     def theta(lambda_):
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            np.real(np.acos(
-                h * (u_minus + (u_plus - u_minus) * _sn(upsilon_arg(lambda_), m) ** 2) ** 0.5
-            ))
+            np.acos(
+                h * (u_minus + (u_plus - u_minus) * _ellipj(upsilon(lambda_), m)[3] ** 2) ** 0.5
+            )
         )
     
     def G_phi(lambda_):
-        return 1 / ((1 - u_minus) * (u_minus * a ** 2) ** 0.5) * _Pi_am(upsilon_arg(lambda_), (u_plus - u_minus) / (1 - u_minus), m) - nu_theta * cal_G_i_phi
+        return ell * (1 / ((1 - u_minus) * (u_minus * a ** 2) ** 0.5) * _ellippiinc(upsilon(lambda_), (u_plus - u_minus) / (1 - u_minus), m) - nu_theta * cal_G_i_phi)
     
     def G_t(lambda_):
-        return (u_minus / a ** 2) ** 0.5 * _E_am(upsilon_arg(lambda_), m) - nu_theta * cal_G_i_t
+        return (u_minus / a ** 2) ** 0.5 * ellipeinc(upsilon(lambda_), m) - nu_theta * cal_G_i_t
 
     return theta, G_phi, G_t
 
@@ -318,6 +262,10 @@ def _theta(a, eta, ell, initial_theta, nu_theta, lambda_x=np.inf):
     Returns
     -------
         :math:`(\theta(\lambda), G_\phi(\lambda), G_t(\lambda))`: tuple(function, function, function)"""
+    if environ.get("KG_DEBUG", "0") == "1":
+        polar_roots = _polar_roots(a, eta, ell)
+        print(f"{polar_roots=}")
+
     if eta > 0:
         if environ.get("KG_DEBUG", "0") == "1":
             print("ordinary")
@@ -471,54 +419,57 @@ def _case_1_radial(a, eta, ell, initial_r, nu_r):
     r_42 = r_4 - r_2
     
     # equation 1.34
-    x_i = (r_31 / r_32 * (initial_r - r_2) / (initial_r - r_1)) ** 0.5 # (*) line 197
-    asin_x_i = np.asin(np.complex128(x_i))
-    cal_I_i_0 = 2 / (r_31 * r_42) ** 0.5 * _ellipkinc_carlson(asin_x_i, k)
+    x_i = np.clip(r_31 / r_32 * (initial_r - r_2) / (initial_r - r_1), 0, 1) ** 0.5
+    if environ.get("KG_DEBUG", "0") == "1":
+        print(f"{x_i=}, {r_31 / r_32 * (initial_r - r_2) / (initial_r - r_1)}")
+    asin_x_i = np.asin(x_i)
+    cal_I_i_0 = 2 / (r_31 * r_42) ** 0.5 * ellipkinc(asin_x_i, k)
     def X(lambda_):
         return (r_31 * r_42) ** 0.5 / 2 * (lambda_ + nu_r * cal_I_i_0)
     def E_1(lambda_):
         return (r_31 * r_42) ** 0.5 * (
-            _E_am(X(lambda_), k)
-            - nu_r * _ellipeinc_carlson(asin_x_i, k)
+            ellipeinc(_ellipj(X(lambda_), k)[3], k)
+            - nu_r * ellipeinc(asin_x_i, k)
         )
     def Pi_1(lambda_):
         return 2 / (r_31 * r_42) ** 0.5 * (
-            _Pi_am(X(lambda_), r_32 / r_31, k)
-            - nu_r * np.complex128(ellippi(r_32 / r_31, asin_x_i, k))
+            _ellippiinc(_ellipj(X(lambda_), k)[3], r_32 / r_31, k)
+            - nu_r * _ellippiinc(asin_x_i, r_32 / r_31, k)
         )
     def Pi_plusminus(r_plusminus):
         return lambda lambda_: 2 / (r_31 * r_42) ** 0.5 * r_21 / ((r_plusminus - r_1) * (r_plusminus - r_2)) * (
-            _Pi_am(X(lambda_), (r_plusminus - r_1) * r_32 / ((r_plusminus - r_2) * r_31), k)
-            - nu_r * np.complex128(ellippi((r_plusminus - r_1) * r_32 / ((r_plusminus - r_2) * r_31), asin_x_i, k))
+            _ellippiinc(_ellipj(X(lambda_), k)[3], (r_plusminus - r_1) * r_32 / ((r_plusminus - r_2) * r_31), k)
+            - nu_r * _ellippiinc(asin_x_i, (r_plusminus - r_1) * r_32 / ((r_plusminus - r_2) * r_31), k)
         )
 
     radial_potential = _radial_potential(a, eta, ell)
 
     # Kernel line 204
-    lambda_x = np.real((
-        -2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin((r_31 * (r_plus - r_2) / (r_32 * (r_plus - r_1))) ** 0.5), k) + cal_I_i_0
+    lambda_x = (
+        -2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin(np.clip(r_31 * (r_plus - r_2) / (r_32 * (r_plus - r_1)), 0, 1) ** 0.5), k) + cal_I_i_0
     ) if nu_r < 0 else (
-        4 / (r_31 * r_42) ** 0.5 * ellipk(k) - 2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin(((r_plus - r_2) * r_31 / ((r_plus - r_1) * r_32)) ** 0.5), k) - cal_I_i_0
-    ))
+        4 / (r_31 * r_42) ** 0.5 * ellipk(k) - 2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin(np.clip((r_plus - r_2) * r_31 / ((r_plus - r_1) * r_32), 0, 1) ** 0.5), k) - cal_I_i_0
+    )
 
     # equation 1.35
     def r(lambda_):
+        sn_sq = _ellipj(X(lambda_), k)[0] ** 2
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            np.real((r_2 * r_31 - r_1 * r_32 * _sn(X(lambda_), k) ** 2) / (r_31 - r_32 * _sn(X(lambda_), k) ** 2)) # (**) line 212
+            (r_2 * r_31 - r_1 * r_32 * sn_sq) / (r_31 - r_32 * sn_sq)
         )
     def dr(lambda_):
-        return np.real((
-            r_31 * r_32 * r_21 * (r_31 * r_42) ** 0.5 * _sn(X(lambda_), k) * _cn(X(lambda_), k) * _dn(X(lambda_), k)
-        ) / (r_31 - r_32 * _sn(X(lambda_), k) ** 2) ** 2)
+        sn, cn, dn, _ = _ellipj(X(lambda_), k)
+        return (
+            r_31 * r_32 * r_21 * (r_31 * r_42) ** 0.5 * sn * cn * dn
+        ) / (r_31 - r_32 * sn ** 2) ** 2
     def I_1(lambda_):
         return r_1 * lambda_ + r_21 * Pi_1(lambda_)
     def I_2(lambda_):
-        return dr(lambda_) / (r(lambda_) - r_1) - nu_r * radial_potential(initial_r) ** 0.5 / (initial_r - r_1) - (r_1 * r_4 + r_2 * r_3) / 2 * lambda_ - E_1(lambda_) # (*) line 223
+        return dr(lambda_) / (r(lambda_) - r_1) - nu_r * radial_potential(initial_r) ** 0.5 / (initial_r - r_1) - (r_1 * r_4 + r_2 * r_3) / 2 * lambda_ - E_1(lambda_)
     def I_plusminus(r_plusminus):
-        return lambda lambda_: - lambda_ / (r_plusminus - r_1) - Pi_plusminus(r_plusminus)(lambda_)
+        return lambda lambda_: -lambda_ / (r_plusminus - r_1) - Pi_plusminus(r_plusminus)(lambda_)
     
-    # FIXME: imaginary parts incorrect
     return r, I_1, I_2, I_plusminus(r_plus), I_plusminus(r_minus), lambda_x
     
 def _case_2_radial(a, eta, ell, initial_r, nu_r, distant=False):
@@ -555,56 +506,64 @@ def _case_2_radial(a, eta, ell, initial_r, nu_r, distant=False):
     r_43 = r_4 - r_3
     
     # equation 1.36
-    x_i = (
-        (r_31 * (initial_r - r_4) / (r_41 * (initial_r - r_3))) ** 0.5
-    ) if not distant else (r_31 / r_41) ** 0.5
-    cal_I_i_0 = 2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin(x_i), k)
+    x_i = np.clip(
+        (
+            (r_31 * (initial_r - r_4) / (r_41 * (initial_r - r_3)))
+        ) if not distant else (r_31 / r_41),
+        0, 1
+    ) ** 0.5
+    if environ.get("KG_DEBUG", "0") == "1":
+        print(f"{x_i=}, {(r_31 * (initial_r - r_4) / (r_41 * (initial_r - r_3))) if not distant else r_31 / r_41}")
+    asin_x_i = np.asin(x_i)
+    cal_I_i_0 = 2 / (r_31 * r_42) ** 0.5 * ellipkinc(asin_x_i, k)
     def X(lambda_):
         return (r_31 * r_42) ** 0.5 / 2 * (lambda_ + nu_r * cal_I_i_0)
     def E_1(lambda_):
-        return (r_31 * r_42) ** 0.5 * (ellipeinc(ellipj(X(lambda_), k)[3], k) - nu_r * ellipeinc(np.asin(x_i), k))
+        return (r_31 * r_42) ** 0.5 * (ellipeinc(_ellipj(X(lambda_), k)[3], k) - nu_r * ellipeinc(asin_x_i, k))
     def Pi_1(lambda_):
         if not distant:
-            return 2 / (r_31 * r_42) ** 0.5 * (np.vectorize(lambda x: _ellippiinc(x, r_41 / r_31, k))(ellipj(X(lambda_), k)[3]) - nu_r * _ellippiinc(np.asin(x_i), r_41 / r_31, k))
+            return 2 / (r_31 * r_42) ** 0.5 * _ellippiinc(_ellipj(X(lambda_), k)[3], r_41 / r_31, k) - nu_r * _ellippiinc(asin_x_i, r_41 / r_31, k)
         return 2 / (r_31 * r_42) ** 0.5 * (
-            np.vectorize(lambda x: _ellippiinc(x, r_41 / r_31, k))(ellipj(X(lambda_), k)[3])
-            - nu_r * ellipkinc((r_31 / r_41) ** 0.5, k)
-            + nu_r * _ellippiinc(np.asin((r_31 / r_41) ** 0.5), (r_32 / r_42) ** 0.5, k)
+            _ellippiinc(_ellipj(X(lambda_), k)[3], r_41 / r_31, k)
+            - nu_r * ellipkinc(np.asin(np.clip(r_31 / r_41, 0, 1) ** 0.5), k)
+            + nu_r * _ellippiinc((r_31 / r_41) ** 0.5, np.asin(np.clip(r_32 / r_42, 0, 1) ** 0.5), k)
             - nu_r * 1 / (2 * ((1 - r_32 / r_42) * (r_41 / r_31 - 1)) ** 0.5) * np.log(4 / (r_31 + r_42))
         )
     def Pi_plusminus(r_plusminus):
         return lambda lambda_: 2 / (r_31 * r_42) ** 0.5 * r_43 / ((r_plusminus - r_3) * (r_plusminus - r_4)) * (
-            np.vectorize(lambda x: _ellippiinc(x, (r_plusminus - r_3) * r_41 / ((r_plusminus - r_4) * r_31), k))(ellipj(X(lambda_), k)[3])
-            - nu_r * _ellippiinc(np.asin(x_i), (r_plusminus - r_3) * r_41 / ((r_plusminus - r_4) * r_31), k)
+            _ellippiinc(_ellipj(X(lambda_), k)[3], (r_plusminus - r_3) * r_41 / ((r_plusminus - r_4) * r_31), k)
+            - nu_r * _ellippiinc(asin_x_i, (r_plusminus - r_3) * r_41 / ((r_plusminus - r_4) * r_31), k)
         )
 
     radial_potential = _radial_potential(a, eta, ell)
 
     # Kernel line 250
-    lambda_x = np.real((
+    lambda_x = (
         (
-            -(2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin(((r_plus - r_4) * r_31 / ((r_plus - r_3) * r_41)) ** 0.5), k) - cal_I_i_0)
+            -(2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin(np.clip((r_plus - r_4) * r_31 / ((r_plus - r_3) * r_41), 0, 1) ** 0.5), k) - cal_I_i_0)
         ) if r_4 < r_minus else (
             (
                 2 * cal_I_i_0
             ) if distant else (
-                2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin((r_31 / r_41) ** 0.5), k) + cal_I_i_0
+                2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin(np.clip(r_31 / r_41, 0, 1) ** 0.5), k) + cal_I_i_0
             )
         )
     ) if nu_r < 0 else (
-        2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin((r_31 / r_41) ** 0.5), k) - cal_I_i_0
-    ))
+        2 / (r_31 * r_42) ** 0.5 * ellipkinc(np.asin(np.clip(r_31 / r_41, 0, 1) ** 0.5), k) - cal_I_i_0
+    )
 
     # equation 1.37
     def r(lambda_):
+        sn_sq = _ellipj(X(lambda_), k)[0] ** 2
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            np.real((r_4 * r_31 - r_3 * r_41 * ellipj(X(lambda_), k)[0] ** 2) / (r_31 - r_41 * ellipj(X(lambda_), k)[0] ** 2)) # (*) line 269
+            (r_4 * r_31 - r_3 * r_41 * sn_sq) / (r_31 - r_41 * sn_sq)
         )
     def dr(lambda_):
-        return np.real((
-            r_31 * r_41 * r_43 * (r_31 * r_42) ** 0.5 * _sn(X(lambda_), k) * _cn(X(lambda_), k) * _dn(X(lambda_), k)
-        ) / (r_31 - r_41 * _sn(X(lambda_), k) ** 2) ** 2)
+        sn, cn, dn, _ = _ellipj(X(lambda_), k)
+        return (
+            r_31 * r_41 * r_43 * (r_31 * r_42) ** 0.5 * sn * cn * dn
+        ) / (r_31 - r_41 * sn ** 2) ** 2
     def I_1(lambda_):
         return r_3 * lambda_ + r_43 * Pi_1(lambda_)
     def I_2(lambda_):
@@ -639,18 +598,16 @@ def _case_3_radial(a, eta, ell, initial_r, nu_r, distant=False):
     -------
         :math:`(r(\lambda), I_1, I_2, I_+, I_-, \lambda_x)`: tuple(function, function, function, function, function, double)"""
     roots = _radial_roots(a, eta, ell)
-    r_1, r_2, r_3, r_4 = roots
+    r_1, r_2, r_3, _ = roots
     r_plus, r_minus = _horizons(a)
 
     r_21 = r_2 - r_1
     r_31 = r_3 - r_1
     r_32 = r_3 - r_2
-    r_41 = r_4 - r_1
-    r_42 = r_4 - r_2
     
     # equation 1.38
-    A = np.abs((r_32 * r_42) ** 0.5) # (*) line 307
-    B = np.abs((r_31 * r_41) ** 0.5) # (*) line 307
+    A = np.abs(r_32)
+    B = np.abs(r_31)
     alpha_0 = (B + A) / (B - A)
     def alpha_plusminus(r_plusminus):
         return (B * (r_plusminus - r_2) + A * (r_plusminus - r_1)) / (B * (r_plusminus - r_2) - A * (r_plusminus - r_1))
@@ -659,74 +616,88 @@ def _case_3_radial(a, eta, ell, initial_r, nu_r, distant=False):
         alpha_sq = alpha ** 2
         return ((alpha_sq - 1) / (j + (1 - j) * alpha_sq)) ** 0.5
     def f(alpha, phi, j):
-        return p(alpha, j) / 2 * np.log(abs((p(alpha, j) * (1 - j * np.sin(phi) ** 2) ** 0.5 + np.sin(phi)) / (p(alpha, j) * (1 - j * np.sin(phi) ** 2) ** 0.5 - np.sin(phi))))
+        return p(alpha, j) / 2 * np.log(np.abs((p(alpha, j) * (1 - j * np.sin(phi) ** 2) ** 0.5 + np.sin(phi)) / (p(alpha, j) * (1 - j * np.sin(phi) ** 2) ** 0.5 - np.sin(phi))))
     def R_1(alpha, phi, j):
         alpha_sq = alpha ** 2
-        return 1 / (1 - alpha_sq) * (np.vectorize(lambda x: _ellippiinc(x, alpha_sq / (alpha_sq - 1), j))(phi) - alpha * f(alpha, phi, j))
+        return 1 / (1 - alpha_sq) * (_ellippiinc(phi, alpha_sq / (alpha_sq - 1), j) - alpha * f(alpha, phi, j))
     def Red_R_1(alpha, phi, j):
         alpha_sq = alpha ** 2
+        acos_phi = np.acos(phi)
         return 1 / (1 - alpha_sq) * (
-            ellipkinc(phi, j)
-            - np.vectorize(lambda x: _ellippiinc(x, j * (alpha_sq - 1) / alpha_sq, j))(phi)
-            - alpha * np.sqrt(A * B) / r_21 * np.log(4 * r_21 / (B**2 - A**2))
-            + alpha * np.sqrt(A * B) / r_21 * np.log((B**2 - A**2) / (4 * r_21) + A * B * r_21 / (B**2 - A**2))
+            ellipkinc(acos_phi, j)
+            - _ellippiinc(j, j * (alpha_sq - 1) / alpha_sq, j)
+            - alpha * (A * B) ** 0.5 / r_21 * np.log(4 * r_21 / (B**2 - A**2))
+            + alpha * (A * B) ** 0.5 / r_21 * np.log((B**2 - A**2) / (4 * r_21) + A * B * r_21 / (B**2 - A**2))
         )
     def R_2(alpha, phi, j):
         alpha_sq = alpha ** 2
-        # (*) line 324
-        return 1 / (alpha_sq - 1) * (ellipkinc(phi, j) - alpha_sq / (j + (1 - j) * alpha_sq) * (ellipeinc(phi, j) - alpha * np.sin(phi) * (1 - j * np.sin(phi) ** 2) ** 0.5 / (1 + alpha * np.cos(phi)))) + 1 / (j + (1 - j) * alpha_sq) * (2*j - alpha_sq/(alpha_sq - 1)) * R_1(alpha, phi, j)
-    def Red_R_2(alpha, phi, j):
-        alpha_sq = alpha ** 2
         return 1 / (alpha_sq - 1) * (
             ellipkinc(phi, j)
-            - alpha_sq / (j + (1 - j) * alpha_sq) * ellipeinc(phi, j)
+            - alpha_sq / (j + (1 - j) * alpha_sq) * (
+                ellipeinc(phi, j)
+                - alpha * np.sin(phi) * (1 - j * np.sin(phi) ** 2) ** 0.5 / (1 + alpha * np.cos(phi))
+            )
+        ) + 1 / (j + (1 - j) * alpha_sq) * (2*j - alpha_sq/(alpha_sq - 1)) * R_1(alpha, phi, j)
+    def Red_R_2(alpha, phi, j):
+        alpha_sq = alpha ** 2
+        acos_phi = np.acos(phi)
+        return 1 / (alpha_sq - 1) * (
+            ellipkinc(acos_phi, j)
+            - alpha_sq / (j + (1 - j) * alpha_sq) * ellipeinc(acos_phi, j)
         )
-    x_i = (
-        (1 - B * (initial_r - r_2) / (A * (initial_r - r_1))) / (1 + B * (initial_r - r_2) / (A * (initial_r - r_1)))
-    ) if not distant else (A - B) / (A + B)
-    cal_I_i_0 = 1 / (A * B) ** 0.5 * ellipkinc(np.acos(x_i), k_3)
+    x_i = np.clip(
+        (
+            (1 - B * (initial_r - r_2) / (A * (initial_r - r_1))) / (1 + B * (initial_r - r_2) / (A * (initial_r - r_1)))
+        ) if not distant else (A - B) / (A + B),
+        -1, 1
+    )
+    if environ.get("KG_DEBUG", "0") == "1":
+        print(f"{x_i=}, {(
+                (1 - B * (initial_r - r_2) / (A * (initial_r - r_1))) / (1 + B * (initial_r - r_2) / (A * (initial_r - r_1)))
+            ) if not distant else (A - B) / (A + B)}")
+    acos_x_i = np.arccos(x_i)
+    cal_I_i_0 = 1 / (A * B) ** 0.5 * ellipkinc(acos_x_i, k_3)
     def X(lambda_):
         return (A * B) ** 0.5 * (lambda_ + nu_r * cal_I_i_0)
     def Pi(m):
         if not distant:
             return lambda lambda_: (2 * r_21 * (A * B) ** 0.5 / (B ** 2 - A ** 2)) ** m * (
-                [R_1, R_2][m - 1](alpha_0, ellipj(X(lambda_), k_3)[3], k_3)
-                - nu_r * [R_1, R_2][m - 1](alpha_0, np.acos(x_i), k_3)
+                [R_1, R_2][m - 1](alpha_0, _ellipj(X(lambda_), k_3)[3], k_3)
+                - nu_r * [R_1, R_2][m - 1](alpha_0, acos_x_i, k_3)
             )
         return lambda lambda_: (2 * r_21 * (A * B) ** 0.5 / (B ** 2 - A ** 2)) ** m * (
-            [R_1, R_2][m - 1](alpha_0, ellipj(X(lambda_), k_3)[3], k_3)
-            - nu_r * [Red_R_1, Red_R_2][m - 1](alpha_0, np.acos(x_i), k_3)
+            [R_1, R_2][m - 1](alpha_0, _ellipj(X(lambda_), k_3)[3], k_3)
+            - nu_r * [Red_R_1, Red_R_2][m - 1](alpha_0, acos_x_i, k_3)
         )
     Pi_1 = Pi(1)
     Pi_2 = Pi(2)
     def Pi_plusminus(r_plusminus):
         alpha_plusminus_ = alpha_plusminus(r_plusminus)
         return lambda lambda_: (2 * r_21 * (A * B) ** 0.5 / (B * (r_plusminus - r_2) - A * (r_plusminus - r_1))) * (
-            R_1(alpha_plusminus_, ellipj(X(lambda_), k_3)[3], k_3)
-            - nu_r * R_1(alpha_plusminus_, np.acos(x_i), k_3)
+            R_1(alpha_plusminus_, _ellipj(X(lambda_), k_3)[3], k_3)
+            - nu_r * R_1(alpha_plusminus_, acos_x_i, k_3)
         )
 
     # Kernel line 330
-    lambda_x = nu_r * (1 / (A * B) ** 0.5 * ellipkinc(np.acos((A * (r_plus - r_1) - B * (r_plus - r_2)) / (A * (r_plus - r_1) + B * (r_plus - r_2))), k_3) - cal_I_i_0)
+    lambda_x = nu_r * (1 / (A * B) ** 0.5 * ellipkinc(np.acos(np.clip((A * (r_plus - r_1) - B * (r_plus - r_2)) / (A * (r_plus - r_1) + B * (r_plus - r_2)), -1, 1)), k_3) - cal_I_i_0)
 
     # equation 1.39
     def r(lambda_):
-        # (*) line 335
-        cn = np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
+        cn = _ellipj(X(lambda_), k_3)[1]
+        return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            ellipj(X(lambda_), k_3)[1]
+            (
+                (B * r_2 - A * r_1) + (B * r_2 + A * r_1) * cn
+            ) / (
+                (B - A) + (B + A) * cn
+            )
         )
-        return np.real((
-            (B * r_2 - A * r_1) + (B * r_2 + A * r_1) * cn
-        ) / (
-            (B - A) + (B + A) * cn
-        ))
     def I_1(lambda_):
         return (B * r_2 + A * r_1) / (B + A) * lambda_ + Pi_1(lambda_)
     def I_2(lambda_):
         if not distant:
             return ((B * r_2 + A * r_1) / (B + A)) ** 2 * lambda_ + 2 * (B * r_2 + A * r_1) / (B + A) * Pi_1(lambda_) + (A * B) ** 0.5 * Pi_2(lambda_)
-        return ((B * r_2 + A * r_1) / (B + A)) ** 2 * lambda_ + 2 * (B * r_2 + A * r_1) / (B + A) * (2 * r_21 * (A * B) ** 0.5) / (B ** 2 - A ** 2) * R_1(alpha_0, ellipj(X(lambda_), k_3)[3], k_3) + (A * B) ** 0.5 * Pi_2(lambda_) + (A ** 2 - B ** 2) / (2 * r_21) - (r_1 + r_2) + (A * r_1 + B * r_2) / (A + B)
+        return ((B * r_2 + A * r_1) / (B + A)) ** 2 * lambda_ + 2 * (B * r_2 + A * r_1) / (B + A) * (2 * r_21 * (A * B) ** 0.5) / (B ** 2 - A ** 2) * R_1(alpha_0, _ellipj(X(lambda_), k_3)[3], k_3) + (A * B) ** 0.5 * Pi_2(lambda_) + (A ** 2 - B ** 2) / (2 * r_21) - (r_1 + r_2) + (A * r_1 + B * r_2) / (A + B)
     def I_plusminus(r_plusminus):
         return lambda lambda_: - (
             (A + B) * lambda_
@@ -761,12 +732,9 @@ def _case_4_radial(a, eta, ell, initial_r, nu_r, distant=False):
     -------
         :math:`(r(\lambda), I_1, I_2, I_+, I_-, \lambda_x)`: tuple(function, function, function, function, function, double)"""
     roots = _radial_roots(a, eta, ell)
-    r_1, r_2, r_3, r_4 = roots
+    r_1, r_2, _, r_4 = roots
     r_plus, r_minus = _horizons(a)
 
-    r_21 = r_2 - r_1
-    r_31 = r_3 - r_1
-    r_32 = r_3 - r_2
     r_41 = r_4 - r_1
     r_42 = r_4 - r_2
 
@@ -777,8 +745,8 @@ def _case_4_radial(a, eta, ell, initial_r, nu_r, distant=False):
     # equation 1.40
     def x_4(r):
         return (r + b_1) / a_2
-    C = np.abs((r_31 * r_42) ** 0.5) # here, we've added abs for C and D
-    D = np.abs((r_32 * r_41) ** 0.5)
+    C = np.abs(r_42)
+    D = np.abs(r_41)
     k_4 = 4 * C * D / (C + D) ** 2
     g_0 = (
         (4 * a_2 ** 2 - (C - D) ** 2) / ((C + D) ** 2 - 4 * a_2 ** 2)
@@ -787,15 +755,15 @@ def _case_4_radial(a, eta, ell, initial_r, nu_r, distant=False):
         alpha_sq = alpha ** 2
         return ((1 + alpha_sq) / (1 - j + alpha_sq)) ** 0.5
     def f(alpha, phi, j):
-        return p(alpha, j) / 2 * np.log(abs((1 - p(alpha, j)) / (1 + p(alpha, j)) * (1 + p(alpha, j) * (1 - j * np.sin(phi) ** 2) ** 0.5) / (1 - p(alpha, j) * (1 - j * np.sin(phi) ** 2) ** 0.5)))
+        return p(alpha, j) / 2 * np.log(np.abs((1 - p(alpha, j)) / (1 + p(alpha, j)) * (1 + p(alpha, j) * (1 - j * np.sin(phi) ** 2) ** 0.5) / (1 - p(alpha, j) * (1 - j * np.sin(phi) ** 2) ** 0.5)))
     def S_1(alpha, phi, j):
         alpha_sq = alpha ** 2
-        return 1 / (1 + alpha_sq) * (ellipkinc(phi, j) + alpha_sq * np.vectorize(lambda x: _ellippiinc(x, 1 + alpha_sq, j))(phi) - alpha * f(alpha, phi, j))
+        return 1 / (1 + alpha_sq) * (ellipkinc(phi, j) + alpha_sq * _ellippiinc(phi, 1 + alpha_sq, j) - alpha * f(alpha, phi, j))
     def Red_S_1(alpha, phi, j):
         alpha_sq = alpha ** 2
         return ellipkinc(phi, j) - 1 / (1 + alpha_sq) * (
-            alpha_sq * np.vectorize(lambda x: _ellippiinc(x, j / (1 + alpha_sq), j))(phi)
-            + alpha * (C + D) / (4 * a_2) * np.log(64 * a_2 ** 2 / ((2 * a_2 + C + D) ** 2 * (alpha_sq * (C + D) ** 2 + 4 * a_2 ** 2))) # (*) line 390
+            alpha_sq * _ellippiinc(phi, j / (1 + alpha_sq), j)
+            + alpha * (C + D) / (4 * a_2) * np.log(64 * a_2 ** 2 / ((2 * a_2 + C + D) ** 2 * (alpha_sq * (C + D) ** 2 + 4 * a_2 ** 2)))
         )
     def S_2(alpha, phi, j):
         alpha_sq = alpha ** 2
@@ -821,37 +789,38 @@ def _case_4_radial(a, eta, ell, initial_r, nu_r, distant=False):
         return (C + D) / 2 * (nu_r * lambda_ + cal_I_0)
     def Pi(m):
         if not distant:
-            return lambda lambda_: 2 * nu_r / (C + D) * (a_2 / g_0 * (1 + g_0 ** 2)) ** m * ([S_1, S_2][m - 1](g_0, ellipj(X(lambda_), k_4)[3], k_4) - [S_1, S_2][m - 1](g_0, np.atan(x_4(initial_r)) + np.atan(g_0), k_4))
-        return lambda lambda_: 2 * nu_r / (C + D) * (a_2 / g_0 * (1 + g_0 ** 2)) ** m * ([S_1, S_2][m - 1](g_0, ellipj(X(lambda_), k_4)[3], k_4) - [Red_S_1, Red_S_2][m - 1](g_0, pi / 2 + np.atan(g_0), k_4))
+            return lambda lambda_: 2 * nu_r / (C + D) * (a_2 / g_0 * (1 + g_0 ** 2)) ** m * ([S_1, S_2][m - 1](g_0, _ellipj(X(lambda_), k_4)[3], k_4) - [S_1, S_2][m - 1](g_0, np.atan(x_4(initial_r)) + np.atan(g_0), k_4))
+        return lambda lambda_: 2 * nu_r / (C + D) * (a_2 / g_0 * (1 + g_0 ** 2)) ** m * ([S_1, S_2][m - 1](g_0, _ellipj(X(lambda_), k_4)[3], k_4) - [Red_S_1, Red_S_2][m - 1](g_0, pi / 2 + np.atan(g_0), k_4))
     Pi_1 = Pi(1)
     Pi_2 = Pi(2)
     def g_plusminus(r_plusminus): # Gralla & Lupsasca B96
         return (g_0 * x_4(r_plusminus) - 1) / (g_0 + x_4(r_plusminus))
     def Pi_plusminus(r_plusminus):
         g_plusminus_ = g_plusminus(r_plusminus)
-        return lambda lambda_: 2 * nu_r / (C + D) * ((1 + g_0 ** 2) / (g_0 * (g_0 + x_4(r_plusminus)))) * (S_1(g_plusminus_, ellipj(X(lambda_), k_4)[3], k_4) - S_1(g_plusminus_, np.atan(x_4(initial_r)) + np.atan(g_0), k_4))
+        return lambda lambda_: 2 * nu_r / (C + D) * ((1 + g_0 ** 2) / (g_0 * (g_0 + x_4(r_plusminus)))) * (S_1(g_plusminus_, _ellipj(X(lambda_), k_4)[3], k_4) - S_1(g_plusminus_, np.atan(x_4(initial_r)) + np.atan(g_0), k_4))
 
     # Kernel line 400
     lambda_x = nu_r * (2 / (C + D) * ellipkinc(np.atan(x_4(r_plus)) + np.atan(g_0), k_4) - cal_I_0)
 
     # equation 1.41
     def r(lambda_):
+        sc = _sc(X(lambda_), k_4)
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            np.real(-a_2 * (g_0 - _sc(X(lambda_), k_4)) / (1 + g_0 * _sc(X(lambda_), k_4)) - b_1) # (*) line 405
+            -a_2 * (g_0 - sc) / (1 + g_0 * sc) - b_1
         )
     def I_1(lambda_):
-        return (a_2 / g_0 - b_1) * lambda_ + Pi_1(lambda_)
+        return (a_2 / g_0 - b_1) * lambda_ - Pi_1(lambda_)
     def I_2(lambda_):
         if not distant:
             return (a_2 / g_0 - b_1) ** 2 * lambda_ - 2 * (a_2 / g_0 - b_1) * Pi_1(lambda_) + Pi_2(lambda_)
-        return (a_2 / g_0 - b_1) ** 2 * lambda_ + 4 * (a_2 / g_0 - b_1) * (1 + g_0 ** 2) / (C + D) * a_2 / g_0 * S_1(g_0, ellipj(X(lambda_), k_4)[3], k_4) + Pi_2(lambda_) + b_1 - 2 * g_0 * C * D / ((g_0 ** 2 + 1) ** 0.5 * ((C - D) ** 2 + g_0 ** 2 * (C + D) ** 2) ** 0.5)
+        return (a_2 / g_0 - b_1) ** 2 * lambda_ + 4 * (a_2 / g_0 - b_1) * (1 + g_0 ** 2) / (C + D) * a_2 / g_0 * S_1(g_0, _ellipj(X(lambda_), k_4)[3], k_4) + Pi_2(lambda_) + b_1 - 2 * g_0 * C * D / ((g_0 ** 2 + 1) ** 0.5 * ((C - D) ** 2 + g_0 ** 2 * (C + D) ** 2) ** 0.5)
     def I_plusminus(r_plusminus):
         return lambda lambda_: g_0 / (a_2 * (1 - g_0 * x_4(r_plusminus))) * (lambda_ - Pi_plusminus(r_plusminus)(lambda_))
     
     return r, I_1, I_2, I_plusminus(r_plus), I_plusminus(r_minus), lambda_x
 
-def photon_escapes(a, eta, ell, initial_r):
+def photon_escapes(a, eta, ell, initial_r=np.inf, distant=False):
     r"""Determines whether a photon with given parameters escapes to infinity.
 
     Parameters
@@ -863,15 +832,23 @@ def photon_escapes(a, eta, ell, initial_r):
     ell : double
         angular momentum per energy :math:`\ell = L/E`
     initial_r : double
-        initial r :math:`r_0`
+        initial r :math:`r_0`, defaults to infinity
+    distant : bool, optional
+        whether the initial position is at infinity, defaults to false
 
     Returns
     -------
     bool
         :math:`r(\lambda)`"""
 
-    r_4 = _radial_roots(a, eta, ell)[3]
-    r_plus, _ = _horizons(a)
+    _, _, r_3, r_4 = _radial_roots(a, eta, ell)
+    r_plus, r_minus = _horizons(a)
+
+    if not np.isreal(r_4): return False
+
+    if distant:
+        return r_3 > r_minus
+
     return (r_4 < r_plus or initial_r > r_4) and r_4 > r_plus
 
 
@@ -899,8 +876,12 @@ def _r(a, eta, ell, initial_r, nu_r, distant=False):
         :math:`(r(\lambda), I_\phi(\lambda), I_t(\lambda), \lambda_x)`"""
     
     roots = _radial_roots(a, eta, ell)
-    r_1, r_2, r_3, r_4 = roots
+    _, r_2, _, r_4 = roots
     r_plus, r_minus = _horizons(a)
+
+    if environ.get("KG_DEBUG", "0") == "1":
+        radial_roots = roots
+        print(f"{radial_roots=}, {r_plus=}, {r_minus=}")
 
     if not np.isreal(r_2):
         if environ.get("KG_DEBUG", "0") == "1":
@@ -921,13 +902,11 @@ def _r(a, eta, ell, initial_r, nu_r, distant=False):
     
     # equation 1.33
     def I_phi(lambda_):
-        # (*) line 227, 279, 334, 443
-        return np.real(2 * a / (r_plus - r_minus) * ((r_plus - a * ell / 2) * I_plus(lambda_) - (r_minus - a * ell / 2) * I_minus(lambda_)))
+        return 2 * a / (r_plus - r_minus) * ((r_plus - a * ell / 2) * I_plus(lambda_) - (r_minus - a * ell / 2) * I_minus(lambda_))
     def I_t(lambda_):
-        # (*) line 228, 293, 365, 428
-        if not distant:
-            return np.real(4 / (r_plus - r_minus) * (r_plus * (r_plus - a * ell / 2) * I_plus(lambda_) - r_minus * (r_minus - a * ell / 2) * I_minus(lambda_)) + 4 * lambda_ + 2 * I_1(lambda_) + I_2(lambda_))
-        return np.real(4 / (r_plus - r_minus) * (r_plus * (r_plus - a * ell / 2) * I_plus(lambda_) - r_minus * (r_minus - a * ell / 2) * I_minus(lambda_)) + 4 * lambda_ + 2 * I_1(lambda_) + I_2(lambda_)) + 2 * np.log(2)
+        out = 4 / (r_plus - r_minus) * (r_plus * (r_plus - a * ell / 2) * I_plus(lambda_) - r_minus * (r_minus - a * ell / 2) * I_minus(lambda_)) + 4 * lambda_ + 2 * I_1(lambda_) + I_2(lambda_)
+        if distant: out += 2 * np.log(2)
+        return out
     
     return r, I_phi, I_t, lambda_x
 
@@ -956,7 +935,7 @@ def trajectory(a, eta, ell, initial_pos, nu_theta, nu_r, distant=False):
     tuple(function, function, function, function)
         :math:`(t(\lambda), r(\lambda), \theta(\lambda), \phi(\lambda))`"""
     if environ.get("KG_DEBUG", "0") == "1":
-        print(f"Initial conditions: {a=}, {eta=}, {ell=}, {initial_pos=}, {nu_theta=}, {nu_r=}")
+        print(f"{a=}, {eta=}, {ell=}, {distant=}")
 
     r, I_phi, I_t, lambda_x = _r(a, eta, ell, initial_pos[1], nu_r, distant)
     theta, G_phi, G_t = _theta(a, eta, ell, initial_pos[2], nu_theta, lambda_x)
@@ -967,14 +946,14 @@ def trajectory(a, eta, ell, initial_pos, nu_theta, nu_r, distant=False):
     def phi(lambda_):
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            np.real(initial_pos[3] + ell * G_phi(lambda_) + I_phi(lambda_))
+            initial_pos[3] + G_phi(lambda_) + I_phi(lambda_)
         )
 
     def t(lambda_):
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            np.real(initial_pos[0] + a ** 2 * G_t(lambda_) + I_t(lambda_)) if not distant else
-            np.real(a ** 2 * G_t(lambda_) + I_t(lambda_) + r(lambda_) + 2 * np.log(r(lambda_) / 2))   
+            initial_pos[0] + a ** 2 * G_t(lambda_) + I_t(lambda_) if not distant else
+            a ** 2 * G_t(lambda_) + I_t(lambda_) + r(lambda_) + 2 * np.log(r(lambda_) / 2)
         )
     
     return t, r, theta, phi, lambda_x
@@ -1021,7 +1000,7 @@ class LightOrbit:
     lambda_x : double
         Mino time of capture/escape to infinity
     escape_coordinates : tuple(double, double)
-        :math:`(\theta, \phi)` coordinates at which photon escapes to infinity or (-1, -1) if captured
+        :math:`(\theta, \phi)` coordinates at which photon escapes to infinity or (np.nan, np.nan) if captured
     """
 
     def __init__(self, a, initial_position, initial_momentum, M=None):
@@ -1033,7 +1012,7 @@ class LightOrbit:
         # check if initial four-velocity is valid
         spacetime = KerrSpacetime(a)
         initial_norm = spacetime.norm(*initial_position, initial_momentum)
-        if abs(initial_norm) > 1e-6:
+        if not np.isclose(initial_norm, 0):
             raise ValueError("Initial velocity is not lightlike")
 
         p_t, _, p_theta, p_phi = spacetime.metric(*initial_position) @ initial_momentum
@@ -1049,7 +1028,7 @@ class LightOrbit:
         if self.eta < (0 if abs(self.ell) >= a else -(abs(self.ell) - a) ** 2):
             raise ValueError("Forbidden motion")
 
-        self.escapes = photon_escapes(self.a, self.eta, self.ell, self.initial_position[1])
+        self.escapes = photon_escapes(self.a, self.eta, self.ell, initial_r=self.initial_position[1])
     
     def trajectory(
         self, distance_units="natural", time_units="natural"
@@ -1104,9 +1083,14 @@ class LightOrbit:
                     theta_minus = np.arccos(-u_minus ** 0.5)
                 
                 nu_theta = np.sign(theta_minus - theta_plus)
-                if abs(self.initial_position[2] - theta_minus) < 1e-6:
+                if np.isclose(self.initial_position[2], theta_minus):
                     nu_theta *= -1
         
+        if environ.get("KG_DEBUG", "0") == "1":
+            x = ", ".join(str(i) for i in self.initial_position)
+            p_vec = ", ".join(str(i) for i in self.initial_momentum)
+            p_cov = ", ".join(str(i) for i in KerrSpacetime(self.a).metric(*self.initial_position) @ self.initial_momentum)
+            print(f"Initial conditions: {x=}, {p_vec=}, {p_cov=}, {nu_theta=}, {nu_r=}")
 
         *trajectory_, lambda_x = trajectory(
             self.a,
@@ -1117,7 +1101,7 @@ class LightOrbit:
             nu_r,
         )
         self.lambda_x = lambda_x
-        self.escape_coordinates = (trajectory_[2](lambda_x), trajectory_[3](lambda_x)) if self.escapes else (-1, -1)
+        self.escape_coordinates = (trajectory_[2](lambda_x), trajectory_[3](lambda_x)) if self.escapes else (np.nan, np.nan)
 
         return (
             lambda lambda_: time_conversion_func[time_units](trajectory_[0](lambda_), self.M),
@@ -1321,7 +1305,7 @@ class LightOrbit:
             background_color,
             axis_limit,
             plot_components,
-            lambda t: f"$a = {self.a}\quad \eta = {self.eta:.3f}\quad \ell = {self.ell:.3f}\quad \lambda = {t:.2f}$",
+            lambda t: fr"$a = {self.a}\quad \eta = {self.eta:.3f}\quad \ell = {self.ell:.3f}\quad \lambda = {t:.2f}$",
             axes_limits,
         )
 
@@ -1370,7 +1354,7 @@ class DistantLightOrbit(LightOrbit):
     lambda_x : double
         Mino time of capture/escape to infinity
     escape_coordinates : tuple(double, double)
-        :math:`(\theta, \phi)` coordinates at which photon escapes to infinity or (-1, -1) if captured
+        :math:`(\theta, \phi)` coordinates at which photon escapes to infinity or (np.nan, np.nan) if captured
     """
 
     def __init__(self, a, initial_theta, initial_phi, alpha, beta, M=None):
@@ -1382,7 +1366,7 @@ class DistantLightOrbit(LightOrbit):
         self.M = M if M is None else mass_in_kg(M)
 
         self.ell = -alpha * np.sin(initial_theta)
-        self.eta = beta ** 2 - a ** 2 * np.cos(initial_theta) ** 2 + self.ell ** 2 / np.tan(initial_theta) ** 2
+        self.eta = beta ** 2 + (alpha ** 2 - a ** 2) * np.cos(initial_theta) ** 2
 
         self.E = 1
         self.L = self.ell * self.E
@@ -1391,7 +1375,7 @@ class DistantLightOrbit(LightOrbit):
         if self.eta < (0 if abs(self.ell) >= a else -(abs(self.ell) - a) ** 2):
             raise ValueError("Forbidden motion")
 
-        self.escapes = photon_escapes(self.a, self.eta, self.ell, np.inf)
+        self.escapes = photon_escapes(self.a, self.eta, self.ell, distant=True)
 
     def trajectory(
         self, distance_units="natural", time_units="natural"
@@ -1433,7 +1417,7 @@ class DistantLightOrbit(LightOrbit):
         }
 
         nu_r = -1
-        nu_theta = np.sign(self.beta)
+        nu_theta = np.sign(self.beta) # FIXME: why does kernel take negative of sign?
 
         *trajectory_, lambda_x = trajectory(
             self.a,
@@ -1445,7 +1429,7 @@ class DistantLightOrbit(LightOrbit):
             True
         )
         self.lambda_x = lambda_x
-        self.escape_coordinates = (trajectory_[2](lambda_x), trajectory_[3](lambda_x)) if self.escapes else (-1, -1)
+        self.escape_coordinates = (trajectory_[2](lambda_x), trajectory_[3](lambda_x)) if self.escapes else (np.nan, np.nan)
 
         return (
             lambda lambda_: time_conversion_func[time_units](trajectory_[0](lambda_), self.M),

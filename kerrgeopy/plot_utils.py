@@ -1,3 +1,4 @@
+"""Module containing reusable utility functions for plotting orbits and creating animations"""
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Line3DCollection
 from matplotlib.animation import FuncAnimation
@@ -206,7 +207,7 @@ def animate(
     background_color=None,
     axis_limit=None,
     plot_components=False,
-    txt=lambda t: f"\lambda = {t:.2f}",
+    txt=lambda t: fr"\lambda = {t:.2f}",
     axes_limits=None,
 ):
     r"""Saves an animation of the orbit as an mp4 file.
