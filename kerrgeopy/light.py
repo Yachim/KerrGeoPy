@@ -11,7 +11,7 @@ from scipy.special import ellipj, ellipk, ellipkinc, ellipeinc
 from os import environ
 
 def _ellipj(u, m):
-    """Generalization of scipy's ellipj for all m <= 1.
+    r"""Generalization of scipy's ellipj for all m <= 1.
  
     Parameters
     ----------
@@ -80,7 +80,7 @@ def _ellipeinc_prime(phi, m):
     return (ellipeinc(phi, m) - ellipkinc(phi, m)) / (2 * m)
 
 def _sc(u, m):
-    """sc function defined under equation 1.41. Definition as per Gralla & Lupsasca above equation B109.
+    r"""sc function defined under equation 1.41. Definition as per Gralla & Lupsasca above equation B109.
     
     Parameters
     ----------

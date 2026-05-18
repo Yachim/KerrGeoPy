@@ -581,9 +581,9 @@ class Orbit:
             initial_phases = self.initial_phases
         trajectory = self.trajectory(initial_phases=initial_phases)
         if self.stable:
-            txt = lambda t: f"$a = {self.a}\quad p = {self.p}\quad e = {self.e}\quad x = {self.x:.3f}\quad \lambda = {t:.2f}$"
+            txt = lambda t: fr"$a = {self.a}\quad p = {self.p}\quad e = {self.e}\quad x = {self.x:.3f}\quad \lambda = {t:.2f}$"
         else:
-            txt = lambda t: f"$a = {self.a}\quad E = {self.E:.3f}\quad L = {self.L:.3f}\quad Q = {self.Q:.3f}\quad \lambda = {t:.2f}$"
+            txt = lambda t: fr"$a = {self.a}\quad E = {self.E:.3f}\quad L = {self.L:.3f}\quad Q = {self.Q:.3f}\quad \lambda = {t:.2f}$"
 
         animate(
             self.a,

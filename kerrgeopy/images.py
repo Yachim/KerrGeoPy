@@ -19,6 +19,21 @@ class KerrImage:
         maximum Bardeen coordinate to consider for the image determining the horizontal field of view
     M : float, optional
         mass of the black hole. If not specified, units are in terms of M
+    
+    Attributes
+    ----------
+    a : float
+        spin parameter of the black hole
+    theta : float
+        inclination angle of the observer in radians
+    size : tuple(int, int)
+        width and height of the image in pixels
+    max_bardeen : float
+        maximum Bardeen coordinate to consider for the image determining the horizontal field of view
+    M : float, optional
+        mass of the black hole. If not specified, units are in terms of M
+    escape_coordinates : np.ndarray
+        array of shape (height, width, 2) containing the escape coordinates (theta, phi) for each pixel in the image; if a pixel does not escape, the coordinates are (nan, nan)
     """
     
     def __init__(self, a, theta, size, max_bardeen, M = None):
@@ -26,18 +41,12 @@ class KerrImage:
         self.theta = theta
         self.size = size
         self.max_bardeen = max_bardeen
-        self.uvs = np.zeros((size[1], size[0], 2)) # normalized (x, y)
+        self.escape_coordinates = np.zeros((size[1], size[0], 2)) # (\theta, \phi) for each pixels
         self.M = M
 
-    def compute(self, transform=True):
-        r"""Computes uvs for each pixel in the image.
-        
-        Parameters
-        ----------
-        transform : bool, optional
-            whether to apply the transformation to the uvs, defaults to True; the transformation makes v = 0.5 at :math:`\pi - \theta`
-        """
-        self.uvs.fill(np.nan)
+    def compute(self):
+        """Computes uvs for each pixel in the image."""
+        self.escape_coordinates.fill(np.nan)
         x_lim = self.size[0] // 2
         y_lim = self.size[1] // 2
         with tqdm(total=self.size[0] * self.size[1], ncols=80) as pbar:
@@ -49,17 +58,16 @@ class KerrImage:
                     orbit.trajectory()
 
                     theta, phi = orbit.escape_coordinates
-                    if transform:
-                        theta -= np.pi / 2 - self.theta
-                        theta %= np.pi
                     if orbit.escapes and np.isfinite(theta) and np.isfinite(phi):
-                        self.uvs[y + y_lim, x + x_lim] = ((phi % (2 * np.pi)) / (2 * np.pi), theta / np.pi)
+                        self.escape_coordinates[y + y_lim, x + x_lim] = (theta, phi % (2 * np.pi))
 
-    def image(self, bg = None):
-        """Generates the image from the computed uvs.
+    def image(self, bg=None):
+        r"""Generates the image from the computed uvs.
 
         Parameters
         ----------
+        angle : float, optional
+            field of view in radians, defaults to :math:`2\pi`
         bg : PIL.Image, optional
             background image to use for the pixels that escape. If None, the uvs will be used to determine the color of the pixels
         
@@ -70,22 +78,41 @@ class KerrImage:
         """
         pixels = np.zeros((self.size[1], self.size[0], 3), dtype=np.uint8)
 
-        mask = np.isfinite(self.uvs[..., 0]) & np.isfinite(self.uvs[..., 1])
+        theta = self.escape_coordinates[..., 0]
+        phi = self.escape_coordinates[..., 1]
+
+        mask_finite = np.isfinite(theta) & np.isfinite(phi)
+
+        theta = theta[mask_finite]
+        phi = phi[mask_finite]
+
+        s0 = np.sin(self.theta)
+        c0 = np.cos(self.theta)
+        st = np.sin(theta)
+        ct = np.cos(theta)
+        sp = np.sin(phi)
+        cp = np.cos(phi)
+        x =  s0 * st * cp           + c0 * ct
+        y =               - st * sp
+        z = -c0 * st * cp           + s0 * ct
+
+        phi_obs = np.atan2(y, x) % (2 * np.pi)
+        theta_obs = np.acos(z)
+
+        u = phi_obs / (2 * np.pi)
+        v = theta_obs / np.pi
 
         if bg is None:
-            pixels[mask, 0] = (self.uvs[mask, 0] * 255).astype(np.uint8)
-            pixels[mask, 1] = (self.uvs[mask, 1] * 255).astype(np.uint8)
+            pixels[mask_finite, 0] = (u * 255).astype(np.uint8)
+            pixels[mask_finite, 1] = (v * 255).astype(np.uint8)
         else:
             w, h = bg.size
             bg_pixels = np.array(bg)
 
-            valid_u = self.uvs[mask, 0]
-            valid_v = self.uvs[mask, 1]
+            x = (u * (w - 1)).astype(int)
+            y = (v * (h - 1)).astype(int)
 
-            x = (valid_u * (w - 1)).astype(int)
-            y = (valid_v * (h - 1)).astype(int)
-
-            pixels[mask] = bg_pixels[y, x]
+            pixels[mask_finite] = bg_pixels[y, x]
 
         return Image.fromarray(pixels)
                 
