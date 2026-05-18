@@ -10,9 +10,11 @@ Overview
 It implements the analytical solutions for plunging orbits from `Dyson and van de Meent <https://arxiv.org/abs/2302.03704>`_, as well as solutions for stable orbits from `Fujita and Hikida <https://arxiv.org/abs/0906.1420>`_. 
 The library also provides a set of methods for computing constants of motion and orbital frequencies, and can generate plots and animations like those shown below.
 
+Lightlike geodesics are implemented from `Gralla and Lupsasca <https://arxiv.org/abs/1910.12881>`_ with distant limit from `Podrápský <https://dspace.cuni.cz/handle/20.500.11956/193468>`_. Using these, we are able to render the black hole's shadow on stellar background.
+
 .. image:: images/thumbnail.png
     :align: left
-    :width: 45%
+    :width: 45%pip install conda-forge
 
 .. image:: images/thumbnail.gif
     :align: right
@@ -70,11 +72,15 @@ API Reference
    ~kerrgeopy.stable.StableOrbit
    ~kerrgeopy.plunge.PlungingOrbit
    ~kerrgeopy.orbit.Orbit
+   ~kerrgeopy.light.LightOrbit
+   ~kerrgeopy.light.DistantLightOrbit
    ~kerrgeopy.spacetime.KerrSpacetime
+   ~kerrgeopy.images.KerrImage
    ~kerrgeopy.constants
    ~kerrgeopy.frequencies
    ~kerrgeopy.initial_conditions
    ~kerrgeopy.units
+   ~kerrgeopy.plot_utils
 
 Indices and tables
 ==================
