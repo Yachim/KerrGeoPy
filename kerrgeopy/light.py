@@ -652,9 +652,9 @@ def _case_3_radial(a, eta, ell, initial_r, nu_r, distant=False):
         -1, 1
     )
     if environ.get("KG_DEBUG", "0") == "1":
-        print(f"{x_i=}, {(
+        print(f"""{x_i=}, {(
                 (1 - B * (initial_r - r_2) / (A * (initial_r - r_1))) / (1 + B * (initial_r - r_2) / (A * (initial_r - r_1)))
-            ) if not distant else (A - B) / (A + B)}")
+            ) if not distant else (A - B) / (A + B)}""")
     acos_x_i = np.arccos(x_i)
     cal_I_i_0 = 1 / (A * B) ** 0.5 * ellipkinc(acos_x_i, k_3)
     def X(lambda_):
