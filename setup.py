@@ -19,5 +19,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Natural Language :: English",
     ),
-    install_requires=["scipy>=1.8","numpy","matplotlib>=3.7","tqdm"]
+    install_requires=["scipy>=1.8","numpy","matplotlib>=3.7","tqdm","pillow"]
 )
