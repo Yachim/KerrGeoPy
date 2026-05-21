@@ -1334,6 +1334,20 @@ class LightOrbit:
             axes_limits,
         )
 
+# kernel line 469
+def _shell_intersection_lambda(a, eta, ell, shell_radius):
+    roots = _radial_roots(a, eta, ell)
+    k = _k(roots)
+    r_1, r_2, r_3, r_4 = roots
+
+    x0 = np.clip((r_3 - r_1) / (r_4 - r_1), 0, 1) ** 0.5
+    x_shell = np.clip((shell_radius - r_4) * (r_3 - r_1) / ((shell_radius - r_3) * (r_4 - r_1)), 0, 1) ** 0.5
+
+    I0 = 2 / ((r_3 - r_1) * (r_4 - r_2)) ** 0.5 * ellipkinc(np.arcsin(x0), k)
+    I0_shell = 2 / ((r_3 - r_1) * (r_4 - r_2)) ** 0.5 * ellipkinc(np.arcsin(x_shell), k)
+
+    return I0 + I0_shell
+
 class DistantLightOrbit(LightOrbit):
     r"""Class representing a distant lightlike orbit in Kerr spacetime defined using initial conditions.
 
@@ -1349,6 +1363,8 @@ class DistantLightOrbit(LightOrbit):
         bardeen coordinate :math:`\alpha`
     beta : double
         bardeen coordinate :math:`\beta`
+    shell_radius : double, optional
+        radius of the shell used for generating image of distorted background, defaults to 50 in c = G = M = 1 units
     M : double, optional
         mass of the primary in solar masses, if not specified, units are in terms of M
 
@@ -1362,6 +1378,8 @@ class DistantLightOrbit(LightOrbit):
         bardeen coordinate :math:`\alpha`
     beta : double
         bardeen coordinate :math:`\beta`
+    shell_radius : double
+        radius of the shell used for generating image of distorted background
     M
         mass of the primary in solar masses
     E
@@ -1380,15 +1398,20 @@ class DistantLightOrbit(LightOrbit):
         Mino time of capture/escape to infinity
     escape_coordinates : tuple(double, double)
         :math:`(\theta, \phi)` coordinates at which photon escapes to infinity or (np.nan, np.nan) if captured
+    lambda_shell : double
+        Mino time of intersection with shell of radius shell_radius
+    shell_intersection_coordinates : tuple(double, double, double)
+        :math:`(\Delta v, \theta, \phi)` coordinates at which photon intersects shell of radius shell_radius or (np.nan, np.nan, np.nan) if photon does not intersect the shell
     """
 
-    def __init__(self, a, initial_theta, initial_phi, alpha, beta, M=None):
+    def __init__(self, a, initial_theta, initial_phi, alpha, beta, shell_radius=50, M=None):
         self.a = a
         self.initial_theta = initial_theta
         self.initial_phi = initial_phi
         self.alpha = alpha
         self.beta = beta
         self.M = M if M is None else mass_in_kg(M)
+        self.shell_radius = shell_radius
 
         self.ell = -alpha * np.sin(initial_theta)
         self.eta = beta ** 2 + (alpha ** 2 - a ** 2) * np.cos(initial_theta) ** 2
@@ -1401,6 +1424,10 @@ class DistantLightOrbit(LightOrbit):
             raise ValueError("Forbidden motion")
 
         self.escapes = photon_escapes(self.a, self.eta, self.ell, distant=True)
+        if self.escapes:
+            self.lambda_shell = _shell_intersection_lambda(self.a, self.eta, self.ell, self.shell_radius)
+        else:
+            self.lambda_shell = np.nan
 
     def trajectory(
         self, distance_units="natural", time_units="natural"
@@ -1457,9 +1484,12 @@ class DistantLightOrbit(LightOrbit):
         self.lambda_x = lambda_x
         self.escape_coordinates = (trajectory_[2](lambda_x), trajectory_[3](lambda_x)) if self.escapes else (np.nan, np.nan)
 
-        return (
+        trajectory_units = (
             lambda lambda_: time_conversion_func[time_units](trajectory_[0](lambda_), self.M),
             lambda lambda_: distance_conversion_func[distance_units](trajectory_[1](lambda_), self.M),
             trajectory_[2],
             trajectory_[3]
         )
+        self.shell_intersection_coordinates = (trajectory_units[0](self.lambda_shell), trajectory_units[2](self.lambda_shell), trajectory_units[3](self.lambda_shell)) if self.escapes else (np.nan, np.nan, np.nan)
+
+        return trajectory_units

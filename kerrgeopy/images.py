@@ -19,6 +19,8 @@ class KerrImage:
         maximum Bardeen coordinate to consider for the image determining the horizontal field of view
     M : float, optional
         mass of the black hole. If not specified, units are in terms of M
+    shell_radius : double, optional
+        radius of the shell used for generating image of distorted background, defaults to 50 in c = G = M = 1 units
     
     Attributes
     ----------
@@ -32,21 +34,24 @@ class KerrImage:
         maximum Bardeen coordinate to consider for the image determining the horizontal field of view
     M : float, optional
         mass of the black hole. If not specified, units are in terms of M
-    escape_coordinates : np.ndarray
-        array of shape (height, width, 2) containing the escape coordinates (theta, phi) for each pixel in the image; if a pixel does not escape, the coordinates are (nan, nan)
+    shell_radius : double
+        radius of the shell used for generating image of distorted background
+    shell_intersection_coordinates : np.ndarray
+        array of shape (height, width, 2) containing the shell intersection coordinates coordinates (theta, phi) for each pixel in the image; if a pixel does not escape, the coordinates are (nan, nan)
     """
     
-    def __init__(self, a, theta, size, max_bardeen, M = None):
+    def __init__(self, a, theta, size, max_bardeen, shell_radius=50, M = None):
         self.a = a
         self.theta = theta
         self.size = size
         self.max_bardeen = max_bardeen
-        self.escape_coordinates = np.zeros((size[1], size[0], 2)) # (\theta, \phi) for each pixels
+        self.shell_intersection_coordinates = np.empty((size[1], size[0], 2)) # (\theta, \phi) for each pixels
         self.M = M
+        self.shell_radius = shell_radius
 
     def compute(self):
         """Computes uvs for each pixel in the image."""
-        self.escape_coordinates.fill(np.nan)
+        self.shell_intersection_coordinates.fill(np.nan)
         x_lim = self.size[0] // 2
         y_lim = self.size[1] // 2
         with tqdm(total=self.size[0] * self.size[1], ncols=80) as pbar:
@@ -54,12 +59,12 @@ class KerrImage:
                 for y in range(-y_lim, y_lim):
                     pbar.update(1)
                     # minus because images have y axis downwards but beta goes upwards
-                    orbit = DistantLightOrbit(self.a, self.theta, 0, x / x_lim * self.max_bardeen, -y / y_lim * self.max_bardeen * y_lim / x_lim, self.M)
+                    orbit = DistantLightOrbit(self.a, self.theta, 0, x / x_lim * self.max_bardeen, -y / y_lim * self.max_bardeen * y_lim / x_lim, self.shell_radius, self.M)
                     orbit.trajectory()
 
-                    theta, phi = orbit.escape_coordinates
+                    theta, phi = orbit.shell_intersection_coordinates[1:]
                     if orbit.escapes and np.isfinite(theta) and np.isfinite(phi):
-                        self.escape_coordinates[y + y_lim, x + x_lim] = (theta, phi % (2 * np.pi))
+                        self.shell_intersection_coordinates[y + y_lim, x + x_lim] = (theta, phi % (2 * np.pi))
 
     def image(self, bg=None):
         r"""Generates the image from the computed uvs.
@@ -78,8 +83,8 @@ class KerrImage:
         """
         pixels = np.zeros((self.size[1], self.size[0], 3), dtype=np.uint8)
 
-        theta = self.escape_coordinates[..., 0]
-        phi = self.escape_coordinates[..., 1]
+        theta = self.shell_intersection_coordinates[..., 0]
+        phi = self.shell_intersection_coordinates[..., 1]
 
         mask_finite = np.isfinite(theta) & np.isfinite(phi)
 
