@@ -12,6 +12,10 @@ The library also provides a set of methods for computing constants of motion and
 
 Lightlike geodesics are implemented from `Gralla and Lupsasca <https://arxiv.org/abs/1910.12881>`_ with distant limit from `Podrápský <https://dspace.cuni.cz/handle/20.500.11956/193468>`_. Using these, we are able to render the black hole's shadow on stellar background.
 
+Acknowledgements
+----------------
+The work on lightlike geodesics was supported by the `Student Faculty Grants (SFG) <https://www.mff.cuni.cz/en/students/bc-mgr/sfg>`_ program at the Faculty of Mathematics and Physics, Charles University.
+
 .. image:: images/thumbnail.png
     :align: left
     :width: 45%pip install conda-forge
