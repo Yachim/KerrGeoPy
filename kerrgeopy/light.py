@@ -958,6 +958,45 @@ def trajectory(a, eta, ell, initial_pos, nu_theta, nu_r, distant=False):
     
     return t, r, theta, phi, lambda_x
 
+def _sign_p_theta(a, eta, ell, theta, p_theta):
+    r"""Determines the sign of the initial polar momentum :math:`\nu_\theta = \text{sign}(p^\theta_0)`
+    
+    Parameters
+    ----------
+    a : double
+        spin parameter
+    eta : double
+        Carter constant per square energy :math:`\eta = Q/E^2`
+    ell : double
+        angular momentum per energy :math:`\ell = L/E`
+    theta : double
+        initial polar angle :math:`\theta_0`
+    p_theta : double
+        initial polar momentum :math:`p^\theta_0`
+
+    Returns
+    -------
+    int
+        sign of the initial polar momentum :math:`\nu_\theta = \text{sign}(p^\theta_0)`
+    """
+    nu_theta = np.sign(p_theta)
+    if nu_theta == 0:
+        if eta > 0:
+            nu_theta = np.sign(pi/2 - theta)
+        else:
+            u_plus, u_minus = _polar_roots(a, eta, ell)
+            theta_plus = np.arccos(u_plus ** 0.5)
+            theta_minus = np.arccos(u_minus ** 0.5)
+            if theta > pi/2:
+                theta_plus = np.arccos(-u_plus ** 0.5)
+                theta_minus = np.arccos(-u_minus ** 0.5)
+            
+            nu_theta = np.sign(theta_minus - theta_plus)
+            if np.isclose(theta, theta_minus):
+                nu_theta *= -1
+    
+    return nu_theta
+
 
 class LightOrbit:
     r"""Class representing a lightlike orbit in Kerr spacetime defined using initial conditions.
@@ -1070,21 +1109,7 @@ class LightOrbit:
         }
 
         nu_r = np.sign(self.initial_momentum[1])
-        nu_theta = np.sign(self.initial_momentum[2])
-        if nu_theta == 0:
-            if self.eta > 0:
-                nu_theta = np.sign(pi/2 - self.initial_position[2])
-            else:
-                u_plus, u_minus = _polar_roots(self.a, self.eta, self.ell)
-                theta_plus = np.arccos(u_plus ** 0.5)
-                theta_minus = np.arccos(u_minus ** 0.5)
-                if self.initial_position[2] > pi/2:
-                    theta_plus = np.arccos(-u_plus ** 0.5)
-                    theta_minus = np.arccos(-u_minus ** 0.5)
-                
-                nu_theta = np.sign(theta_minus - theta_plus)
-                if np.isclose(self.initial_position[2], theta_minus):
-                    nu_theta *= -1
+        nu_theta = _sign_p_theta(self.a, self.eta, self.ell, self.initial_position[2], self.initial_momentum[2])
         
         if environ.get("KG_DEBUG", "0") == "1":
             x = ", ".join(str(i) for i in self.initial_position)
@@ -1418,6 +1443,7 @@ class DistantLightOrbit(LightOrbit):
 
         nu_r = -1
         nu_theta = np.sign(self.beta) # FIXME: why does kernel take negative of sign?
+        nu_theta = _sign_p_theta(self.a, self.eta, self.ell, self.initial_theta, nu_theta)
 
         *trajectory_, lambda_x = trajectory(
             self.a,
