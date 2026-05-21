@@ -11,7 +11,7 @@ from scipy.special import ellipj, ellipk, ellipkinc, ellipeinc
 from os import environ
 
 def _ellipj(u, m):
-    r"""Generalization of scipy's ellipj for all m <= 1.
+    r"""Extension of scipy's ellipj for m < 0.
  
     Parameters
     ----------
@@ -839,7 +839,7 @@ def photon_escapes(a, eta, ell, initial_r=np.inf, distant=False):
     Returns
     -------
     bool
-        :math:`r(\lambda)`"""
+        True if the photon escapes to infinity, otherwise False"""
 
     _, _, r_3, r_4 = _radial_roots(a, eta, ell)
     r_plus, r_minus = _horizons(a)
@@ -924,7 +924,7 @@ def trajectory(a, eta, ell, initial_pos, nu_theta, nu_r, distant=False):
     initial_pos : tuple(double, double, double, double)
         initial position :math:`(t_0, r_0, \theta_0, \phi_0)`
     nu_theta : int
-        sign of the initial polar momentum :math:`\nu_\theta = \text{sign}(p^r_0)`
+        sign of the initial polar momentum :math:`\nu_\theta = \text{sign}(p^\theta_0)`
     nu_r : int
         sign of the initial r momentum :math:`\nu_r = \text{sign}(p^r_0)`.
     distant: bool, optional
@@ -990,7 +990,7 @@ class LightOrbit:
     L : double
         angular momentum :math:`L = p_\phi`
     Q : double
-        Carter constant :math:`Q = p_\theta^2 + \cos^2\theta (a^2 p_t^2 + p_\phi^2/\sin^2\theta)`
+        Carter constant :math:`Q = p_\theta^2 + \cos^2\theta (a^2 p_t^2 - p_\phi^2/\sin^2\theta)`
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -1344,7 +1344,7 @@ class DistantLightOrbit(LightOrbit):
     L
         angular momentum :math:`L = p_\phi`
     Q
-        Carter constant :math:`Q = p_\theta^2 + \cos^2\theta (a^2 p_t^2 + p_\phi^2/\sin^2\theta)`
+        Carter constant :math:`Q = p_\theta^2 + \cos^2\theta (a^2 p_t^2 - p_\phi^2/\sin^2\theta)`
     eta
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell

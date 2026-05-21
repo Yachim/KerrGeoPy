@@ -1,7 +1,13 @@
 """
 Python package for computing plunging, non-plunging and lightlike geodesics in Kerr spacetime.
 """
-__all__ = ["units", "constants", "frequencies", "initial_conditions", "plot_utils"]
+__all__ = [
+    "constants",
+    "frequencies",
+    "initial_conditions",
+    "units",
+    "plot_utils",
+]
 from kerrgeopy.frequencies import *
 from kerrgeopy.initial_conditions import *
 from kerrgeopy.constants import *
