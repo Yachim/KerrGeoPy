@@ -1469,7 +1469,7 @@ class DistantLightOrbit(LightOrbit):
         }
 
         nu_r = -1
-        nu_theta = np.sign(self.beta) # FIXME: why does kernel take negative of sign?
+        nu_theta = -np.sign(self.beta)
         nu_theta = _sign_p_theta(self.a, self.eta, self.ell, self.initial_theta, nu_theta)
 
         *trajectory_, lambda_x = trajectory(

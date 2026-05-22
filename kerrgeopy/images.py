@@ -60,10 +60,12 @@ class KerrImage:
                     pbar.update(1)
                     # minus because images have y axis downwards but beta goes upwards
                     orbit = DistantLightOrbit(self.a, self.theta, 0, x / x_lim * self.max_bardeen, -y / y_lim * self.max_bardeen * y_lim / x_lim, self.shell_radius, self.M)
+                    if not orbit.escapes: continue
+
                     orbit.trajectory()
 
                     theta, phi = orbit.shell_intersection_coordinates[1:]
-                    if orbit.escapes and np.isfinite(theta) and np.isfinite(phi):
+                    if np.isfinite(theta) and np.isfinite(phi):
                         self.shell_intersection_coordinates[y + y_lim, x + x_lim] = (theta, phi % (2 * np.pi))
 
     def image(self, bg=None):
@@ -104,7 +106,7 @@ class KerrImage:
         phi_obs = np.atan2(y, x) % (2 * np.pi)
         theta_obs = np.acos(z)
 
-        u = phi_obs / (2 * np.pi)
+        u = (-phi_obs) / (2 * np.pi)
         v = theta_obs / np.pi
 
         if bg is None:
