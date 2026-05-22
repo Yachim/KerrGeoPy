@@ -102,7 +102,7 @@ def _polar_roots(a, eta, ell):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -124,7 +124,7 @@ def _ordinary_theta(a, eta, ell, initial_theta, nu_theta, lambda_x=np.inf):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -191,7 +191,7 @@ def _vortical_theta(a, eta, ell, initial_theta, nu_theta, lambda_x=np.inf):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -247,7 +247,7 @@ def _theta(a, eta, ell, initial_theta, nu_theta, lambda_x=np.inf):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -304,7 +304,7 @@ def _radial_roots(a, eta, ell):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -340,7 +340,7 @@ def _horizons(a):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
 
     Returns
     -------
@@ -354,7 +354,7 @@ def _radial_potential(a, eta, ell):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -395,7 +395,7 @@ def _case_1_radial(a, eta, ell, initial_r, nu_r):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -479,7 +479,7 @@ def _case_2_radial(a, eta, ell, initial_r, nu_r, distant=False):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -582,7 +582,7 @@ def _case_3_radial(a, eta, ell, initial_r, nu_r, distant=False):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -716,7 +716,7 @@ def _case_4_radial(a, eta, ell, initial_r, nu_r, distant=False):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -826,7 +826,7 @@ def photon_escapes(a, eta, ell, initial_r=np.inf, distant=False):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -858,7 +858,7 @@ def _r(a, eta, ell, initial_r, nu_r, distant=False):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -916,7 +916,7 @@ def trajectory(a, eta, ell, initial_pos, nu_theta, nu_r, distant=False):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -964,7 +964,7 @@ def _sign_p_theta(a, eta, ell, theta, p_theta):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     eta : double
         Carter constant per square energy :math:`\eta = Q/E^2`
     ell : double
@@ -1004,7 +1004,7 @@ class LightOrbit:
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     initial_position : tuple(double,double,double,double)
         initial position of the orbit :math:`(t_0,r_0,\theta_0,\phi_0)`
     initial_momentum : tuple(double,double,double,double)
@@ -1016,7 +1016,7 @@ class LightOrbit:
     Attributes
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     initial_position : tuple(double, double, double, double)
         initial position of the orbit :math:`(t_0,r_0,\theta_0,\phi_0)`
     initial_momentum : tuple(double, double, double, double)
@@ -1354,7 +1354,7 @@ class DistantLightOrbit(LightOrbit):
     Parameters
     ----------
     a : double
-        spin parameter
+        dimensionless spin parameter
     initial_theta : double
         initial polar angle :math:`\theta_0`
     initial_phi : double
@@ -1371,7 +1371,7 @@ class DistantLightOrbit(LightOrbit):
     Attributes
     ----------
     a
-        spin parameter
+        dimensionless spin parameter
     initial_theta : double
         initial polar angle :math:`\theta_0`
     alpha : double
