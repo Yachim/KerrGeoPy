@@ -19,6 +19,7 @@
       ~KerrImage.__init__
       ~KerrImage.compute
       ~KerrImage.image
+      ~KerrImage.orbit
    
    
 
