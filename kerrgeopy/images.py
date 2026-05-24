@@ -107,13 +107,13 @@ class KerrImage:
         sp = np.sin(phi)
         cp = np.cos(phi)
         x =  s0 * st * cp           + c0 * ct
-        y =               - st * sp
+        y =                 st * sp
         z = -c0 * st * cp           + s0 * ct
 
         phi_obs = np.atan2(y, x) % (2 * np.pi)
         theta_obs = np.acos(z)
 
-        u = (-phi_obs) / (2 * np.pi) + uv_offset[0]
+        u = (1 - phi_obs / (2 * np.pi)) + uv_offset[0]
         v = theta_obs / np.pi + uv_offset[1]
         u %= 1
         v %= 1

@@ -1413,7 +1413,7 @@ class DistantLightOrbit(LightOrbit):
         self.M = M if M is None else mass_in_kg(M)
         self.shell_radius = shell_radius
 
-        self.ell = -alpha * np.sin(initial_theta)
+        self.ell = alpha * np.sin(initial_theta)
         self.eta = beta ** 2 + (alpha ** 2 - a ** 2) * np.cos(initial_theta) ** 2
 
         self.E = 1
