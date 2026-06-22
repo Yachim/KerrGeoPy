@@ -142,7 +142,7 @@ def _ordinary_theta(a, eta, ell, initial_theta, nu_theta, lambda_x=np.inf):
     u_plus, u_minus = _polar_roots(a, eta, ell)
     m = u_plus / u_minus
 
-    phi = np.asin(np.clip(np.cos(initial_theta) / u_plus ** 0.5, 0, 1))
+    phi = np.asin(np.clip(np.cos(initial_theta) / u_plus ** 0.5, -1, 1))
     if environ.get("KG_DEBUG", "0") == "1":
         print(f"{phi=}, {np.cos(initial_theta) / u_plus ** 0.5}")
 
@@ -229,7 +229,7 @@ def _vortical_theta(a, eta, ell, initial_theta, nu_theta, lambda_x=np.inf):
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
             np.acos(
-                h * (u_minus + (u_plus - u_minus) * _ellipj(upsilon(lambda_), m)[3] ** 2) ** 0.5
+                h * (u_minus + (u_plus - u_minus) * np.sin(upsilon(lambda_)) ** 2) ** 0.5
             )
         )
     
@@ -522,11 +522,11 @@ def _case_2_radial(a, eta, ell, initial_r, nu_r, distant=False):
         return (r_31 * r_42) ** 0.5 * (ellipeinc(_ellipj(X(lambda_), k)[3], k) - nu_r * ellipeinc(asin_x_i, k))
     def Pi_1(lambda_):
         if not distant:
-            return 2 / (r_31 * r_42) ** 0.5 * _ellippiinc(_ellipj(X(lambda_), k)[3], r_41 / r_31, k) - nu_r * _ellippiinc(asin_x_i, r_41 / r_31, k)
+            return 2 / (r_31 * r_42) ** 0.5 * (_ellippiinc(_ellipj(X(lambda_), k)[3], r_41 / r_31, k) - nu_r * _ellippiinc(asin_x_i, r_41 / r_31, k))
         return 2 / (r_31 * r_42) ** 0.5 * (
             _ellippiinc(_ellipj(X(lambda_), k)[3], r_41 / r_31, k)
             - nu_r * ellipkinc(np.asin(np.clip(r_31 / r_41, 0, 1) ** 0.5), k)
-            + nu_r * _ellippiinc((r_31 / r_41) ** 0.5, np.asin(np.clip(r_32 / r_42, 0, 1) ** 0.5), k)
+            + nu_r * _ellippiinc(np.asin(np.clip(r_31 / r_41, 0, 1) ** 0.5), r_32 / r_42, k)
             - nu_r * 1 / (2 * ((1 - r_32 / r_42) * (r_41 / r_31 - 1)) ** 0.5) * np.log(4 / (r_31 + r_42))
         )
     def Pi_plusminus(r_plusminus):
@@ -622,10 +622,9 @@ def _case_3_radial(a, eta, ell, initial_r, nu_r, distant=False):
         return 1 / (1 - alpha_sq) * (_ellippiinc(phi, alpha_sq / (alpha_sq - 1), j) - alpha * f(alpha, phi, j))
     def Red_R_1(alpha, phi, j):
         alpha_sq = alpha ** 2
-        acos_phi = np.acos(phi)
         return 1 / (1 - alpha_sq) * (
-            ellipkinc(acos_phi, j)
-            - _ellippiinc(j, j * (alpha_sq - 1) / alpha_sq, j)
+            ellipkinc(phi, j)
+            - _ellippiinc(phi, j * (alpha_sq - 1) / alpha_sq, j)
             - alpha * (A * B) ** 0.5 / r_21 * np.log(4 * r_21 / (B**2 - A**2))
             + alpha * (A * B) ** 0.5 / r_21 * np.log((B**2 - A**2) / (4 * r_21) + A * B * r_21 / (B**2 - A**2))
         )
@@ -640,10 +639,9 @@ def _case_3_radial(a, eta, ell, initial_r, nu_r, distant=False):
         ) + 1 / (j + (1 - j) * alpha_sq) * (2*j - alpha_sq/(alpha_sq - 1)) * R_1(alpha, phi, j)
     def Red_R_2(alpha, phi, j):
         alpha_sq = alpha ** 2
-        acos_phi = np.acos(phi)
         return 1 / (alpha_sq - 1) * (
-            ellipkinc(acos_phi, j)
-            - alpha_sq / (j + (1 - j) * alpha_sq) * ellipeinc(acos_phi, j)
+            ellipkinc(phi, j)
+            - alpha_sq / (j + (1 - j) * alpha_sq) * ellipeinc(phi, j)
         )
     x_i = np.clip(
         (
@@ -687,7 +685,7 @@ def _case_3_radial(a, eta, ell, initial_r, nu_r, distant=False):
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
             (
-                (B * r_2 - A * r_1) + (B * r_2 + A * r_1) * cn
+                (B * r_2 - A * r_1) + (B * r_2 + A * r_1) * cn 
             ) / (
                 (B - A) + (B + A) * cn
             )
@@ -908,7 +906,10 @@ def _r(a, eta, ell, initial_r, nu_r, distant=False):
         if distant: out += 2 * np.log(2)
         return out
     
-    return r, I_phi, I_t, lambda_x
+    return lambda lambda_: np.where(np.isclose(lambda_, 0),
+        initial_r,
+        r(lambda_)
+    ), I_phi, I_t, lambda_x
 
 def trajectory(a, eta, ell, initial_pos, nu_theta, nu_r, distant=False):
     r"""Computes the trajectory of a photon in Kerr spacetime.
@@ -952,8 +953,11 @@ def trajectory(a, eta, ell, initial_pos, nu_theta, nu_r, distant=False):
     def t(lambda_):
         return np.where(np.logical_or(lambda_ > lambda_x, lambda_ < 0),
             np.nan,
-            initial_pos[0] + a ** 2 * G_t(lambda_) + I_t(lambda_) if not distant else
-            a ** 2 * G_t(lambda_) + I_t(lambda_) + r(lambda_) + 2 * np.log(r(lambda_) / 2)
+            np.where(np.isclose(lambda_, 0),
+                initial_pos[0],
+                initial_pos[0] + a ** 2 * G_t(lambda_) + I_t(lambda_) if not distant else
+                a ** 2 * G_t(lambda_) + I_t(lambda_) + r(lambda_) + 2 * np.log(r(lambda_) / 2)
+            )
         )
     
     return t, r, theta, phi, lambda_x
