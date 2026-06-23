@@ -43,13 +43,14 @@ class KerrImage:
         whether the image has been computed or not
     """
     
-    def __init__(self, a, theta, size, max_bardeen, shell_radius=50, M = None):
+    def __init__(self, a, theta, size, max_bardeen, shell_radius=50, M=None, units="natural"):
         self.a = a
         self.theta = theta
         self.size = size
         self.max_bardeen = max_bardeen
         self.shell_intersection_coordinates = np.empty((size[1], size[0], 2)) # (\theta, \phi) for each pixels
         self.M = M
+        self.units = units
         self.shell_radius = shell_radius
         self.computed = False
 
@@ -66,7 +67,7 @@ class KerrImage:
                     orbit = DistantLightOrbit(self.a, self.theta, 0, x / x_lim * self.max_bardeen, -y / y_lim * self.max_bardeen * y_lim / x_lim, self.shell_radius, self.M)
                     if not orbit.escapes: continue
 
-                    orbit.trajectory()
+                    orbit.trajectory(distance_units=self.units)
 
                     theta, phi = orbit.shell_intersection_coordinates[1:]
                     if np.isfinite(theta) and np.isfinite(phi):
