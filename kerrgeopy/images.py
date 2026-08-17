@@ -124,7 +124,7 @@ class KerrImage:
             pixels[mask_finite, 1] = (v * 255).astype(np.uint8)
         else:
             w, h = bg.size
-            bg_pixels = np.array(bg)
+            bg_pixels = np.array(bg.convert("RGB"))
 
             x = (u * (w - 1)).astype(int)
             y = (v * (h - 1)).astype(int)
