@@ -317,7 +317,7 @@ $$
 
 Construct a `LightOrbit` using the initial position and the initial momentum.
 ```python
-orbit = kg.LightOrbit(0.9, (0, 5, pi/3, 0), (1.678541324262247, -1, 0, 0.1))
+orbit = kg.LightOrbit(0.9, (0, 10, pi/3, 0), (1.3, -1.0002785057472545, 0.007, 0.04))
 ```
 The `LightOrbit` class has `lambda_x` attribute, specifying the Mino time of escape or capture. This gets updated after calling `trajectory()`
 ```python
@@ -328,7 +328,7 @@ orbit.lambda_x
 
 As with timelike orbits, the `plot()` method can be used to plot the orbit
 ```python
-fig, ax = orbit.plot(0, 0.57, axes_limits=(-10, 10, -10, 10, -10, 10))
+fig, ax = orbit.plot(0, 2.27, axes_limits=(-10, 10, -10, 10, -10, 10))
 ```
 ![png](README_files/LightOrbitPlot.png)
 
@@ -337,7 +337,7 @@ Using the `trajectory()` method, we can compute the trajectory of the light ray 
 import numpy as np
 import matplotlib.pyplot as plt
 
-time = np.linspace(0,0.57,200)
+time = np.linspace(0,2.27,200)
 
 plt.figure(figsize=(20,4))
 
@@ -377,9 +377,9 @@ $$
 a = \frac{J}{M^2}, \quad\quad \alpha = -\frac{\ell}{\sin \theta_0}, \quad\quad \beta = \text{sgn } p^\theta_0 \sqrt{\eta + a^2 \cos^2 \theta_0 - \ell^2 \cot^2 \theta_0}
 $$
 
-Construct a `DistantLightOrbit` using the initial position and the initial momentum.
+Construct a `DistantLightOrbit` using the initial angular coordinates $(\theta, \phi)$ and Bardeen's coordinates.
 ```python
-orbit = kg.DistantLightOrbit(0.9, pi/4, 0, 4.3774364, 4)
+orbit = kg.DistantLightOrbit(0.9, pi/3, 0, -4, 4.5)
 ```
 The class extends from `LightOrbit`, so the same methods are accessible.
 
