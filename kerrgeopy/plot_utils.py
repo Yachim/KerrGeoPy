@@ -131,7 +131,6 @@ def plot(
 
     # replace z values for points behind the black hole with nan so they are not plotted
     # https://matplotlib.org/stable/gallery/lines_bars_and_markers/masked_demo.html
-    print(azimuth)
     visible = is_visible(a, trajectory, elevation, azimuth)
     trajectory_z_visible = trajectory_z.copy()
     trajectory_z_visible[~visible] = np.nan

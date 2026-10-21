@@ -4,6 +4,7 @@ from .light import DistantLightOrbit
 from PIL import Image
 from tqdm import tqdm
 import subprocess
+import json
 
 class KerrImage:
     """Class used to compute the image of a Kerr black hole as seen by a distant observer, using the escape coordinates of light rays.
@@ -22,6 +23,8 @@ class KerrImage:
         mass of the black hole. If not specified, units are in terms of M
     shell_radius : double, optional
         radius of the shell used for generating image of distorted background, defaults to 50 in c = G = M = 1 units
+    units : str, optional
+        units to use (options are "natural", "mks" and "cgs"), defaults to "natural"
     
     Attributes
     ----------
@@ -41,6 +44,8 @@ class KerrImage:
         array of shape (height, width, 2) containing the shell intersection coordinates coordinates (theta, phi) for each pixel in the image; if a pixel does not escape, the coordinates are (nan, nan)
     computed : bool
         whether the image has been computed or not
+    units : str, optional
+        units to use (options are "natural", "mks" and "cgs"), defaults to "natural"
     """
     
     def __init__(self, a, theta, size, max_bardeen, shell_radius=50, M=None, units="natural"):
@@ -53,6 +58,57 @@ class KerrImage:
         self.units = units
         self.shell_radius = shell_radius
         self.computed = False
+
+    def save(self, fp):
+        r"""
+        Serializes the data into the specified file.
+
+        Parameters
+        ----------
+        fp : SupportsWrite[str]
+            a file like (`.write()` supported with str input) object
+        """
+        json.dump({
+            "a": self.a,
+            "theta": self.theta,
+            "size": self.size,
+            "max_bardeen": self.max_bardeen,
+            "M": self.M,
+            "shell_radius": self.shell_radius,
+            "shell_intersection_coordinates": self.shell_intersection_coordinates.tolist(),
+            "computed": self.computed,
+            "units": self.units,
+        }, fp)
+    
+    @staticmethod
+    def from_file(fp):
+        r"""
+        Creates the class from the specified file.
+
+        Parameters
+        ----------
+        fp : SupportsRead[Str | Bytes]
+            a file like (`.read()` supported) text file or binary file
+        
+        Returns
+        -------
+        KerrImage
+            the image object
+        """
+        data = json.load(fp)
+        obj = KerrImage(
+            data["a"],
+            data["theta"],
+            data["size"],
+            data["max_bardeen"],
+            data["shell_radius"],
+            data["M"],
+            data["units"],
+        )
+        obj.computed = data["computed"]
+        obj.shell_intersection_coordinates = np.array(data["shell_intersection_coordinates"])
+
+        return obj
 
     def compute(self):
         """Computes uvs for each pixel in the image."""
@@ -74,7 +130,7 @@ class KerrImage:
                         self.shell_intersection_coordinates[y + y_lim, x + x_lim] = (theta, phi % (2 * np.pi))
         self.computed = True
 
-    def image(self, uv_offset=(0, 0), bg=None):
+    def image(self, uv_offset=(0, 0), bg=None, size=None):
         r"""Generates the image from the computed uvs.
 
         Parameters
@@ -85,6 +141,8 @@ class KerrImage:
             offset to apply to the uvs, defaults to (0, 0)
         bg : PIL.Image, optional
             background image to use for the pixels that escape. If None, the uvs will be used to determine the color of the pixels
+        size : tuple(int, int), optional
+            width and height of the image in pixels. If None, the initially provided size is used
         
         Returns
         -------
@@ -131,9 +189,13 @@ class KerrImage:
 
             pixels[mask_finite] = bg_pixels[y, x]
 
-        return Image.fromarray(pixels)
+        img = Image.fromarray(pixels)
+        if size is None:
+            return img
+        
+        return img.resize(size)
     
-    def orbit(self, output, length, fps=30, direction=np.array([1, 0]), initial_uv_offset=np.array([0, 0]), portion=1, bg=None):
+    def orbit(self, output, length, fps=30, direction=np.array([1, 0]), initial_uv_offset=np.array([0, 0]), portion=1, bg=None, size=None):
         r"""Animated the background by generating a sequence of images with the background rotated by a certain angle.
 
         Parameters
@@ -152,6 +214,8 @@ class KerrImage:
             portion of the full rotation to animate, defaults to 1 (full rotation)
         bg : PIL.Image, optional
             background image to use for the pixels that escape. If None, the uvs will be used to determine the color of the pixels
+        size : tuple(int, int), optional
+            width and height of the animation in pixels. If None, the initially provided size is used
         """
         if not self.computed:
             print("Computing image")
@@ -161,7 +225,9 @@ class KerrImage:
         direction = direction / np.linalg.norm(direction)
 
         n_frames = int(length * fps)
-        w, h = self.size
+        if size is None:
+            size = self.size
+        w, h = size
 
         cmd = [
             "ffmpeg",
@@ -186,7 +252,7 @@ class KerrImage:
             for i in range(n_frames):
                 pbar.update(1)
                 offset = initial_uv_offset + direction * (i / n_frames) * portion
-                img = self.image(offset, bg)
+                img = self.image(offset, bg, size)
                 img = img.convert("RGB")
                 frame = np.array(img, dtype=np.uint8)
                 proc.stdin.write(frame.tobytes())
