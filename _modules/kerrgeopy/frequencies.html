@@ -1,0 +1,1264 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kerrgeopy.frequencies &#8212; KerrGeoPy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=3d024909"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/kerrgeopy/frequencies';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">KerrGeoPy</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Getting%20Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Orbital%20Properties.html">Orbital Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Graphics.html">Graphics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://kerrgeopy.readthedocs.io/en/latest/_autosummary/kerrgeopy.html">Modules</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.stable.StableOrbit.html">StableOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.plunge.PlungingOrbit.html">PlungingOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.orbit.Orbit.html">Orbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.light.LightOrbit.html">LightOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.light.DistantLightOrbit.html">DistantLightOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.spacetime.KerrSpacetime.html">KerrSpacetime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.images.KerrImage.html">KerrImage</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.html">constants</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.angular_momentum.html">angular_momentum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.apex_from_constants.html">apex_from_constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.carter_constant.html">carter_constant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.constants_of_motion.html">constants_of_motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.energy.html">energy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.fast_separatrix.html">fast_separatrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.is_stable.html">is_stable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.plunging_radial_roots.html">plunging_radial_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.scale_constants.html">scale_constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.separatrix.html">separatrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.stable_polar_roots.html">stable_polar_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.stable_radial_roots.html">stable_radial_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.valid_params.html">valid_params</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.html">frequencies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.fundamental_frequencies.html">fundamental_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.gamma.html">gamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.mino_frequencies.html">mino_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.phi_frequency.html">phi_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.plunging_mino_frequencies.html">plunging_mino_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.r_frequency.html">r_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.theta_frequency.html">theta_frequency</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/kerrgeopy.initial_conditions.html">initial_conditions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.initial_conditions.constants_from_initial_conditions.html">constants_from_initial_conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.initial_conditions.is_stable.html">is_stable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.initial_conditions.plunging_orbit_initial_phases.html">plunging_orbit_initial_phases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.initial_conditions.stable_orbit_initial_phases.html">stable_orbit_initial_phases</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.html">units</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.angular_momentum_in_cgs.html">angular_momentum_in_cgs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.angular_momentum_in_mks.html">angular_momentum_in_mks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.carter_constant_in_cgs.html">carter_constant_in_cgs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.carter_constant_in_mks.html">carter_constant_in_mks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.distance_in_au.html">distance_in_au</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.distance_in_cm.html">distance_in_cm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.distance_in_km.html">distance_in_km</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.distance_in_lightyears.html">distance_in_lightyears</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.distance_in_meters.html">distance_in_meters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.energy_in_ergs.html">energy_in_ergs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.energy_in_joules.html">energy_in_joules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.frequency_in_Hz.html">frequency_in_Hz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.frequency_in_mHz.html">frequency_in_mHz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.mass_in_kg.html">mass_in_kg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.time2_in_seconds2.html">time2_in_seconds2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.time_in_days.html">time_in_days</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.time_in_seconds.html">time_in_seconds</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/kerrgeopy.plot_utils.html">plot_utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.plot_utils.animate.html">animate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.plot_utils.is_visible.html">is_visible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.plot_utils.plot.html">plot</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/BlackHolePerturbationToolkit/KerrGeoPy" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for kerrgeopy.frequencies</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Module containing functions for computing frequencies of motion for orbits in Kerr spacetime.</span>
+<span class="sd">Frequencies are computed using the method derived in `Fujita and Hikida &lt;https://doi.org/10.48550/arXiv.0906.1420&gt;`_</span>
+<span class="sd">"""</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">_standardize_params</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.special</span><span class="w"> </span><span class="kn">import</span> <span class="n">ellipk</span><span class="p">,</span> <span class="n">ellipe</span><span class="p">,</span> <span class="n">elliprj</span><span class="p">,</span> <span class="n">elliprf</span><span class="p">,</span> <span class="n">elliprd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">sin</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">arcsin</span><span class="p">,</span> <span class="n">floor</span><span class="p">,</span> <span class="n">where</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ellipeinc</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Incomplete elliptic integral of the second kind defined as </span>
+<span class="sd">    :math:`E(\phi,m) = \int_0^{\phi} \sqrt{1-m\sin^2\theta}d\theta`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    phi : double</span>
+<span class="sd">    m : double</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+    <span class="c1"># count the number of half periods</span>
+
+    <span class="n">num_cycles</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">phi</span> <span class="o">/</span> <span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># map phi to [0,pi/2]</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">arcsin</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)))</span>
+
+    <span class="c1"># formula from https://en.wikipedia.org/wiki/Carlson_symmetric_form</span>
+    <span class="n">integral</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">elliprf</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">m</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">m</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span>
+        <span class="n">phi</span>
+    <span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">elliprd</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">m</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span>
+        <span class="n">num_cycles</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">num_cycles</span> <span class="o">*</span> <span class="n">ellipe</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">+</span> <span class="n">integral</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">num_cycles</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">ellipe</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">-</span> <span class="n">integral</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># return scalar for scalar input</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="k">else</span> <span class="n">result</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ellippi</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Complete elliptic integral of the third kind defined as </span>
+<span class="sd">    :math:`\Pi(n,m) = \int_0^{\frac{\pi}{2}} \frac{d\theta}{(1-n\sin^2{\theta})\sqrt{1-m\sin^2{\theta}}}`</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n : double</span>
+<span class="sd">    m : double</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+    <span class="c1"># Note: sign of n is reversed from the definition in Fujita and Hikida</span>
+
+    <span class="c1"># formula from https://en.wikipedia.org/wiki/Carlson_symmetric_form</span>
+    <span class="k">return</span> <span class="n">elliprf</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">elliprj</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">m</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">n</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ellippiinc</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Incomplete elliptic integral of the third kind defined as </span>
+<span class="sd">    :math:`\Pi(\phi,n,m) = \int_0^{\phi} \frac{1}{1-n\sin^2\theta}\frac{1}{\sqrt{1-m\sin^2\theta}}d\theta`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    phi : double</span>
+<span class="sd">    n : double</span>
+<span class="sd">    m : double</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+    <span class="c1"># Note: sign of n is reversed from the definition in Fujita and Hikida</span>
+
+    <span class="c1"># count the number of half periods</span>
+    <span class="n">num_cycles</span> <span class="o">=</span> <span class="n">floor</span><span class="p">(</span><span class="n">phi</span> <span class="o">/</span> <span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># map phi to [0,pi/2]</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">arcsin</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)))</span>
+    <span class="c1"># formula from https://en.wikipedia.org/wiki/Carlson_symmetric_form</span>
+    <span class="n">integral</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">*</span> <span class="n">elliprf</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">m</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span>
+        <span class="n">phi</span>
+    <span class="p">)</span> <span class="o">**</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">elliprj</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">m</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">n</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">where</span><span class="p">(</span>
+        <span class="n">num_cycles</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">num_cycles</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">+</span> <span class="n">integral</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">num_cycles</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span> <span class="o">-</span> <span class="n">integral</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># return scalar for scalar input</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span> <span class="k">else</span> <span class="n">result</span>
+
+
+<div class="viewcode-block" id="r_frequency">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.frequencies.r_frequency.html#kerrgeopy.frequencies.r_frequency">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">r_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Computes the frequency of motion in r in Mino time</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole (must satisfy -1 &lt; a &lt; 1)</span>
+<span class="sd">    p : double</span>
+<span class="sd">        orbital semi-latus rectum</span>
+<span class="sd">    e : double</span>
+<span class="sd">        orbital eccentricity (must satisfy 0 &lt;= e &lt; 1)</span>
+<span class="sd">    x : double</span>
+<span class="sd">        cosine of the orbital inclination (must satisfy 0 &lt; x^2 &lt;= 1)</span>
+<span class="sd">    constants : tuple(double, double, double), optional</span>
+<span class="sd">        dimensionless constants of motion for the orbit can be passed in</span>
+<span class="sd">        to speed computation if they are already known</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">_standardize_params</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Extreme Kerr not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Polar orbits not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Marginally bound orbits not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_params</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"a^2, e and x^2 must be between 0 and 1"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_stable</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Not a stable orbit"</span><span class="p">)</span>
+
+    <span class="c1"># compute constants if not passed in</span>
+    <span class="k">if</span> <span class="n">constants</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="n">constants_of_motion</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">constants</span>
+
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">stable_radial_roots</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+    <span class="c1"># equation 13</span>
+    <span class="n">k_r</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)))</span>
+    <span class="c1"># equation 15</span>
+    <span class="k">return</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="theta_frequency">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.frequencies.theta_frequency.html#kerrgeopy.frequencies.theta_frequency">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">theta_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Computes the frequency of motion in theta in Mino time</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole (must satisfy -1 &lt; a &lt; 1)</span>
+<span class="sd">    p : double</span>
+<span class="sd">        orbital semi-latus rectum</span>
+<span class="sd">    e : double</span>
+<span class="sd">        orbital eccentricity (must satisfy 0 &lt;= e &lt; 1)</span>
+<span class="sd">    x : double</span>
+<span class="sd">        cosine of the orbital inclination (must satisfy 0 &lt; x^2 &lt;= 1)</span>
+<span class="sd">    constants : tuple(double, double, double), optional</span>
+<span class="sd">        dimensionless constants of motion for the orbit can be passed in</span>
+<span class="sd">        to speed computation if they are already known</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+
+    <span class="n">a</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">_standardize_params</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Extreme Kerr not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Polar orbits not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Marginally bound orbits not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_params</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"a^2, e and x^2 must be between 0 and 1"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_stable</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Not a stable orbit"</span><span class="p">)</span>
+
+    <span class="c1"># Schwarzschild case</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">p</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span> <span class="o">-</span> <span class="n">e</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sign</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># compute constants if not provided</span>
+    <span class="k">if</span> <span class="n">constants</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="n">constants_of_motion</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">constants</span>
+    <span class="n">z_minus</span><span class="p">,</span> <span class="n">z_plus</span> <span class="o">=</span> <span class="n">stable_polar_roots</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+
+    <span class="c1"># equation 13</span>
+    <span class="n">k_theta</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">z_minus</span> <span class="o">/</span> <span class="n">z_plus</span><span class="p">)</span>
+    <span class="c1"># simplified form of epsilon0*z_plus</span>
+    <span class="n">e0zp</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z_minus</span><span class="p">)</span> <span class="o">+</span> <span class="n">L</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z_minus</span><span class="p">))</span>
+
+    <span class="c1"># equation 15</span>
+    <span class="k">return</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">L</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">e0zp</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ellipk</span><span class="p">(</span><span class="n">k_theta</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="phi_frequency">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.frequencies.phi_frequency.html#kerrgeopy.frequencies.phi_frequency">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">phi_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upsilon_theta</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Computes the frequency of motion in phi in Mino time</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole (must satisfy -1 &lt; a &lt; 1)</span>
+<span class="sd">    p : double</span>
+<span class="sd">        orbital semi-latus rectum</span>
+<span class="sd">    e : double</span>
+<span class="sd">        orbital eccentricity (must satisfy 0 &lt;= e &lt; 1)</span>
+<span class="sd">    x : double</span>
+<span class="sd">        cosine of the orbital inclination (must satisfy 0 &lt; x^2 &lt;= 1)</span>
+<span class="sd">    constants : tuple(double, double, double), optional</span>
+<span class="sd">        dimensionless constants of motion for the orbit can be passed in</span>
+<span class="sd">        to speed computation if they are already known</span>
+<span class="sd">    upsilon_r : double, optional</span>
+<span class="sd">        Mino frequency of motion in r can be passed in to speed</span>
+<span class="sd">        computation if it is already known</span>
+<span class="sd">    upsilon_theta : double, optional</span>
+<span class="sd">        Mino frequency of motion in theta can be passed in to speed</span>
+<span class="sd">        computation if it is already known</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">_standardize_params</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Extreme Kerr not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Polar orbits not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Marginally bound orbits not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_params</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"a^2, e and x^2 must be between 0 and 1"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_stable</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Not a stable orbit"</span><span class="p">)</span>
+
+    <span class="c1"># Schwarzschild case</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sign</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span> <span class="o">-</span> <span class="n">e</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p</span><span class="p">)</span>
+
+    <span class="c1"># compute constants if they are not passed in</span>
+    <span class="k">if</span> <span class="n">constants</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="n">constants_of_motion</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">constants</span>
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">stable_radial_roots</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+    <span class="n">z_minus</span><span class="p">,</span> <span class="n">z_plus</span> <span class="o">=</span> <span class="n">stable_polar_roots</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+
+    <span class="c1"># compute frequencies if they are not passed in</span>
+    <span class="k">if</span> <span class="n">upsilon_r</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">upsilon_r</span> <span class="o">=</span> <span class="n">r_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">upsilon_theta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">upsilon_theta</span> <span class="o">=</span> <span class="n">theta_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+
+    <span class="c1"># simplified form of epsilon0*z_plus</span>
+    <span class="n">e0zp</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z_minus</span><span class="p">)</span> <span class="o">+</span> <span class="n">L</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z_minus</span><span class="p">))</span>
+
+    <span class="n">r_plus</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">r_minus</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">h_plus</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">))</span>
+    <span class="n">h_minus</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">))</span>
+
+    <span class="c1"># equation 13</span>
+    <span class="n">k_theta</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">z_minus</span> <span class="o">/</span> <span class="n">z_plus</span><span class="p">)</span>
+    <span class="n">k_r</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)))</span>
+
+    <span class="c1"># equation 21</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">upsilon_theta</span> <span class="o">/</span> <span class="p">(</span><span class="n">pi</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">e0zp</span><span class="p">))</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span>
+        <span class="n">z_minus</span><span class="p">,</span> <span class="n">k_theta</span><span class="o">**</span><span class="mi">2</span>
+    <span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">upsilon_r</span> <span class="o">/</span> <span class="p">(</span>
+        <span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">r_plus</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">))</span>
+    <span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">E</span> <span class="o">*</span> <span class="n">r_plus</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+        <span class="o">/</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_plus</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">E</span> <span class="o">*</span> <span class="n">r_minus</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+        <span class="o">/</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_minus</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="gamma">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.frequencies.gamma.html#kerrgeopy.frequencies.gamma">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">gamma</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upsilon_theta</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Computes the average rate at which observer time accumulates in Mino time</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole (must satisfy -1 &lt; a &lt; 1)</span>
+<span class="sd">    p : double</span>
+<span class="sd">        orbital semi-latus rectum</span>
+<span class="sd">    e : double</span>
+<span class="sd">        orbital eccentricity (must satisfy 0 &lt;= e &lt; 1)</span>
+<span class="sd">    x : double</span>
+<span class="sd">        cosine of the orbital inclination (must satisfy 0 &lt; x^2 &lt;= 1)</span>
+<span class="sd">    constants : tuple(double, double, double), optional</span>
+<span class="sd">        dimensionless constants of motion for the orbit can be passed in</span>
+<span class="sd">        to speed computation if they are already known</span>
+<span class="sd">    upsilon_r : double, optional</span>
+<span class="sd">        Mino frequency of motion in r can be passed in to speed</span>
+<span class="sd">        computation if it is already known</span>
+<span class="sd">    upsilon_theta : double, optional</span>
+<span class="sd">        Mino frequency of motion in theta can be passed in to speed</span>
+<span class="sd">        computation if it is already known</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">_standardize_params</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Extreme Kerr not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Polar orbits not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Marginally bound orbits not supported"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_params</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"a^2, e and x^2 must be between 0 and 1"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_stable</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Not a stable orbit"</span><span class="p">)</span>
+
+    <span class="c1"># marginally bound case</span>
+    <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">inf</span>
+
+    <span class="c1"># compute constants if they are not passed in</span>
+    <span class="k">if</span> <span class="n">constants</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="n">constants_of_motion</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">constants</span>
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">stable_radial_roots</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+    <span class="n">z_minus</span><span class="p">,</span> <span class="n">z_plus</span> <span class="o">=</span> <span class="n">stable_polar_roots</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+    <span class="n">epsilon0</span> <span class="o">=</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">L</span><span class="o">**</span><span class="mi">2</span>
+    <span class="c1"># simplified form of a**2*sqrt(z_plus/epsilon0)</span>
+    <span class="n">a2sqrt_zp_over_e0</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z_minus</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">else</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z_plus</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">epsilon0</span> <span class="o">*</span> <span class="n">z_plus</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># compute frequencies if they are not passed in</span>
+    <span class="k">if</span> <span class="n">upsilon_r</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">upsilon_r</span> <span class="o">=</span> <span class="n">r_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">upsilon_theta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">upsilon_theta</span> <span class="o">=</span> <span class="n">theta_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+
+    <span class="n">r_plus</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">r_minus</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">h_r</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span>
+    <span class="n">h_plus</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">))</span>
+    <span class="n">h_minus</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">))</span>
+
+    <span class="c1"># equation 13</span>
+    <span class="n">k_theta</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">z_minus</span> <span class="o">/</span> <span class="n">z_plus</span><span class="p">)</span>
+    <span class="n">k_r</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)))</span>
+
+    <span class="c1"># equation 21</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="mi">4</span> <span class="o">*</span> <span class="n">E</span>
+        <span class="o">+</span> <span class="mi">2</span>
+        <span class="o">*</span> <span class="n">a2sqrt_zp_over_e0</span>
+        <span class="o">*</span> <span class="n">E</span>
+        <span class="o">*</span> <span class="n">upsilon_theta</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">ellipk</span><span class="p">(</span><span class="n">k_theta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">ellipe</span><span class="p">(</span><span class="n">k_theta</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="o">/</span> <span class="p">(</span><span class="n">pi</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+        <span class="o">+</span> <span class="mi">2</span>
+        <span class="o">*</span> <span class="n">upsilon_r</span>
+        <span class="o">/</span> <span class="p">(</span><span class="n">pi</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)))</span>
+        <span class="o">*</span> <span class="p">(</span>
+            <span class="n">E</span>
+            <span class="o">/</span> <span class="mi">2</span>
+            <span class="o">*</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">r3</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">+</span> <span class="n">r3</span><span class="p">)</span> <span class="o">-</span> <span class="n">r1</span> <span class="o">*</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="o">+</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">+</span> <span class="n">r3</span> <span class="o">+</span> <span class="n">r4</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_r</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="o">+</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)</span> <span class="o">*</span> <span class="n">ellipe</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">*</span> <span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_r</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+            <span class="o">+</span> <span class="mi">2</span>
+            <span class="o">/</span> <span class="p">(</span><span class="n">r_plus</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span>
+            <span class="o">*</span> <span class="p">(</span>
+                <span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">E</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_plus</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">E</span><span class="p">)</span>
+                <span class="o">/</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_plus</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="o">-</span> <span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">E</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_minus</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">E</span><span class="p">)</span>
+                <span class="o">/</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_minus</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="mino_frequencies">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.frequencies.mino_frequencies.html#kerrgeopy.frequencies.mino_frequencies">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mino_frequencies</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Computes frequencies of orbital motion in Mino time</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole (must satisfy -1 &lt; a &lt; 1)</span>
+<span class="sd">    p : double</span>
+<span class="sd">        orbital semi-latus rectum</span>
+<span class="sd">    e : double</span>
+<span class="sd">        orbital eccentricity (must satisfy 0 &lt;= e &lt; 1)</span>
+<span class="sd">    x : double</span>
+<span class="sd">        cosine of the orbital inclination (must satisfy 0 &lt; x^2 &lt;= 1)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        tuple of the form :math:`(\Upsilon_r, \Upsilon_\theta,</span>
+<span class="sd">        \Upsilon_\phi, \Gamma)`</span>
+<span class="sd">    """</span>
+    <span class="n">constants</span> <span class="o">=</span> <span class="n">constants_of_motion</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">upsilon_r</span> <span class="o">=</span> <span class="n">r_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+    <span class="n">upsilon_theta</span> <span class="o">=</span> <span class="n">theta_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+    <span class="n">upsilon_phi</span> <span class="o">=</span> <span class="n">phi_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="n">upsilon_theta</span><span class="p">)</span>
+    <span class="n">Gamma</span> <span class="o">=</span> <span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="n">upsilon_theta</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">upsilon_theta</span><span class="p">),</span> <span class="n">upsilon_phi</span><span class="p">,</span> <span class="n">Gamma</span></div>
+
+
+
+<div class="viewcode-block" id="fundamental_frequencies">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.frequencies.fundamental_frequencies.html#kerrgeopy.frequencies.fundamental_frequencies">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fundamental_frequencies</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Computes frequencies of orbital motion in Boyer-Lindquist time</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole (must satisfy -1 &lt; a &lt; 1)</span>
+<span class="sd">    p : double</span>
+<span class="sd">        orbital semi-latus rectum</span>
+<span class="sd">    e : double</span>
+<span class="sd">        orbital eccentricity (must satisfy 0 &lt;= e &lt; 1)</span>
+<span class="sd">    x : double</span>
+<span class="sd">        cosine of the orbital inclination (must satisfy 0 &lt; x^2 &lt;= 1)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        tuple of the form :math:`(\Omega_r, \Omega_\theta, \Omega_\phi)`</span>
+<span class="sd">    """</span>
+    <span class="n">constants</span> <span class="o">=</span> <span class="n">constants_of_motion</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">upsilon_r</span> <span class="o">=</span> <span class="n">r_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+    <span class="n">upsilon_theta</span> <span class="o">=</span> <span class="n">theta_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+    <span class="n">upsilon_phi</span> <span class="o">=</span> <span class="n">phi_frequency</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="n">upsilon_theta</span><span class="p">)</span>
+    <span class="n">Gamma</span> <span class="o">=</span> <span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="n">upsilon_theta</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">upsilon_r</span> <span class="o">/</span> <span class="n">Gamma</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">upsilon_theta</span><span class="p">)</span> <span class="o">/</span> <span class="n">Gamma</span><span class="p">,</span> <span class="n">upsilon_phi</span> <span class="o">/</span> <span class="n">Gamma</span></div>
+
+
+
+<div class="viewcode-block" id="plunging_mino_frequencies">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.frequencies.plunging_mino_frequencies.html#kerrgeopy.frequencies.plunging_mino_frequencies">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plunging_mino_frequencies</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Computes the radial and polar mino frequencies for a plunging orbit.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin parameter</span>
+<span class="sd">    E : double</span>
+<span class="sd">        dimensionless energy</span>
+<span class="sd">    L : double</span>
+<span class="sd">        dimensionless angular momentum</span>
+<span class="sd">    Q : double</span>
+<span class="sd">        dimensionless Carter constant</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple(double,double)</span>
+<span class="sd">        radial and polar mino frequencies</span>
+<span class="sd">        :math:`(\Upsilon_r,\Upsilon_\theta)`</span>
+<span class="sd">    """</span>
+
+    <span class="n">radial_roots</span> <span class="o">=</span> <span class="n">plunging_radial_roots</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">radial_roots</span>
+    <span class="n">rho_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">r3</span><span class="p">)</span>
+    <span class="n">rho_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">r4</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">iscomplex</span><span class="p">(</span><span class="n">radial_roots</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span>
+        <span class="c1"># equation 42</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">r2</span> <span class="o">-</span> <span class="n">rho_r</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">rho_i</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">rho_r</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">rho_i</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">k_r</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(((</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="n">A</span> <span class="o">-</span> <span class="n">B</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span><span class="p">)))</span>
+
+        <span class="c1"># equation 52</span>
+        <span class="n">upsilon_r</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">A</span> <span class="o">*</span> <span class="n">B</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="c1"># equation 14</span>
+        <span class="n">z1</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span>
+            <span class="mi">1</span>
+            <span class="o">/</span> <span class="mi">2</span>
+            <span class="o">*</span> <span class="p">(</span>
+                <span class="mi">1</span>
+                <span class="o">+</span> <span class="p">(</span><span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Q</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span>
+                    <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Q</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span> <span class="o">**</span> <span class="mi">2</span>
+                    <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">Q</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">z2</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span>
+            <span class="n">a</span><span class="o">**</span><span class="mi">2</span>
+            <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="o">/</span> <span class="mi">2</span>
+            <span class="o">*</span> <span class="p">(</span>
+                <span class="mi">1</span>
+                <span class="o">+</span> <span class="p">(</span><span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Q</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span>
+                    <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Q</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)))</span> <span class="o">**</span> <span class="mi">2</span>
+                    <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">Q</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">k_theta</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">z1</span> <span class="o">/</span> <span class="n">z2</span>
+
+        <span class="c1"># equation 53</span>
+        <span class="n">upsilon_theta</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">z2</span> <span class="o">/</span> <span class="n">ellipk</span><span class="p">(</span><span class="n">k_theta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># polar polynomial written in terms of z = cos^2(theta)</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="n">Polynomial</span><span class="p">([</span><span class="n">Q</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="n">Q</span> <span class="o">+</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">L</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)])</span>
+        <span class="n">polar_roots</span> <span class="o">=</span> <span class="n">Z</span><span class="o">.</span><span class="n">roots</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">polar_roots</span> <span class="o">=</span> <span class="p">[</span><span class="n">polar_roots</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">polar_roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+        <span class="n">upsilon_r</span><span class="p">,</span> <span class="n">upsilon_theta</span><span class="p">,</span> <span class="n">upsilon_phi</span><span class="p">,</span> <span class="n">gamma</span> <span class="o">=</span> <span class="n">_mino_frequencies_from_constants</span><span class="p">(</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="n">upsilon_theta</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_r_frequency_from_constants</span><span class="p">(</span><span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Computes the frequency of motion in r in Mino time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    constants : tuple(double, double, double)</span>
+<span class="sd">        dimensionless constants of motion for the orbit in the form</span>
+<span class="sd">        :math:`(\mathcal{E},\mathcal{L},\mathcal{Q})`</span>
+<span class="sd">    radial_roots : tuple(double, double, double, double)</span>
+<span class="sd">        tuple containing the four roots of the radial equation</span>
+<span class="sd">        :math:`(r_1, r_2, r_3, r_4)`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">constants</span>
+
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">radial_roots</span>
+    <span class="c1"># equation 13</span>
+    <span class="n">k_r</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)))</span>
+    <span class="c1"># equation 15</span>
+    <span class="k">return</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_theta_frequency_from_constants</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Computes the frequency of motion in theta in Mino time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole</span>
+<span class="sd">    constants : tuple(double, double, double)</span>
+<span class="sd">        dimensionless constants of motion for the orbit in the form</span>
+<span class="sd">        :math:`(\mathcal{E},\mathcal{L},\mathcal{Q})`</span>
+<span class="sd">    radial_roots : tuple(double, double, double, double)</span>
+<span class="sd">        tuple containing the four roots of the radial polynomial</span>
+<span class="sd">        :math:`(r_1, r_2, r_3, r_4)`.</span>
+<span class="sd">    polar_roots : tuple(double, double)</span>
+<span class="sd">        tuple containing the roots of the polar equation :math:`(z_-,</span>
+<span class="sd">        z_+)`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">radial_roots</span>
+    <span class="n">z_minus</span><span class="p">,</span> <span class="n">z_plus</span> <span class="o">=</span> <span class="n">polar_roots</span>
+    <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">constants</span>
+
+    <span class="c1"># Schwarzschild case</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r1</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">/</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">p</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span> <span class="o">-</span> <span class="n">e</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sign</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># equation 13</span>
+    <span class="n">k_theta</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">z_minus</span> <span class="o">/</span> <span class="n">z_plus</span><span class="p">)</span>
+    <span class="c1"># simplified form of epsilon0*z_plus</span>
+    <span class="n">e0zp</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z_minus</span><span class="p">)</span> <span class="o">+</span> <span class="n">L</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z_minus</span><span class="p">))</span>
+
+    <span class="c1"># equation 15</span>
+    <span class="k">return</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">L</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">e0zp</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ellipk</span><span class="p">(</span><span class="n">k_theta</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_phi_frequency_from_constants</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upsilon_theta</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Computes the frequency of motion in phi in Mino time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole</span>
+<span class="sd">    constants : tuple(double, double, double)</span>
+<span class="sd">        dimensionless constants of motion for the orbit in the form</span>
+<span class="sd">        :math:`(\mathcal{E},\mathcal{L},\mathcal{Q})`</span>
+<span class="sd">    radial_roots : tuple(double, double, double, double)</span>
+<span class="sd">        tuple containing the four roots of the radial polynomial</span>
+<span class="sd">        :math:`(r_1, r_2, r_3, r_4)`.</span>
+<span class="sd">    polar_roots : tuple(double, double)</span>
+<span class="sd">        tuple containing the roots of the polar equation :math:`(z_-, z_+)`</span>
+<span class="sd">    upsilon_r : double, optional</span>
+<span class="sd">        Mino frequency of motion in r can be passed in to speed</span>
+<span class="sd">        computation if it is already known</span>
+<span class="sd">    upsilon_theta : double, optional</span>
+<span class="sd">        Mino frequency of motion in theta can be passed in to speed</span>
+<span class="sd">        computation if it is already known</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+
+    <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">constants</span>
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">radial_roots</span>
+    <span class="n">z_minus</span><span class="p">,</span> <span class="n">z_plus</span> <span class="o">=</span> <span class="n">polar_roots</span>
+
+    <span class="c1"># Schwarzschild case</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r1</span> <span class="o">*</span> <span class="n">r2</span> <span class="o">/</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sign</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">*</span> <span class="n">p</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span> <span class="o">-</span> <span class="n">e</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">p</span><span class="p">)</span>
+
+    <span class="c1"># compute frequencies if they are not passed in</span>
+    <span class="k">if</span> <span class="n">upsilon_r</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">upsilon_r</span> <span class="o">=</span> <span class="n">_r_frequency_from_constants</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">upsilon_theta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">upsilon_theta</span> <span class="o">=</span> <span class="n">_theta_frequency_from_constants</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">)</span>
+
+    <span class="c1"># simplified form of epsilon0*z_plus</span>
+    <span class="n">e0zp</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z_minus</span><span class="p">)</span> <span class="o">+</span> <span class="n">L</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z_minus</span><span class="p">))</span>
+
+    <span class="n">r_plus</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">r_minus</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">h_plus</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">))</span>
+    <span class="n">h_minus</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">))</span>
+
+    <span class="c1"># equation 13</span>
+    <span class="n">k_theta</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">z_minus</span> <span class="o">/</span> <span class="n">z_plus</span><span class="p">)</span>
+    <span class="n">k_r</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)))</span>
+
+    <span class="c1"># equation 21</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">upsilon_theta</span> <span class="o">/</span> <span class="p">(</span><span class="n">pi</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">e0zp</span><span class="p">))</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span>
+        <span class="n">z_minus</span><span class="p">,</span> <span class="n">k_theta</span><span class="o">**</span><span class="mi">2</span>
+    <span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">*</span> <span class="n">upsilon_r</span> <span class="o">/</span> <span class="p">(</span>
+        <span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">r_plus</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">))</span>
+    <span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+        <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">E</span> <span class="o">*</span> <span class="n">r_plus</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+        <span class="o">/</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_plus</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="o">-</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">E</span> <span class="o">*</span> <span class="n">r_minus</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+        <span class="o">/</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_minus</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_gamma_from_constants</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">upsilon_theta</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Computes the average rate at which observer time accumulates in Mino time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole</span>
+<span class="sd">    constants : tuple(double, double, double)</span>
+<span class="sd">        dimensionless constants of motion for the orbit in the form</span>
+<span class="sd">        :math:`(\mathcal{E},\mathcal{L},\mathcal{Q})`</span>
+<span class="sd">    radial_roots : tuple(double, double, double, double)</span>
+<span class="sd">        tuple containing the four roots of the radial polynomial</span>
+<span class="sd">        :math:`(r_1, r_2, r_3, r_4)`.</span>
+<span class="sd">    polar_roots : tuple(double, double)</span>
+<span class="sd">        tuple containing the roots of the polar equation :math:`(z_-, z_+)`</span>
+<span class="sd">    upsilon_r : double, optional</span>
+<span class="sd">        Mino frequency of motion in r can be passed in to speed</span>
+<span class="sd">        computation if it is already known</span>
+<span class="sd">    upsilon_theta : double, optional</span>
+<span class="sd">        Mino frequency of motion in theta can be passed in to speed</span>
+<span class="sd">        computation if it is already known</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    double</span>
+<span class="sd">    """</span>
+    <span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">r4</span> <span class="o">=</span> <span class="n">radial_roots</span>
+    <span class="n">z_minus</span><span class="p">,</span> <span class="n">z_plus</span> <span class="o">=</span> <span class="n">polar_roots</span>
+
+    <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span><span class="p">)</span>
+    <span class="c1"># marginally bound case</span>
+    <span class="k">if</span> <span class="n">e</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">inf</span>
+
+    <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">constants</span>
+
+    <span class="n">epsilon0</span> <span class="o">=</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">L</span><span class="o">**</span><span class="mi">2</span>
+    <span class="c1"># simplified form of a**2*sqrt(z_plus/epsilon0)</span>
+    <span class="n">a2sqrt_zp_over_e0</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">L</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">z_minus</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="k">else</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z_plus</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">epsilon0</span> <span class="o">*</span> <span class="n">z_plus</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># compute frequencies if they are not passed in</span>
+    <span class="k">if</span> <span class="n">upsilon_r</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">upsilon_r</span> <span class="o">=</span> <span class="n">_r_frequency_from_constants</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">upsilon_theta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">upsilon_theta</span> <span class="o">=</span> <span class="n">_theta_frequency_from_constants</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">)</span>
+
+    <span class="n">r_plus</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">r_minus</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">h_r</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span>
+    <span class="n">h_plus</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">))</span>
+    <span class="n">h_minus</span> <span class="o">=</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">))</span>
+
+    <span class="c1"># equation 13</span>
+    <span class="n">k_theta</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">z_minus</span> <span class="o">/</span> <span class="n">z_plus</span><span class="p">)</span>
+    <span class="n">k_r</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)))</span>
+
+    <span class="c1"># equation 21</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="mi">4</span> <span class="o">*</span> <span class="n">E</span>
+        <span class="o">+</span> <span class="mi">2</span>
+        <span class="o">*</span> <span class="n">a2sqrt_zp_over_e0</span>
+        <span class="o">*</span> <span class="n">E</span>
+        <span class="o">*</span> <span class="n">upsilon_theta</span>
+        <span class="o">*</span> <span class="p">(</span><span class="n">ellipk</span><span class="p">(</span><span class="n">k_theta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">ellipe</span><span class="p">(</span><span class="n">k_theta</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="o">/</span> <span class="p">(</span><span class="n">pi</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span>
+        <span class="o">+</span> <span class="mi">2</span>
+        <span class="o">*</span> <span class="n">upsilon_r</span>
+        <span class="o">/</span> <span class="p">(</span><span class="n">pi</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">E</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)))</span>
+        <span class="o">*</span> <span class="p">(</span>
+            <span class="n">E</span>
+            <span class="o">/</span> <span class="mi">2</span>
+            <span class="o">*</span> <span class="p">(</span>
+                <span class="p">(</span><span class="n">r3</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">+</span> <span class="n">r3</span><span class="p">)</span> <span class="o">-</span> <span class="n">r1</span> <span class="o">*</span> <span class="n">r2</span><span class="p">)</span> <span class="o">*</span> <span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="o">+</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">+</span> <span class="n">r3</span> <span class="o">+</span> <span class="n">r4</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_r</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                <span class="o">+</span> <span class="p">(</span><span class="n">r1</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r4</span><span class="p">)</span> <span class="o">*</span> <span class="n">ellipe</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">E</span> <span class="o">*</span> <span class="p">(</span><span class="n">r3</span> <span class="o">*</span> <span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_r</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+            <span class="o">+</span> <span class="mi">2</span>
+            <span class="o">/</span> <span class="p">(</span><span class="n">r_plus</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span>
+            <span class="o">*</span> <span class="p">(</span>
+                <span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">E</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_plus</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">E</span><span class="p">)</span>
+                <span class="o">/</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_plus</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_plus</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+                <span class="o">-</span> <span class="p">((</span><span class="mi">4</span> <span class="o">*</span> <span class="n">E</span> <span class="o">-</span> <span class="n">a</span> <span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="o">*</span> <span class="n">r_minus</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">E</span><span class="p">)</span>
+                <span class="o">/</span> <span class="p">(</span><span class="n">r3</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span>
+                <span class="o">*</span> <span class="p">(</span><span class="n">ellipk</span><span class="p">(</span><span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r2</span> <span class="o">-</span> <span class="n">r_minus</span><span class="p">)</span> <span class="o">*</span> <span class="n">_ellippi</span><span class="p">(</span><span class="n">h_minus</span><span class="p">,</span> <span class="n">k_r</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mino_frequencies_from_constants</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Computes frequencies of orbital motion in Mino time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole (must satisfy -1 &lt; a &lt; 1)</span>
+<span class="sd">    constants : tuple(double, double, double)</span>
+<span class="sd">        dimensionless constants of motion for the orbit in the form</span>
+<span class="sd">        :math:`(\mathcal{E},\mathcal{L},\mathcal{Q})`</span>
+<span class="sd">    radial_roots : tuple(double, double, double, double)</span>
+<span class="sd">        tuple containing the four roots of the radial polynomial</span>
+<span class="sd">        :math:`(r_1, r_2, r_3, r_4)`.</span>
+<span class="sd">    polar_roots : tuple(double, double)</span>
+<span class="sd">        tuple containing the roots of the polar equation :math:`(z_-, z_+)`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple(double, double, double, double)</span>
+<span class="sd">        tuple of frequencies in the form :math:`(\Upsilon_r,</span>
+<span class="sd">        \Upsilon_\theta, \Upsilon_\phi, \Gamma)`</span>
+<span class="sd">    """</span>
+    <span class="n">upsilon_r</span> <span class="o">=</span> <span class="n">_r_frequency_from_constants</span><span class="p">(</span><span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">)</span>
+    <span class="n">upsilon_theta</span> <span class="o">=</span> <span class="n">_theta_frequency_from_constants</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">)</span>
+    <span class="n">upsilon_phi</span> <span class="o">=</span> <span class="n">_phi_frequency_from_constants</span><span class="p">(</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="n">upsilon_theta</span>
+    <span class="p">)</span>
+    <span class="n">Gamma</span> <span class="o">=</span> <span class="n">_gamma_from_constants</span><span class="p">(</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="n">upsilon_theta</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">upsilon_theta</span><span class="p">),</span> <span class="n">upsilon_phi</span><span class="p">,</span> <span class="n">Gamma</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_fundamental_frequencies_from_constants</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Computes frequencies of orbital motion in Boyer-Lindquist time.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        dimensionless spin of the black hole (must satisfy -1 &lt; a &lt; 1)</span>
+<span class="sd">    constants : tuple(double, double, double)</span>
+<span class="sd">        dimensionless constants of motion for the orbit in the form</span>
+<span class="sd">        :math:`(\mathcal{E},\mathcal{L},\mathcal{Q})`</span>
+<span class="sd">    radial_roots : tuple(double, double, double, double)</span>
+<span class="sd">        tuple containing the four roots of the radial polynomial</span>
+<span class="sd">        :math:`(r_1, r_2, r_3, r_4)`.</span>
+<span class="sd">    polar_roots : tuple(double, double)</span>
+<span class="sd">        tuple containing the roots of the polar equation :math:`(z_-, z_+)`</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple(double, double, double)</span>
+<span class="sd">        tuple of frequencies in the form :math:`(\Omega_r,</span>
+<span class="sd">        \Omega_\theta, \Omega_\phi)`</span>
+<span class="sd">    """</span>
+    <span class="n">upsilon_r</span> <span class="o">=</span> <span class="n">_r_frequency_from_constants</span><span class="p">(</span><span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">)</span>
+    <span class="n">upsilon_theta</span> <span class="o">=</span> <span class="n">_theta_frequency_from_constants</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">)</span>
+    <span class="n">upsilon_phi</span> <span class="o">=</span> <span class="n">_phi_frequency_from_constants</span><span class="p">(</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="n">upsilon_theta</span>
+    <span class="p">)</span>
+    <span class="n">Gamma</span> <span class="o">=</span> <span class="n">_gamma_from_constants</span><span class="p">(</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">,</span> <span class="n">upsilon_r</span><span class="p">,</span> <span class="n">upsilon_theta</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">upsilon_r</span> <span class="o">/</span> <span class="n">Gamma</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">upsilon_theta</span><span class="p">)</span> <span class="o">/</span> <span class="n">Gamma</span><span class="p">,</span> <span class="n">upsilon_phi</span> <span class="o">/</span> <span class="n">Gamma</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Seyong Park
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Seyong Park.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

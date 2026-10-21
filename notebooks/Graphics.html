@@ -1,0 +1,768 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Graphics &#8212; KerrGeoPy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=3d024909"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/Graphics';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="StableOrbit" href="../_autosummary/kerrgeopy.stable.StableOrbit.html" />
+    <link rel="prev" title="Trajectory" href="Trajectory.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">KerrGeoPy</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Getting%20Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Orbital%20Properties.html">Orbital Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Trajectory.html">Trajectory</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Graphics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://kerrgeopy.readthedocs.io/en/latest/_autosummary/kerrgeopy.html">Modules</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/kerrgeopy.stable.StableOrbit.html">StableOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/kerrgeopy.plunge.PlungingOrbit.html">PlungingOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/kerrgeopy.orbit.Orbit.html">Orbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/kerrgeopy.light.LightOrbit.html">LightOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/kerrgeopy.light.DistantLightOrbit.html">DistantLightOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/kerrgeopy.spacetime.KerrSpacetime.html">KerrSpacetime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_autosummary/kerrgeopy.images.KerrImage.html">KerrImage</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.html">constants</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.angular_momentum.html">angular_momentum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.apex_from_constants.html">apex_from_constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.carter_constant.html">carter_constant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.constants_of_motion.html">constants_of_motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.energy.html">energy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.fast_separatrix.html">fast_separatrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.is_stable.html">is_stable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.plunging_radial_roots.html">plunging_radial_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.scale_constants.html">scale_constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.separatrix.html">separatrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.stable_polar_roots.html">stable_polar_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.stable_radial_roots.html">stable_radial_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.constants.valid_params.html">valid_params</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../_autosummary/kerrgeopy.frequencies.html">frequencies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.frequencies.fundamental_frequencies.html">fundamental_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.frequencies.gamma.html">gamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.frequencies.mino_frequencies.html">mino_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.frequencies.phi_frequency.html">phi_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.frequencies.plunging_mino_frequencies.html">plunging_mino_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.frequencies.r_frequency.html">r_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.frequencies.theta_frequency.html">theta_frequency</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../_autosummary/kerrgeopy.initial_conditions.html">initial_conditions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.initial_conditions.constants_from_initial_conditions.html">constants_from_initial_conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.initial_conditions.is_stable.html">is_stable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.initial_conditions.plunging_orbit_initial_phases.html">plunging_orbit_initial_phases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.initial_conditions.stable_orbit_initial_phases.html">stable_orbit_initial_phases</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../_autosummary/kerrgeopy.units.html">units</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.angular_momentum_in_cgs.html">angular_momentum_in_cgs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.angular_momentum_in_mks.html">angular_momentum_in_mks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.carter_constant_in_cgs.html">carter_constant_in_cgs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.carter_constant_in_mks.html">carter_constant_in_mks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.distance_in_au.html">distance_in_au</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.distance_in_cm.html">distance_in_cm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.distance_in_km.html">distance_in_km</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.distance_in_lightyears.html">distance_in_lightyears</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.distance_in_meters.html">distance_in_meters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.energy_in_ergs.html">energy_in_ergs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.energy_in_joules.html">energy_in_joules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.frequency_in_Hz.html">frequency_in_Hz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.frequency_in_mHz.html">frequency_in_mHz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.mass_in_kg.html">mass_in_kg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.time2_in_seconds2.html">time2_in_seconds2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.time_in_days.html">time_in_days</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.units.time_in_seconds.html">time_in_seconds</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../_autosummary/kerrgeopy.plot_utils.html">plot_utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.plot_utils.animate.html">animate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.plot_utils.is_visible.html">is_visible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../_autosummary/kerrgeopy.plot_utils.plot.html">plot</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/BlackHolePerturbationToolkit/KerrGeoPy" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notebooks/Graphics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Graphics</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#animations">Animations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shadow-of-the-black-hole">Shadow of the Black Hole</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="graphics">
+<h1>Graphics<a class="headerlink" href="#graphics" title="Link to this heading">#</a></h1>
+<section id="plots">
+<h2>Plots<a class="headerlink" href="#plots" title="Link to this heading">#</a></h2>
+<p>To plot an orbit, simply use the <a class="reference internal" href="../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.plot" title="kerrgeopy.orbit.Orbit.plot"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">plot()</span></code></span></a> method and pass in the starting and ending Mino time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">kerrgeopy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">kg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span>
+
+<span class="n">orbit</span> <span class="o">=</span> <span class="n">kg</span><span class="o">.</span><span class="n">StableOrbit</span><span class="p">(</span><span class="mf">0.998</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/fe11c5d45c81b98cf84caf22f03e886ea2c0d1ec375d46ead3b4969a5600a39a.png" src="../_images/fe11c5d45c81b98cf84caf22f03e886ea2c0d1ec375d46ead3b4969a5600a39a.png" />
+</div>
+</div>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">initial_phases</span></code> option to set the initial phases <span class="math notranslate nohighlight">\((q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})\)</span> of the trajectory. For example, set <span class="math notranslate nohighlight">\(q_{r_0} = \pi\)</span> to start the orbit from <span class="math notranslate nohighlight">\(r_{\text{max}}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="n">initial_phases</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">pi</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/3823bcfa308d0e8e090f7a678fa0ab07cc012761930aba6b2d236ad5cea7d26c.png" src="../_images/3823bcfa308d0e8e090f7a678fa0ab07cc012761930aba6b2d236ad5cea7d26c.png" />
+</div>
+</div>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">elevation</span></code> and <code class="docutils literal notranslate"><span class="pre">azimuth</span></code> options to set the viewing angles as defined by <a class="reference external" href="https://matplotlib.org/stable/api/toolkits/mplot3d/view_angles.html">matplotlib</a>. To plot the orbit with a decaying tail, use the <code class="docutils literal notranslate"><span class="pre">tau</span></code> option to set the time constant in units of Mino time for the exponential decay in the linewidth of the tail. Use <code class="docutils literal notranslate"><span class="pre">lw</span></code> to adjust the initial linewidth.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">orbit</span> <span class="o">=</span> <span class="n">kg</span><span class="o">.</span><span class="n">StableOrbit</span><span class="p">(</span><span class="mf">0.999</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">20</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b475b5360e16ff567f9e99cc211da501916f63ef8fcbebfaee771ad5505e8077.png" src="../_images/b475b5360e16ff567f9e99cc211da501916f63ef8fcbebfaee771ad5505e8077.png" />
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">grid</span></code> and <code class="docutils literal notranslate"><span class="pre">axes</span></code> options can be used to turn off the visibility of the grid and axes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">orbit</span> <span class="o">=</span> <span class="n">kg</span><span class="o">.</span><span class="n">StableOrbit</span><span class="p">(</span><span class="mf">0.999</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.9</span><span class="p">,</span><span class="n">cos</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">azimuth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/7904780637bf483f3abdb5c3027cdc078bb9c95863edbfbc4cad49df0cdcf644.png" src="../_images/7904780637bf483f3abdb5c3027cdc078bb9c95863edbfbc4cad49df0cdcf644.png" />
+</div>
+</div>
+</section>
+<section id="animations">
+<h2>Animations<a class="headerlink" href="#animations" title="Link to this heading">#</a></h2>
+<p>To animate an orbit, use the <a class="reference internal" href="../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.animate" title="kerrgeopy.orbit.Orbit.animate"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">animate()</span></code></span></a> method by passing in a filename to save the animation to, along with a starting and ending Mino time. Note that this method requires ffmpeg to be installed and may take several minutes to run depending on the length of the animation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">orbit</span> <span class="o">=</span> <span class="n">kg</span><span class="o">.</span><span class="n">StableOrbit</span><span class="p">(</span><span class="mf">0.998</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">orbit</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="s2">"animation1.mp4"</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<video width="75%" controls autoplay loop>
+  <source src="https://cdn.jsdelivr.net/gh/BlackHolePerturbationToolkit/KerrGeoPy@main/docs/source/notebooks/animation1.mp4" type="video/mp4">
+  <p>
+<p><a class="reference download internal" download="" href="../_downloads/f073aec72d9326b380458508c6f93966/animation1.mp4"><code class="xref download myst docutils literal notranslate"><span class="pre">animation1.mp4</span></code></a></p>
+  </p>
+</video>
+<p>All of the options available when plotting are also available within the <a class="reference internal" href="../_autosummary/kerrgeopy.stable.StableOrbit.html#kerrgeopy.stable.StableOrbit.animate" title="kerrgeopy.stable.StableOrbit.animate"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">animate()</span></code></span></a> method. It is also possible to control the motion of the camera by passing in functions to set the azimuth and elevation angle in degrees as a function of Mino time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sin</span>
+
+<span class="n">orbit</span> <span class="o">=</span> <span class="n">kg</span><span class="o">.</span><span class="n">StableOrbit</span><span class="p">(</span><span class="mf">0.998</span><span class="p">,</span><span class="mf">2.1</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">20</span><span class="p">))</span>
+<span class="n">orbit</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="s2">"animation2.mp4"</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span>
+             <span class="n">elevation_pan</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">10</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="mi">20</span><span class="p">),</span>
+             <span class="n">azimuthal_pan</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">360</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<video width="75%" controls autoplay loop>
+  <source src="https://cdn.jsdelivr.net/gh/BlackHolePerturbationToolkit/KerrGeoPy@main/docs/source/notebooks/animation2.mp4" type="video/mp4">
+  <p>
+<p><a class="reference download internal" download="" href="../_downloads/97d0b4212f1e160a4e6b68b2313aeada/animation2.mp4"><code class="xref download myst docutils literal notranslate"><span class="pre">animation2.mp4</span></code></a></p>
+  </p>
+</video>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">background_color</span></code> option to change the background color of the animation. If necesssary, use <code class="docutils literal notranslate"><span class="pre">plt.style.use('dark_background')</span></code> or <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">plt.style.context('dark_background'):</span></code> to change the color of the grid and axes to white.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">orbit</span> <span class="o">=</span> <span class="n">kg</span><span class="o">.</span><span class="n">StableOrbit</span><span class="p">(</span><span class="mf">0.999</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">20</span><span class="p">))</span>
+<span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s1">'dark_background'</span><span class="p">):</span>
+    <span class="n">orbit</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="s2">"animation3.mp4"</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span> <span class="n">background_color</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">elevation</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<video width="75%" controls autoplay loop>
+  <source src="https://cdn.jsdelivr.net/gh/BlackHolePerturbationToolkit/KerrGeoPy@main/docs/source/notebooks/animation3.mp4" type="video/mp4">
+  <p>
+<p><a class="reference download internal" download="" href="../_downloads/3ee6be26a849b6eb69a4edcef89e4207/animation3.mp4"><code class="xref download myst docutils literal notranslate"><span class="pre">animation3.mp4</span></code></a></p>
+  </p>
+</video>
+<p>Similar to <code class="docutils literal notranslate"><span class="pre">elevation_pan</span></code> and <code class="docutils literal notranslate"><span class="pre">azimuthal_pan</span></code>, <code class="docutils literal notranslate"><span class="pre">roll</span></code> can be used to set the roll angle of the camera as a function of Mino time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">exp</span>
+
+<span class="n">orbit</span> <span class="o">=</span> <span class="n">kg</span><span class="o">.</span><span class="n">StableOrbit</span><span class="p">(</span><span class="mf">0.999</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">20</span><span class="p">))</span>
+<span class="n">orbit</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="s2">"animation4.mp4"</span><span class="p">,</span> 
+              <span class="n">elevation_pan</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">180</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span>
+              <span class="n">roll</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">180</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">exp</span><span class="p">(</span><span class="mi">10</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)),</span>
+            <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<video width="75%" controls autoplay loop>
+  <source src="https://cdn.jsdelivr.net/gh/BlackHolePerturbationToolkit/KerrGeoPy@main/docs/source/notebooks/animation4.mp4" type="video/mp4">
+  <p>
+<p><a class="reference download internal" download="" href="../_downloads/e0f5e701241a3dc4ff27d031b7edad24/animation4.mp4"><code class="xref download myst docutils literal notranslate"><span class="pre">animation4.mp4</span></code></a></p>
+  </p>
+</video>
+<p>The primary black hole is always placed in the center of the plot, so the axis limits are symmetric about the origin and are the same along all three axes. To zoom in and out of the orbit, use the <code class="docutils literal notranslate"><span class="pre">axis_limit</span></code> option to set the axis limit as a function of Mino time. Set <code class="docutils literal notranslate"><span class="pre">plot_components</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code> in order to plot each of the individual components of the trajectory alongside the orbit itself.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">orbit</span> <span class="o">=</span> <span class="n">kg</span><span class="o">.</span><span class="n">StableOrbit</span><span class="p">(</span><span class="mf">0.998</span><span class="p">,</span><span class="mf">2.1</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">20</span><span class="p">))</span>
+<span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="n">orbit</span><span class="o">.</span><span class="n">trajectory</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s1">'dark_background'</span><span class="p">):</span>
+    <span class="n">orbit</span><span class="o">.</span><span class="n">animate</span><span class="p">(</span><span class="s2">"animation5.mp4"</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span>
+                <span class="n">elevation</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+                <span class="n">azimuthal_pan</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">360</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="mi">20</span><span class="p">,</span>
+                <span class="n">axis_limit</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">r</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">plot_components</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">background_color</span><span class="o">=</span><span class="s2">"black"</span>
+                <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<video width="100%" controls autoplay loop>
+  <source src="https://cdn.jsdelivr.net/gh/BlackHolePerturbationToolkit/KerrGeoPy@main/docs/source/notebooks/animation5.mp4" type="video/mp4">
+  <p>
+<p><a class="reference download internal" download="" href="../_downloads/baf5281ad9e00236558ba740c0eb84e8/animation5.mp4"><code class="xref download myst docutils literal notranslate"><span class="pre">animation5.mp4</span></code></a></p>
+  </p>
+</video></section>
+<section id="shadow-of-the-black-hole">
+<h2>Shadow of the Black Hole<a class="headerlink" href="#shadow-of-the-black-hole" title="Link to this heading">#</a></h2>
+<p>Using the <a class="reference internal" href="../_autosummary/kerrgeopy.images.KerrImage.html#kerrgeopy.images.KerrImage" title="kerrgeopy.images.KerrImage"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">KerrImage</span></code></span></a> class, we can generate images of the black hole.</p>
+<p>First, create the image and compute the data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">kerrgeopy</span><span class="w"> </span><span class="kn">import</span> <span class="n">KerrImage</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">KerrImage</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">1920</span><span class="p">,</span> <span class="mi">1080</span><span class="p">),</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">img</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The image (including generated data) can be saved with the <a class="reference internal" href="../_autosummary/kerrgeopy.images.KerrImage.html#kerrgeopy.images.KerrImage.save" title="kerrgeopy.images.KerrImage.save"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">save()</span></code></span></a> method and loaded with the <a class="reference internal" href="../_autosummary/kerrgeopy.images.KerrImage.html#kerrgeopy.images.KerrImage.from_file" title="kerrgeopy.images.KerrImage.from_file"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">from_file()</span></code></span></a> method</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"img.json"</span><span class="p">,</span> <span class="s2">"w+"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"img.json"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">KerrImage</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using the <a class="reference internal" href="../_autosummary/kerrgeopy.images.KerrImage.html#kerrgeopy.images.KerrImage.image" title="kerrgeopy.images.KerrImage.image"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">image()</span></code></span></a> method, we can obtain the distorted image of the provided spheremap as a <a class="reference external" href="https://pillow.readthedocs.io/en/stable/reference/Image.html"><code class="docutils literal notranslate"><span class="pre">PIL.Image</span></code></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="c1"># image from https://sci.esa.int/s/ApPJaGA</span>
+<span class="n">bg</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"skymap.jpg"</span><span class="p">)</span>
+<span class="n">bg</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/43ad4006763cc29ef1ed1d5e3c5d513b246430b88db0529e5df98745d1dfd597.png" src="../_images/43ad4006763cc29ef1ed1d5e3c5d513b246430b88db0529e5df98745d1dfd597.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">bg</span><span class="o">=</span><span class="n">bg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b53cfc6cfa6cce193ce1865f5f9ff27c5d67a0a95c428624bd59191e134a78f2.png" src="../_images/b53cfc6cfa6cce193ce1865f5f9ff27c5d67a0a95c428624bd59191e134a78f2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image from https://commons.wikimedia.org/wiki/File:UV_checker_Map_byValle.jpg</span>
+<span class="n">uv</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"uv.jpg"</span><span class="p">)</span>
+<span class="n">uv</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/0592d5e338cd782cba84e27a850af93ff230bf6dad0a2d05de72a54806875d1d.png" src="../_images/0592d5e338cd782cba84e27a850af93ff230bf6dad0a2d05de72a54806875d1d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span><span class="o">.</span><span class="n">image</span><span class="p">(</span><span class="n">bg</span><span class="o">=</span><span class="n">uv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1b07be3c80e411172d8c6972b82c6f1966c7dc27c781505c39925f4470dd387c.png" src="../_images/1b07be3c80e411172d8c6972b82c6f1966c7dc27c781505c39925f4470dd387c.png" />
+</div>
+</div>
+<p>If we don’t pass any image for the background, we get a colormap</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span><span class="o">.</span><span class="n">image</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/611f6337e4fb8b3169c0db09d7006a6487770d14e5154ce95bcf5722cb716c11.png" src="../_images/611f6337e4fb8b3169c0db09d7006a6487770d14e5154ce95bcf5722cb716c11.png" />
+</div>
+</div>
+<p>The class also has the <a class="reference internal" href="../_autosummary/kerrgeopy.images.KerrImage.html#kerrgeopy.images.KerrImage.orbit" title="kerrgeopy.images.KerrImage.orbit"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">orbit()</span></code></span></a> method that can create an orbiting animation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">img</span><span class="o">.</span><span class="n">orbit</span><span class="p">(</span><span class="s2">"orbit.mp4"</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">bg</span><span class="o">=</span><span class="n">bg</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1280</span><span class="p">,</span> <span class="mi">720</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<video width="100%" controls autoplay loop>
+  <source src="../_downloads/e9649e55f2e4d1e30e20e8388ea6f889/orbit.mp4" type="video/mp4">
+  <p>
+<p><a class="reference download internal" download="" href="../_downloads/e9649e55f2e4d1e30e20e8388ea6f889/orbit.mp4"><code class="xref download myst docutils literal notranslate"><span class="pre">orbit.mp4</span></code></a></p>
+  </p>
+</video></section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Trajectory.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Trajectory</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../_autosummary/kerrgeopy.stable.StableOrbit.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">StableOrbit</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">Plots</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#animations">Animations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#shadow-of-the-black-hole">Shadow of the Black Hole</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Seyong Park
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Seyong Park.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

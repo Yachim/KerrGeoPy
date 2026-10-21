@@ -1,0 +1,900 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>StableOrbit &#8212; KerrGeoPy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=3d024909"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_autosummary/kerrgeopy.stable.StableOrbit';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PlungingOrbit" href="kerrgeopy.plunge.PlungingOrbit.html" />
+    <link rel="prev" title="Graphics" href="../notebooks/Graphics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">KerrGeoPy</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Getting%20Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Orbital%20Properties.html">Orbital Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/Graphics.html">Graphics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://kerrgeopy.readthedocs.io/en/latest/_autosummary/kerrgeopy.html">Modules</a></li>
+</ul>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">StableOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kerrgeopy.plunge.PlungingOrbit.html">PlungingOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kerrgeopy.orbit.Orbit.html">Orbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kerrgeopy.light.LightOrbit.html">LightOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kerrgeopy.light.DistantLightOrbit.html">DistantLightOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kerrgeopy.spacetime.KerrSpacetime.html">KerrSpacetime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kerrgeopy.images.KerrImage.html">KerrImage</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="kerrgeopy.constants.html">constants</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.angular_momentum.html">angular_momentum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.apex_from_constants.html">apex_from_constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.carter_constant.html">carter_constant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.constants_of_motion.html">constants_of_motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.energy.html">energy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.fast_separatrix.html">fast_separatrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.is_stable.html">is_stable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.plunging_radial_roots.html">plunging_radial_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.scale_constants.html">scale_constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.separatrix.html">separatrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.stable_polar_roots.html">stable_polar_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.stable_radial_roots.html">stable_radial_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.constants.valid_params.html">valid_params</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="kerrgeopy.frequencies.html">frequencies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.frequencies.fundamental_frequencies.html">fundamental_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.frequencies.gamma.html">gamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.frequencies.mino_frequencies.html">mino_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.frequencies.phi_frequency.html">phi_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.frequencies.plunging_mino_frequencies.html">plunging_mino_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.frequencies.r_frequency.html">r_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.frequencies.theta_frequency.html">theta_frequency</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="kerrgeopy.initial_conditions.html">initial_conditions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.initial_conditions.constants_from_initial_conditions.html">constants_from_initial_conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.initial_conditions.is_stable.html">is_stable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.initial_conditions.plunging_orbit_initial_phases.html">plunging_orbit_initial_phases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.initial_conditions.stable_orbit_initial_phases.html">stable_orbit_initial_phases</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="kerrgeopy.units.html">units</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.angular_momentum_in_cgs.html">angular_momentum_in_cgs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.angular_momentum_in_mks.html">angular_momentum_in_mks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.carter_constant_in_cgs.html">carter_constant_in_cgs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.carter_constant_in_mks.html">carter_constant_in_mks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.distance_in_au.html">distance_in_au</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.distance_in_cm.html">distance_in_cm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.distance_in_km.html">distance_in_km</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.distance_in_lightyears.html">distance_in_lightyears</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.distance_in_meters.html">distance_in_meters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.energy_in_ergs.html">energy_in_ergs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.energy_in_joules.html">energy_in_joules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.frequency_in_Hz.html">frequency_in_Hz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.frequency_in_mHz.html">frequency_in_mHz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.mass_in_kg.html">mass_in_kg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.time2_in_seconds2.html">time2_in_seconds2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.time_in_days.html">time_in_days</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.units.time_in_seconds.html">time_in_seconds</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="kerrgeopy.plot_utils.html">plot_utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.plot_utils.animate.html">animate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.plot_utils.is_visible.html">is_visible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kerrgeopy.plot_utils.plot.html">plot</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/BlackHolePerturbationToolkit/KerrGeoPy" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/_autosummary/kerrgeopy.stable.StableOrbit.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>StableOrbit</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit"><code class="docutils literal notranslate"><span class="pre">StableOrbit</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.__init__"><code class="docutils literal notranslate"><span class="pre">StableOrbit.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.animate"><code class="docutils literal notranslate"><span class="pre">StableOrbit.animate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.constants_of_motion"><code class="docutils literal notranslate"><span class="pre">StableOrbit.constants_of_motion()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.four_velocity"><code class="docutils literal notranslate"><span class="pre">StableOrbit.four_velocity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.from_constants"><code class="docutils literal notranslate"><span class="pre">StableOrbit.from_constants()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.fundamental_frequencies"><code class="docutils literal notranslate"><span class="pre">StableOrbit.fundamental_frequencies()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.is_visible"><code class="docutils literal notranslate"><span class="pre">StableOrbit.is_visible()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.mino_frequencies"><code class="docutils literal notranslate"><span class="pre">StableOrbit.mino_frequencies()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.numerical_four_velocity"><code class="docutils literal notranslate"><span class="pre">StableOrbit.numerical_four_velocity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.plot"><code class="docutils literal notranslate"><span class="pre">StableOrbit.plot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.trajectory"><code class="docutils literal notranslate"><span class="pre">StableOrbit.trajectory()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.trajectory_deltas"><code class="docutils literal notranslate"><span class="pre">StableOrbit.trajectory_deltas()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="stableorbit">
+<h1>StableOrbit<a class="headerlink" href="#stableorbit" title="Link to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">kerrgeopy.stable.</span></span><span class="sig-name descname"><span class="pre">StableOrbit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_phases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kerrgeopy/stable.html#StableOrbit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kerrgeopy.stable.StableOrbit" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit" title="kerrgeopy.orbit.Orbit"><code class="xref py py-class docutils literal notranslate"><span class="pre">Orbit</span></code></a></p>
+<p>Class representing a stable bound orbit in Kerr spacetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>double</em>) – dimensionless angular momentum</p></li>
+<li><p><strong>p</strong> (<em>double</em>) – semi-latus rectum</p></li>
+<li><p><strong>e</strong> (<em>double</em>) – orbital eccentricity</p></li>
+<li><p><strong>x</strong> (<em>double</em>) – cosine of the orbital inclination</p></li>
+<li><p><strong>initial_phases</strong> (<em>tuple</em><em>, </em><em>optional</em>) – tuple of initial phases
+<span class="math notranslate nohighlight">\((q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})\)</span>, defaults to (0,0,0,0)</p></li>
+<li><p><strong>M</strong> (<em>double</em>) – mass of the primary in solar masses, optional</p></li>
+<li><p><strong>mu</strong> (<em>double</em>) – mass of the smaller body in solar masses, optional</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>a</strong> – dimensionless angular momentum</p></li>
+<li><p><strong>p</strong> – semi-latus rectum</p></li>
+<li><p><strong>e</strong> – orbital eccentricity</p></li>
+<li><p><strong>x</strong> – cosine of the orbital inclination</p></li>
+<li><p><strong>M</strong> – mass of the primary in solar masses</p></li>
+<li><p><strong>mu</strong> – mass of the smaller body in solar masses</p></li>
+<li><p><strong>E</strong> – dimensionless energy</p></li>
+<li><p><strong>L</strong> – dimensionless angular momentum</p></li>
+<li><p><strong>Q</strong> – dimensionless carter constant</p></li>
+<li><p><strong>initial_phases</strong> – tuple of initial phases
+<span class="math notranslate nohighlight">\((q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})\)</span></p></li>
+<li><p><strong>stable</strong> – boolean indicating whether the orbit is stable</p></li>
+<li><p><strong>initial_position</strong> – tuple of initial position coordinates <span class="math notranslate nohighlight">\((t_0, r_0, \theta_0, \phi_0)\)</span></p></li>
+<li><p><strong>initial_velocity</strong> – tuple of initial four-velocity components <span class="math notranslate nohighlight">\((u^t_0, u^r_0, u^\theta_0, u^\phi_0)\)</span></p></li>
+<li><p><strong>upsilon_r</strong> – dimensionless radial orbital frequency in Mino time</p></li>
+<li><p><strong>upsilon_theta</strong> – dimensionless polar orbital frequency in Mino time</p></li>
+<li><p><strong>upsilon_phi</strong> – dimensionless azimuthal orbital frequency in Mino time</p></li>
+<li><p><strong>gamma</strong> – dimensionless time dilation factor</p></li>
+<li><p><strong>omega_r</strong> – dimensionless radial orbital frequency in Boyer-Lindquist time</p></li>
+<li><p><strong>omega_theta</strong> – dimensionless polar orbital frequency in Boyer-Lindquist time</p></li>
+<li><p><strong>omega_phi</strong> – dimensionless azimuthal orbital frequency in Boyer-Lindquist
+time</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">e</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_phases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kerrgeopy/stable.html#StableOrbit.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.__init__" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods</p>
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.__init__" title="kerrgeopy.stable.StableOrbit.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(a, p, e, x[, initial_phases, M, mu])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.animate" title="kerrgeopy.stable.StableOrbit.animate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">animate</span></code></a>(filename[, lambda0, lambda1, ...])</p></td>
+<td><p>Saves an animation of the orbit as an mp4 file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.constants_of_motion" title="kerrgeopy.stable.StableOrbit.constants_of_motion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">constants_of_motion</span></code></a>([units])</p></td>
+<td><p>Computes the energy, angular momentum, and carter constant for the orbit.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.four_velocity" title="kerrgeopy.stable.StableOrbit.four_velocity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">four_velocity</span></code></a>([initial_phases])</p></td>
+<td><p>Computes the four velocity of the orbit as a function of Mino time using the geodesic equation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.from_constants" title="kerrgeopy.stable.StableOrbit.from_constants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_constants</span></code></a>(a, E, L, Q[, initial_phases, ...])</p></td>
+<td><p>Alternative constructor method that takes the constants of motion as arguments.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.fundamental_frequencies" title="kerrgeopy.stable.StableOrbit.fundamental_frequencies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fundamental_frequencies</span></code></a>([units])</p></td>
+<td><p>Computes orbital frequencies in Boyer-Lindquist time.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.is_visible" title="kerrgeopy.stable.StableOrbit.is_visible"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_visible</span></code></a>(points, elevation, azimuth)</p></td>
+<td><p>Determines if a point is visible from a given viewing angle or obscured by the black hole.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.mino_frequencies" title="kerrgeopy.stable.StableOrbit.mino_frequencies"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mino_frequencies</span></code></a>([units])</p></td>
+<td><p>Computes orbital frequencies in Mino time.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.numerical_four_velocity" title="kerrgeopy.stable.StableOrbit.numerical_four_velocity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numerical_four_velocity</span></code></a>([dx, initial_phases])</p></td>
+<td><p>Computes the four velocity of the orbit as a function of Mino time using numerical differentiation.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.plot" title="kerrgeopy.stable.StableOrbit.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>([lambda0, lambda1, elevation, azimuth, ...])</p></td>
+<td><p>Creates a plot of the orbit</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.trajectory" title="kerrgeopy.stable.StableOrbit.trajectory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trajectory</span></code></a>([initial_phases, distance_units, ...])</p></td>
+<td><p>Computes the time, radial, polar, and azimuthal coordinates of the orbit as a function of mino time.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kerrgeopy.stable.StableOrbit.trajectory_deltas" title="kerrgeopy.stable.StableOrbit.trajectory_deltas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trajectory_deltas</span></code></a>([initial_phases])</p></td>
+<td><p>Computes the trajectory deltas <span class="math notranslate nohighlight">\(t_r(q_r)\)</span>, <span class="math notranslate nohighlight">\(t_\theta(q_\theta)\)</span>, <span class="math notranslate nohighlight">\(\phi_r(q_r)\)</span> and <span class="math notranslate nohighlight">\(\phi_\theta(q_\theta)\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.animate">
+<span class="sig-name descname"><span class="pre">animate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elevation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">azimuth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_phases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">azimuthal_pan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elevation_pan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roll</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_components</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.animate" title="Link to this definition">#</a></dt>
+<dd><p>Saves an animation of the orbit as an mp4 file.
+Note that this function requires ffmpeg to be installed and may take several
+minutes to run depending on the length of the animation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – filename to save the animation to</p></li>
+<li><p><strong>lambda0</strong> (<em>double</em><em>, </em><em>optional</em>) – starting mino time, defaults to 0</p></li>
+<li><p><strong>lambda1</strong> (<em>double</em><em>, </em><em>optional</em>) – ending mino time, defaults to 10</p></li>
+<li><p><strong>elevation</strong> (<em>double</em><em>, </em><em>optional</em>) – camera elevation angle in degrees, defaults to 30</p></li>
+<li><p><strong>azimuth</strong> (<em>double</em><em>, </em><em>optional</em>) – camera azimuthal angle in degrees, defaults to -60</p></li>
+<li><p><strong>initial_phases</strong> (<em>tuple</em><em>, </em><em>optional</em>) – tuple of initial phases
+<span class="math notranslate nohighlight">\((q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})\)</span></p></li>
+<li><p><strong>grid</strong> (<em>bool</em><em>, </em><em>optional</em>) – sets visibility of the grid, defaults to True</p></li>
+<li><p><strong>axes</strong> (<em>bool</em><em>, </em><em>optional</em>) – sets visibility of axes, defaults to True</p></li>
+<li><p><strong>color</strong> (<em>str</em><em>, </em><em>optional</em>) – color of the orbital tail, defaults to “red”</p></li>
+<li><p><strong>tau</strong> (<em>double</em><em>, </em><em>optional</em>) – time constant for the exponential decay in the opacity of
+the tail, defaults to 2</p></li>
+<li><p><strong>tail_length</strong> (<em>double</em><em>, </em><em>optional</em>) – length of the tail in units of mino time, defaults to 5</p></li>
+<li><p><strong>lw</strong> (<em>double</em><em>, </em><em>optional</em>) – linewidth of the orbital trajectory, defaults to 2</p></li>
+<li><p><strong>azimuthal_pan</strong> (<em>function</em><em>, </em><em>optional</em>) – function defining the azimuthal angle of the camera in
+degrees as a function of mino time, defaults to None</p></li>
+<li><p><strong>elevation_pan</strong> (<em>function</em><em>, </em><em>optional</em>) – function defining the elevation angle of the camera in
+degrees as a function of mino time, defaults to None</p></li>
+<li><p><strong>roll</strong> (<em>function</em><em>, </em><em>optional</em>) – function defining the roll angle of the camera in degrees as
+a function of mino time, defaults to None</p></li>
+<li><p><strong>axis_limit</strong> (<em>function</em><em>, </em><em>optional</em>) – sets the axis limit as a function of mino time, defaults to
+None</p></li>
+<li><p><strong>speed</strong> (<em>double</em><em>, </em><em>optional</em>) – playback speed of the animation in units of mino time per
+second (must be a multiple of 1/8), defaults to 1</p></li>
+<li><p><strong>background_color</strong> (<em>str</em><em>, </em><em>optional</em>) – color of the background, defaults to None</p></li>
+<li><p><strong>plot_components</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true, plots the components of the trajectory in addition
+to the trajectory itself, defaults to False</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.constants_of_motion">
+<span class="sig-name descname"><span class="pre">constants_of_motion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'natural'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.constants_of_motion" title="Link to this definition">#</a></dt>
+<dd><p>Computes the energy, angular momentum, and carter constant for the orbit.
+Computes dimensionless constants in geometried units by default.
+M and mu must be defined in order to convert to physical units.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>units</strong> (<em>str</em><em>, </em><em>optional</em>) – units to return the constants of motion in (options are
+“natural”, “mks” and “cgs”), defaults to “natural”</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple of the form (E, L, Q)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple(double, double, double)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.four_velocity">
+<span class="sig-name descname"><span class="pre">four_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_phases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.four_velocity" title="Link to this definition">#</a></dt>
+<dd><p>Computes the four velocity of the orbit as a function of Mino time using
+the geodesic equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>initial_phases</strong> (<em>tuple</em><em>, </em><em>optional</em>) – tuple of initial phases
+<span class="math notranslate nohighlight">\((q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})\)</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>components of the four velocity (i.e.
+<span class="math notranslate nohighlight">\(u^t,u^r,u^\theta,u^\phi\)</span>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple(function, function, function, function)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.from_constants">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_constants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_phases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kerrgeopy/stable.html#StableOrbit.from_constants"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.from_constants" title="Link to this definition">#</a></dt>
+<dd><p>Alternative constructor method that takes the constants of motion as arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>double</em>) – spin parameter</p></li>
+<li><p><strong>E</strong> (<em>double</em>) – dimensionless energy</p></li>
+<li><p><strong>L</strong> (<em>double</em>) – dimensionless angular momentum</p></li>
+<li><p><strong>Q</strong> (<em>double</em>) – dimensionless Carter constant</p></li>
+<li><p><strong>M</strong> (<em>double</em><em>, </em><em>optional</em>) – mass of the primary in solar masses</p></li>
+<li><p><strong>mu</strong> (<em>double</em><em>, </em><em>optional</em>) – mass of the smaller body in solar masses</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.fundamental_frequencies">
+<span class="sig-name descname"><span class="pre">fundamental_frequencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'natural'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kerrgeopy/stable.html#StableOrbit.fundamental_frequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.fundamental_frequencies" title="Link to this definition">#</a></dt>
+<dd><p>Computes orbital frequencies in Boyer-Lindquist time. Returns dimensionless
+frequencies in geometrized units by default. M and mu must be defined in order
+to convert to physical units.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>units</strong> (<em>str</em><em>, </em><em>optional</em>) – units to return the frequencies in (options are “natural”,
+“mks”, “cgs” and “mHz”), defaults to “natural”</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple of orbital frequencies <span class="math notranslate nohighlight">\((\Omega_r, \Omega_\theta, \Omega_\phi)\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple(double, double, double)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.is_visible">
+<span class="sig-name descname"><span class="pre">is_visible</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elevation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">azimuth</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.is_visible" title="Link to this definition">#</a></dt>
+<dd><p>Determines if a point is visible from a given viewing angle or obscured
+by the black hole. Viewing angles are defined as in
+<a class="reference external" href="https://matplotlib.org/stable/api/toolkits/mplot3d/view_angles.html">https://matplotlib.org/stable/api/toolkits/mplot3d/view_angles.html</a> and
+black hole is centered at the origin.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> (<em>array_like</em>) – list of points given in cartesian coordinates</p></li>
+<li><p><strong>elevation</strong> (<em>double</em>) – camera elevation angle in degrees</p></li>
+<li><p><strong>azimuth</strong> (<em>double</em>) – camera azimuthal angle in degrees</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>boolean array indicating whether each point is visible</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.mino_frequencies">
+<span class="sig-name descname"><span class="pre">mino_frequencies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'natural'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kerrgeopy/stable.html#StableOrbit.mino_frequencies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.mino_frequencies" title="Link to this definition">#</a></dt>
+<dd><p>Computes orbital frequencies in Mino time. Returns dimensionless frequencies
+in geometrized units by default. M and mu must be defined in order to convert
+to physical units.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>units</strong> (<em>str</em><em>, </em><em>optional</em>) – units to return the frequencies in (options are “natural”,
+“mks” and “cgs”), defaults to “natural”</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple of orbital frequencies <span class="math notranslate nohighlight">\((\Upsilon_r,
+\Upsilon_\theta, \Upsilon_\phi, \Gamma)\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple(double, double, double, double)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.numerical_four_velocity">
+<span class="sig-name descname"><span class="pre">numerical_four_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_phases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.numerical_four_velocity" title="Link to this definition">#</a></dt>
+<dd><p>Computes the four velocity of the orbit as a function of Mino time using
+numerical differentiation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dx</strong> (<em>double</em><em>, </em><em>optional</em>) – step size, defaults to 1e-6</p></li>
+<li><p><strong>initial_phases</strong> (<em>tuple</em><em>(</em><em>double</em><em>,</em><em>double</em><em>,</em><em>double</em><em>,</em><em>double</em><em>)</em><em>, </em><em>optional</em>) – initial phases
+<span class="math notranslate nohighlight">\((q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})\)</span>, defaults
+to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>components of the four velocity (i.e.
+<span class="math notranslate nohighlight">\(u^t,u^r,u^\theta,u^\phi\)</span>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple(function, function, function, function)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.plot">
+<span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lambda0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elevation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">azimuth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-60</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_phases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'red'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tau</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.plot" title="Link to this definition">#</a></dt>
+<dd><p>Creates a plot of the orbit</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lambda0</strong> (<em>double</em><em>, </em><em>optional</em>) – starting mino time</p></li>
+<li><p><strong>lambda1</strong> (<em>double</em><em>, </em><em>optional</em>) – ending mino time</p></li>
+<li><p><strong>elevation</strong> (<em>double</em><em>, </em><em>optional</em>) – camera elevation angle in degrees, defaults to 30</p></li>
+<li><p><strong>azimuth</strong> (<em>double</em><em>, </em><em>optional</em>) – camera azimuthal angle in degrees, defaults to -60</p></li>
+<li><p><strong>initial_phases</strong> (<em>tuple</em><em>, </em><em>optional</em>) – tuple of initial phases
+<span class="math notranslate nohighlight">\((q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})\)</span></p></li>
+<li><p><strong>grid</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true, grid lines are shown on plot</p></li>
+<li><p><strong>axes</strong> (<em>bool</em><em>, </em><em>optional</em>) – if true, axes are shown on plot</p></li>
+<li><p><strong>lw</strong> (<em>double</em><em>, </em><em>optional</em>) – linewidth of the orbital trajectory, defaults to 1</p></li>
+<li><p><strong>color</strong> (<em>str</em><em>, </em><em>optional</em>) – color of the orbital trajectory, defaults to “red”</p></li>
+<li><p><strong>tau</strong> (<em>double</em><em>, </em><em>optional</em>) – time constant for the exponential decay of the linewidth,
+defaults to infinity</p></li>
+<li><p><strong>point_density</strong> (<em>int</em><em>, </em><em>optional</em>) – number of points to plot per unit of mino time, defaults to
+200</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>matplotlib figure and axes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>matplotlib.figure.Figure, matplotlib.axes._subplots.AxesSubplot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.trajectory">
+<span class="sig-name descname"><span class="pre">trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_phases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'natural'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'natural'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kerrgeopy/stable.html#StableOrbit.trajectory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.trajectory" title="Link to this definition">#</a></dt>
+<dd><p>Computes the time, radial, polar, and azimuthal coordinates of the orbit
+as a function of mino time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_phases</strong> (<em>tuple</em><em>, </em><em>optional</em>) – tuple of initial phases
+<span class="math notranslate nohighlight">\((q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})\)</span></p></li>
+<li><p><strong>distance_units</strong> (<em>str</em><em>, </em><em>optional</em>) – units to compute the radial component of the trajectory in
+(options are “natural”, “mks”, “cgs”, “au” and “km”),
+defaults to “natural”</p></li>
+<li><p><strong>time_units</strong> (<em>str</em><em>, </em><em>optional</em>) – units to compute the time component of the trajectory in
+(options are “natural”, “mks”, “cgs”, and “days”), defaults
+to “natural”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple of functions <span class="math notranslate nohighlight">\((t(\lambda), r(\lambda), \theta(\lambda), \phi(\lambda))\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple(function, function, function, function)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="kerrgeopy.stable.StableOrbit.trajectory_deltas">
+<span class="sig-name descname"><span class="pre">trajectory_deltas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_phases</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kerrgeopy/stable.html#StableOrbit.trajectory_deltas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#kerrgeopy.stable.StableOrbit.trajectory_deltas" title="Link to this definition">#</a></dt>
+<dd><p>Computes the trajectory deltas <span class="math notranslate nohighlight">\(t_r(q_r)\)</span>, <span class="math notranslate nohighlight">\(t_\theta(q_\theta)\)</span>,
+<span class="math notranslate nohighlight">\(\phi_r(q_r)\)</span> and <span class="math notranslate nohighlight">\(\phi_\theta(q_\theta)\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>initial_phases</strong> (<em>tuple</em><em>, </em><em>optional</em>) – tuple of initial phases
+<span class="math notranslate nohighlight">\((q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})\)</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple of trajectory deltas <span class="math notranslate nohighlight">\((t_r(q_r),
+t_\theta(q_\theta), \phi_r(q_r),\phi_\theta(q_\theta))\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple(function, function, function, function)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../notebooks/Graphics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Graphics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kerrgeopy.plunge.PlungingOrbit.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PlungingOrbit</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit"><code class="docutils literal notranslate"><span class="pre">StableOrbit</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.__init__"><code class="docutils literal notranslate"><span class="pre">StableOrbit.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.animate"><code class="docutils literal notranslate"><span class="pre">StableOrbit.animate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.constants_of_motion"><code class="docutils literal notranslate"><span class="pre">StableOrbit.constants_of_motion()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.four_velocity"><code class="docutils literal notranslate"><span class="pre">StableOrbit.four_velocity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.from_constants"><code class="docutils literal notranslate"><span class="pre">StableOrbit.from_constants()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.fundamental_frequencies"><code class="docutils literal notranslate"><span class="pre">StableOrbit.fundamental_frequencies()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.is_visible"><code class="docutils literal notranslate"><span class="pre">StableOrbit.is_visible()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.mino_frequencies"><code class="docutils literal notranslate"><span class="pre">StableOrbit.mino_frequencies()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.numerical_four_velocity"><code class="docutils literal notranslate"><span class="pre">StableOrbit.numerical_four_velocity()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.plot"><code class="docutils literal notranslate"><span class="pre">StableOrbit.plot()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.trajectory"><code class="docutils literal notranslate"><span class="pre">StableOrbit.trajectory()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kerrgeopy.stable.StableOrbit.trajectory_deltas"><code class="docutils literal notranslate"><span class="pre">StableOrbit.trajectory_deltas()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Seyong Park
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Seyong Park.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

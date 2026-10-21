@@ -1,0 +1,1055 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kerrgeopy.orbit &#8212; KerrGeoPy</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=3d024909"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/kerrgeopy/orbit';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">KerrGeoPy</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Getting%20Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Orbital%20Properties.html">Orbital Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Trajectory.html">Trajectory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/Graphics.html">Graphics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://kerrgeopy.readthedocs.io/en/latest/_autosummary/kerrgeopy.html">Modules</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.stable.StableOrbit.html">StableOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.plunge.PlungingOrbit.html">PlungingOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.orbit.Orbit.html">Orbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.light.LightOrbit.html">LightOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.light.DistantLightOrbit.html">DistantLightOrbit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.spacetime.KerrSpacetime.html">KerrSpacetime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/kerrgeopy.images.KerrImage.html">KerrImage</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.html">constants</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.angular_momentum.html">angular_momentum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.apex_from_constants.html">apex_from_constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.carter_constant.html">carter_constant</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.constants_of_motion.html">constants_of_motion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.energy.html">energy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.fast_separatrix.html">fast_separatrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.is_stable.html">is_stable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.plunging_radial_roots.html">plunging_radial_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.scale_constants.html">scale_constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.separatrix.html">separatrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.stable_polar_roots.html">stable_polar_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.stable_radial_roots.html">stable_radial_roots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.constants.valid_params.html">valid_params</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.html">frequencies</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.fundamental_frequencies.html">fundamental_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.gamma.html">gamma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.mino_frequencies.html">mino_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.phi_frequency.html">phi_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.plunging_mino_frequencies.html">plunging_mino_frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.r_frequency.html">r_frequency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.frequencies.theta_frequency.html">theta_frequency</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/kerrgeopy.initial_conditions.html">initial_conditions</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.initial_conditions.constants_from_initial_conditions.html">constants_from_initial_conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.initial_conditions.is_stable.html">is_stable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.initial_conditions.plunging_orbit_initial_phases.html">plunging_orbit_initial_phases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.initial_conditions.stable_orbit_initial_phases.html">stable_orbit_initial_phases</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.html">units</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.angular_momentum_in_cgs.html">angular_momentum_in_cgs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.angular_momentum_in_mks.html">angular_momentum_in_mks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.carter_constant_in_cgs.html">carter_constant_in_cgs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.carter_constant_in_mks.html">carter_constant_in_mks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.distance_in_au.html">distance_in_au</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.distance_in_cm.html">distance_in_cm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.distance_in_km.html">distance_in_km</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.distance_in_lightyears.html">distance_in_lightyears</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.distance_in_meters.html">distance_in_meters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.energy_in_ergs.html">energy_in_ergs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.energy_in_joules.html">energy_in_joules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.frequency_in_Hz.html">frequency_in_Hz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.frequency_in_mHz.html">frequency_in_mHz</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.mass_in_kg.html">mass_in_kg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.time2_in_seconds2.html">time2_in_seconds2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.time_in_days.html">time_in_days</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.units.time_in_seconds.html">time_in_seconds</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_autosummary/kerrgeopy.plot_utils.html">plot_utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.plot_utils.animate.html">animate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.plot_utils.is_visible.html">is_visible</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../_autosummary/kerrgeopy.plot_utils.plot.html">plot</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/BlackHolePerturbationToolkit/KerrGeoPy" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for kerrgeopy.orbit</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Module containing the Orbit class"""</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.spacetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">KerrSpacetime</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.initial_conditions</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.units</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">scale_constants</span><span class="p">,</span>
+    <span class="n">apex_from_constants</span><span class="p">,</span>
+    <span class="n">stable_polar_roots</span><span class="p">,</span>
+    <span class="n">stable_radial_roots</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.frequencies</span><span class="w"> </span><span class="kn">import</span> <span class="n">mino_frequencies</span><span class="p">,</span> <span class="n">fundamental_frequencies</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_visible</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">animate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">pi</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<div class="viewcode-block" id="Orbit">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Orbit</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">"""Class representing an orbit in Kerr spacetime defined using initial conditions.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : double</span>
+<span class="sd">        spin parameter</span>
+<span class="sd">    initial_position : tuple(double,double,double,double)</span>
+<span class="sd">        initial position of the orbit :math:`(t_0,r_0,\theta_0,\phi_0)`</span>
+<span class="sd">    initial_velocity : tuple(double,double,double,double)</span>
+<span class="sd">        initial four-velocity of the orbit</span>
+<span class="sd">        :math:`(u^t_0,u^r_0,u^\theta_0,u^\phi_0)`</span>
+<span class="sd">    M : double, optional</span>
+<span class="sd">        mass of the primary in solar masses</span>
+<span class="sd">    mu : double, optional</span>
+<span class="sd">        mass of the smaller body in solar masses</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a</span>
+<span class="sd">        spin parameter</span>
+<span class="sd">    initial_position</span>
+<span class="sd">        initial position of the orbit :math:`(t_0,r_0,\theta_0,\phi_0)`</span>
+<span class="sd">    initial_velocity</span>
+<span class="sd">        initial four-velocity of the orbit</span>
+<span class="sd">        :math:`(u^t_0,u^r_0,u^\theta_0,u^\phi_0)`</span>
+<span class="sd">    E</span>
+<span class="sd">        dimensionless energy</span>
+<span class="sd">    L</span>
+<span class="sd">        dimensionless angular momentum</span>
+<span class="sd">    Q</span>
+<span class="sd">        dimensionless carter constant</span>
+<span class="sd">    stable</span>
+<span class="sd">        boolean indicating whether the orbit is stable</span>
+<span class="sd">    upsilon_r</span>
+<span class="sd">        dimensionless radial orbital frequency in Mino time</span>
+<span class="sd">    upsilon_theta</span>
+<span class="sd">        dimensionless polar orbital frequency in Mino time</span>
+<span class="sd">    """</span>
+
+<div class="viewcode-block" id="Orbit.__init__">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">,</span> <span class="n">initial_velocity</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_position</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_velocity</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">a</span><span class="p">,</span>
+            <span class="n">initial_position</span><span class="p">,</span>
+            <span class="n">initial_velocity</span><span class="p">,</span>
+            <span class="n">M</span><span class="p">,</span>
+            <span class="n">mu</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># check if initial four-velocity is valid</span>
+        <span class="n">spacetime</span> <span class="o">=</span> <span class="n">KerrSpacetime</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">initial_norm</span> <span class="o">=</span> <span class="n">spacetime</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="o">*</span><span class="n">initial_position</span><span class="p">,</span> <span class="n">initial_velocity</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">initial_norm</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Initial velocity is not timelike"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">initial_norm</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Initial velocity is not normalized"</span><span class="p">)</span>
+
+        <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">constants_from_initial_conditions</span><span class="p">(</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">,</span> <span class="n">initial_velocity</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span> <span class="o">=</span> <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span>
+
+        <span class="k">if</span> <span class="n">is_stable</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">,</span> <span class="n">initial_velocity</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stable</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">apex_from_constants</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">upsilon_r</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">upsilon_theta</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">upsilon_phi</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="p">,</span>
+            <span class="p">)</span> <span class="o">=</span> <span class="n">mino_frequencies</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">omega_r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega_theta</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">omega_phi</span> <span class="o">=</span> <span class="n">fundamental_frequencies</span><span class="p">(</span>
+                <span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">x</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_phases</span> <span class="o">=</span> <span class="n">stable_orbit_initial_phases</span><span class="p">(</span>
+                <span class="n">a</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">,</span> <span class="n">initial_velocity</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Schwarzschild plunges are not currently supported"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stable</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">upsilon_r</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">upsilon_theta</span> <span class="o">=</span> <span class="n">plunging_mino_frequencies</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">initial_phases</span> <span class="o">=</span> <span class="n">plunging_orbit_initial_phases</span><span class="p">(</span>
+                <span class="n">a</span><span class="p">,</span> <span class="n">initial_position</span><span class="p">,</span> <span class="n">initial_velocity</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Orbit.trajectory_deltas">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.trajectory_deltas">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">trajectory_deltas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_phases</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Computes the trajectory deltas :math:`t_r(q_r)`, :math:`t_\theta(q_\theta)`,</span>
+<span class="sd">        :math:`\phi_r(q_r)` and :math:`\phi_\theta(q_\theta)`</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        initial_phases : tuple, optional</span>
+<span class="sd">            tuple of initial phases</span>
+<span class="sd">            :math:`(q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple(function, function, function, function)</span>
+<span class="sd">            tuple of trajectory deltas :math:`(t_r(q_r),</span>
+<span class="sd">            t_\theta(q_\theta), \phi_r(q_r),\phi_\theta(q_\theta))`</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">initial_phases</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">initial_phases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_phases</span>
+        <span class="n">q_t0</span><span class="p">,</span> <span class="n">q_r0</span><span class="p">,</span> <span class="n">q_theta0</span><span class="p">,</span> <span class="n">q_phi0</span> <span class="o">=</span> <span class="n">initial_phases</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stable</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">.stable</span><span class="w"> </span><span class="kn">import</span> <span class="n">radial_solutions</span><span class="p">,</span> <span class="n">polar_solutions</span>
+
+            <span class="n">constants</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">)</span>
+            <span class="n">radial_roots</span> <span class="o">=</span> <span class="n">stable_radial_roots</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">constants</span>
+            <span class="p">)</span>
+            <span class="n">polar_roots</span> <span class="o">=</span> <span class="n">stable_polar_roots</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">constants</span><span class="p">)</span>
+            <span class="n">r</span><span class="p">,</span> <span class="n">t_r</span><span class="p">,</span> <span class="n">phi_r</span> <span class="o">=</span> <span class="n">radial_solutions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">)</span>
+            <span class="n">theta</span><span class="p">,</span> <span class="n">t_theta</span><span class="p">,</span> <span class="n">phi_theta</span> <span class="o">=</span> <span class="n">polar_solutions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">polar_roots</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">radial_roots</span> <span class="o">=</span> <span class="n">plunging_radial_roots</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">iscomplex</span><span class="p">(</span><span class="n">radial_roots</span><span class="p">[</span><span class="mi">3</span><span class="p">]):</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">.plunge</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+                    <span class="n">plunging_radial_solutions_complex</span><span class="p">,</span>
+                    <span class="n">plunging_polar_solutions</span><span class="p">,</span>
+                <span class="p">)</span>
+
+                <span class="c1"># adjust q_theta0 so that initial conditions are consistent with stable orbits</span>
+                <span class="n">q_theta0</span> <span class="o">=</span> <span class="n">q_theta0</span> <span class="o">+</span> <span class="n">pi</span> <span class="o">/</span> <span class="mi">2</span>
+                <span class="n">r</span><span class="p">,</span> <span class="n">t_r</span><span class="p">,</span> <span class="n">phi_r</span> <span class="o">=</span> <span class="n">plunging_radial_solutions_complex</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+                <span class="p">)</span>
+                <span class="n">theta</span><span class="p">,</span> <span class="n">t_theta</span><span class="p">,</span> <span class="n">phi_theta</span> <span class="o">=</span> <span class="n">plunging_polar_solutions</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="kn">from</span><span class="w"> </span><span class="nn">.stable</span><span class="w"> </span><span class="kn">import</span> <span class="n">radial_solutions</span><span class="p">,</span> <span class="n">polar_solutions</span>
+
+                <span class="n">constants</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">)</span>
+                <span class="n">r</span><span class="p">,</span> <span class="n">t_r</span><span class="p">,</span> <span class="n">phi_r</span> <span class="o">=</span> <span class="n">radial_solutions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span><span class="p">)</span>
+                <span class="n">theta</span><span class="p">,</span> <span class="n">t_theta</span><span class="p">,</span> <span class="n">phi_theta</span> <span class="o">=</span> <span class="n">polar_solutions</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">constants</span><span class="p">,</span> <span class="n">radial_roots</span>
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">q_r</span><span class="p">:</span> <span class="n">t_r</span><span class="p">(</span><span class="n">q_r</span> <span class="o">+</span> <span class="n">q_r0</span><span class="p">),</span>
+            <span class="k">lambda</span> <span class="n">q_theta</span><span class="p">:</span> <span class="n">t_theta</span><span class="p">(</span><span class="n">q_theta</span> <span class="o">+</span> <span class="n">q_theta0</span><span class="p">),</span>
+            <span class="k">lambda</span> <span class="n">q_r</span><span class="p">:</span> <span class="n">phi_r</span><span class="p">(</span><span class="n">q_r</span> <span class="o">+</span> <span class="n">q_r0</span><span class="p">),</span>
+            <span class="k">lambda</span> <span class="n">q_theta</span><span class="p">:</span> <span class="n">phi_theta</span><span class="p">(</span><span class="n">q_theta</span> <span class="o">+</span> <span class="n">q_theta0</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Orbit.trajectory">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.trajectory">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">trajectory</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">initial_phases</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">distance_units</span><span class="o">=</span><span class="s2">"natural"</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s2">"natural"</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Computes the components of the trajectory as a function of Mino time</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        initial_phases : tuple, optional</span>
+<span class="sd">            tuple of initial phases</span>
+<span class="sd">            :math:`(q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})`</span>
+<span class="sd">        distance_units : str, optional</span>
+<span class="sd">            units to compute the radial component of the trajectory in</span>
+<span class="sd">            (options are "natural", "mks", "cgs", "au" and "km"),</span>
+<span class="sd">            defaults to "natural"</span>
+<span class="sd">        time_units : str, optional</span>
+<span class="sd">            units to compute the time component of the trajectory in</span>
+<span class="sd">            (options are "natural", "mks", "cgs", and "days"), defaults</span>
+<span class="sd">            to "natural"</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple(function, function, function, function)</span>
+<span class="sd">            tuple of functions :math:`(t(\lambda), r(\lambda),</span>
+<span class="sd">            \theta(\lambda), \phi(\lambda))`</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">initial_phases</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">initial_phases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_phases</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stable</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">.stable</span><span class="w"> </span><span class="kn">import</span> <span class="n">stable_trajectory</span>
+
+            <span class="k">return</span> <span class="n">stable_trajectory</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
+                <span class="n">initial_phases</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span>
+                <span class="n">distance_units</span><span class="p">,</span>
+                <span class="n">time_units</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">.plunge</span><span class="w"> </span><span class="kn">import</span> <span class="n">plunging_trajectory</span>
+
+            <span class="k">return</span> <span class="n">plunging_trajectory</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="p">,</span>
+                <span class="n">initial_phases</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">,</span>
+                <span class="n">distance_units</span><span class="p">,</span>
+                <span class="n">time_units</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Orbit.constants_of_motion">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.constants_of_motion">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">constants_of_motion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s2">"natural"</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Computes the energy, angular momentum, and carter constant for the orbit.</span>
+<span class="sd">        Computes dimensionless constants in geometried units by default.</span>
+<span class="sd">        M and mu must be defined in order to convert to physical units.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        units : str, optional</span>
+<span class="sd">            units to return the constants of motion in (options are</span>
+<span class="sd">            "natural", "mks" and "cgs"), defaults to "natural"</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple(double, double, double)</span>
+<span class="sd">            tuple of the form (E, L, Q)</span>
+<span class="sd">        """</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+        <span class="k">if</span> <span class="n">units</span> <span class="o">==</span> <span class="s2">"natural"</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">constants</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"M and mu must be specified to convert constants of motion to physical units"</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">units</span> <span class="o">==</span> <span class="s2">"mks"</span><span class="p">:</span>
+            <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">scale_constants</span><span class="p">(</span><span class="n">constants</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="n">energy_in_joules</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">),</span>
+                <span class="n">angular_momentum_in_mks</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">),</span>
+                <span class="n">carter_constant_in_mks</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">units</span> <span class="o">==</span> <span class="s2">"cgs"</span><span class="p">:</span>
+            <span class="n">E</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">Q</span> <span class="o">=</span> <span class="n">scale_constants</span><span class="p">(</span><span class="n">constants</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="n">energy_in_ergs</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">),</span>
+                <span class="n">angular_momentum_in_cgs</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">),</span>
+                <span class="n">carter_constant_in_cgs</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"units must be one of 'natural', 'mks', or 'cgs'"</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Orbit.four_velocity">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.four_velocity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">four_velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_phases</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Computes the four velocity of the orbit as a function of Mino time using</span>
+<span class="sd">        the geodesic equation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        initial_phases : tuple, optional</span>
+<span class="sd">            tuple of initial phases</span>
+<span class="sd">            :math:`(q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple(function, function, function, function)</span>
+<span class="sd">            components of the four velocity (i.e.</span>
+<span class="sd">            :math:`u^t,u^r,u^\theta,u^\phi`)</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">initial_phases</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">initial_phases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_phases</span>
+        <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory</span><span class="p">(</span><span class="n">initial_phases</span><span class="p">)</span>
+        <span class="n">spacetime</span> <span class="o">=</span> <span class="n">KerrSpacetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+
+        <span class="k">return</span> <span class="n">spacetime</span><span class="o">.</span><span class="n">four_velocity</span><span class="p">(</span>
+            <span class="n">t</span><span class="p">,</span>
+            <span class="n">r</span><span class="p">,</span>
+            <span class="n">theta</span><span class="p">,</span>
+            <span class="n">phi</span><span class="p">,</span>
+            <span class="n">constants</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">upsilon_r</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">upsilon_theta</span><span class="p">,</span>
+            <span class="n">initial_phases</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_four_velocity_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_phases</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Computes the norm of the four velocity of the orbit as a function of Mino time</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        initial_phases : tuple, optional</span>
+<span class="sd">            tuple of initial phases</span>
+<span class="sd">            :math:`(q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        function</span>
+<span class="sd">            norm of the four velocity :math:`g_{\mu\nu}u^\mu u^\nu`</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">initial_phases</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">initial_phases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_phases</span>
+        <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory</span><span class="p">(</span><span class="n">initial_phases</span><span class="p">)</span>
+        <span class="n">spacetime</span> <span class="o">=</span> <span class="n">KerrSpacetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+        <span class="n">t_prime</span><span class="p">,</span> <span class="n">r_prime</span><span class="p">,</span> <span class="n">theta_prime</span><span class="p">,</span> <span class="n">phi_prime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">four_velocity</span><span class="p">(</span>
+            <span class="n">initial_phases</span><span class="o">=</span><span class="n">initial_phases</span>
+        <span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">norm</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="n">t_prime</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">r_prime</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">theta_prime</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">phi_prime</span><span class="p">(</span><span class="n">time</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="n">spacetime</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">r</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">theta</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">phi</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">u</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">norm</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_numerical_four_velocity_norm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">initial_phases</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Computes the norm of the four velocity of the orbit as a function of Mino time</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        initial_phases : tuple, optional</span>
+<span class="sd">            tuple of initial phases</span>
+<span class="sd">            :math:`(q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})`</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        function</span>
+<span class="sd">            norm of the four velocity :math:`g_{\mu\nu}u^\mu u^\nu`</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">initial_phases</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">initial_phases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_phases</span>
+        <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory</span><span class="p">(</span><span class="n">initial_phases</span><span class="p">)</span>
+        <span class="n">spacetime</span> <span class="o">=</span> <span class="n">KerrSpacetime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span>
+        <span class="n">constants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Q</span>
+        <span class="n">t_prime</span><span class="p">,</span> <span class="n">r_prime</span><span class="p">,</span> <span class="n">theta_prime</span><span class="p">,</span> <span class="n">phi_prime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numerical_four_velocity</span><span class="p">(</span>
+            <span class="n">dx</span><span class="o">=</span><span class="n">dx</span><span class="p">,</span> <span class="n">initial_phases</span><span class="o">=</span><span class="n">initial_phases</span>
+        <span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">norm</span><span class="p">(</span><span class="n">time</span><span class="p">):</span>
+            <span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="n">t_prime</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">r_prime</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">theta_prime</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">phi_prime</span><span class="p">(</span><span class="n">time</span><span class="p">)]</span>
+            <span class="k">return</span> <span class="n">spacetime</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">t</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">r</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">theta</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">phi</span><span class="p">(</span><span class="n">time</span><span class="p">),</span> <span class="n">u</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">norm</span>
+
+<div class="viewcode-block" id="Orbit.numerical_four_velocity">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.numerical_four_velocity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">numerical_four_velocity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">initial_phases</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Computes the four velocity of the orbit as a function of Mino time using</span>
+<span class="sd">        numerical differentiation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dx : double, optional</span>
+<span class="sd">            step size, defaults to 1e-6</span>
+<span class="sd">        initial_phases : tuple(double,double,double,double), optional</span>
+<span class="sd">            initial phases</span>
+<span class="sd">            :math:`(q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})`, defaults</span>
+<span class="sd">            to None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple(function, function, function, function)</span>
+<span class="sd">            components of the four velocity (i.e.</span>
+<span class="sd">            :math:`u^t,u^r,u^\theta,u^\phi`)</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">initial_phases</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">initial_phases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_phases</span>
+        <span class="n">t</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">phi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory</span><span class="p">(</span><span class="n">initial_phases</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">u_t</span><span class="p">(</span><span class="n">mino_time</span><span class="p">):</span>
+            <span class="n">sigma</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">mino_time</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">(</span><span class="n">mino_time</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="o">-</span><span class="n">t</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">t</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">+</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">-</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">t</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">-</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">t</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">u_r</span><span class="p">(</span><span class="n">mino_time</span><span class="p">):</span>
+            <span class="n">sigma</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">mino_time</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">(</span><span class="n">mino_time</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="o">-</span><span class="n">r</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">+</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">-</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">r</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">-</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">r</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">u_theta</span><span class="p">(</span><span class="n">mino_time</span><span class="p">):</span>
+            <span class="n">sigma</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">mino_time</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">(</span><span class="n">mino_time</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="o">-</span><span class="n">theta</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">theta</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">+</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">-</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">theta</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">-</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">theta</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">u_phi</span><span class="p">(</span><span class="n">mino_time</span><span class="p">):</span>
+            <span class="n">sigma</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">mino_time</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">(</span><span class="n">mino_time</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="k">return</span> <span class="p">(</span>
+                <span class="o">-</span><span class="n">phi</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">+</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">phi</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">+</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">-</span> <span class="mi">8</span> <span class="o">*</span> <span class="n">phi</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">-</span> <span class="n">dx</span><span class="p">)</span>
+                <span class="o">+</span> <span class="n">phi</span><span class="p">(</span><span class="n">mino_time</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">*</span> <span class="n">sigma</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">u_t</span><span class="p">,</span> <span class="n">u_r</span><span class="p">,</span> <span class="n">u_theta</span><span class="p">,</span> <span class="n">u_phi</span></div>
+
+
+<div class="viewcode-block" id="Orbit.plot">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.plot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">lambda0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">lambda1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">elevation</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="n">azimuth</span><span class="o">=-</span><span class="mi">60</span><span class="p">,</span>
+        <span class="n">initial_phases</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">axes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span>
+        <span class="n">tau</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
+        <span class="n">point_density</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Creates a plot of the orbit</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        lambda0 : double, optional</span>
+<span class="sd">            starting mino time</span>
+<span class="sd">        lambda1 : double, optional</span>
+<span class="sd">            ending mino time</span>
+<span class="sd">        elevation : double, optional</span>
+<span class="sd">            camera elevation angle in degrees, defaults to 30</span>
+<span class="sd">        azimuth : double, optional</span>
+<span class="sd">            camera azimuthal angle in degrees, defaults to -60</span>
+<span class="sd">        initial_phases : tuple, optional</span>
+<span class="sd">            tuple of initial phases</span>
+<span class="sd">            :math:`(q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})`</span>
+<span class="sd">        grid : bool, optional</span>
+<span class="sd">            if true, grid lines are shown on plot</span>
+<span class="sd">        axes : bool, optional</span>
+<span class="sd">            if true, axes are shown on plot</span>
+<span class="sd">        lw : double, optional</span>
+<span class="sd">            linewidth of the orbital trajectory, defaults to 1</span>
+<span class="sd">        color : str, optional</span>
+<span class="sd">            color of the orbital trajectory, defaults to "red"</span>
+<span class="sd">        tau : double, optional</span>
+<span class="sd">            time constant for the exponential decay of the linewidth,</span>
+<span class="sd">            defaults to infinity</span>
+<span class="sd">        point_density : int, optional</span>
+<span class="sd">            number of points to plot per unit of mino time, defaults to</span>
+<span class="sd">            200</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        matplotlib.figure.Figure, matplotlib.axes._subplots.AxesSubplot</span>
+<span class="sd">            matplotlib figure and axes</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">initial_phases</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">initial_phases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_phases</span>
+        <span class="n">trajectory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory</span><span class="p">(</span><span class="n">initial_phases</span><span class="o">=</span><span class="n">initial_phases</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">plot</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span>
+            <span class="n">trajectory</span><span class="p">,</span>
+            <span class="n">lambda0</span><span class="p">,</span>
+            <span class="n">lambda1</span><span class="p">,</span>
+            <span class="n">elevation</span><span class="p">,</span>
+            <span class="n">azimuth</span><span class="p">,</span>
+            <span class="n">grid</span><span class="p">,</span>
+            <span class="n">axes</span><span class="p">,</span>
+            <span class="n">lw</span><span class="p">,</span>
+            <span class="n">color</span><span class="p">,</span>
+            <span class="n">tau</span><span class="p">,</span>
+            <span class="n">point_density</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Orbit.is_visible">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.is_visible">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">elevation</span><span class="p">,</span> <span class="n">azimuth</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Determines if a point is visible from a given viewing angle or obscured</span>
+<span class="sd">        by the black hole. Viewing angles are defined as in</span>
+<span class="sd">        https://matplotlib.org/stable/api/toolkits/mplot3d/view_angles.html and</span>
+<span class="sd">        black hole is centered at the origin.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        points : array_like</span>
+<span class="sd">            list of points given in cartesian coordinates</span>
+<span class="sd">        elevation : double</span>
+<span class="sd">            camera elevation angle in degrees</span>
+<span class="sd">        azimuth : double</span>
+<span class="sd">            camera azimuthal angle in degrees</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.array</span>
+<span class="sd">            boolean array indicating whether each point is visible</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">is_visible</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">elevation</span><span class="p">,</span> <span class="n">azimuth</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Orbit.animate">
+<a class="viewcode-back" href="../../_autosummary/kerrgeopy.orbit.Orbit.html#kerrgeopy.orbit.Orbit.animate">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">animate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">,</span>
+        <span class="n">lambda0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">lambda1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">elevation</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+        <span class="n">azimuth</span><span class="o">=-</span><span class="mi">60</span><span class="p">,</span>
+        <span class="n">initial_phases</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">grid</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">axes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span>
+        <span class="n">tau</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">tail_length</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">azimuthal_pan</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">elevation_pan</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">roll</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">speed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">background_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">axis_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">plot_components</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sa">r</span><span class="sd">"""Saves an animation of the orbit as an mp4 file.</span>
+<span class="sd">        Note that this function requires ffmpeg to be installed and may take several</span>
+<span class="sd">        minutes to run depending on the length of the animation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            filename to save the animation to</span>
+<span class="sd">        lambda0 : double, optional</span>
+<span class="sd">            starting mino time, defaults to 0</span>
+<span class="sd">        lambda1 : double, optional</span>
+<span class="sd">            ending mino time, defaults to 10</span>
+<span class="sd">        elevation : double, optional</span>
+<span class="sd">            camera elevation angle in degrees, defaults to 30</span>
+<span class="sd">        azimuth : double, optional</span>
+<span class="sd">            camera azimuthal angle in degrees, defaults to -60</span>
+<span class="sd">        initial_phases : tuple, optional</span>
+<span class="sd">            tuple of initial phases</span>
+<span class="sd">            :math:`(q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})`</span>
+<span class="sd">        grid : bool, optional</span>
+<span class="sd">            sets visibility of the grid, defaults to True</span>
+<span class="sd">        axes : bool, optional</span>
+<span class="sd">            sets visibility of axes, defaults to True</span>
+<span class="sd">        color : str, optional</span>
+<span class="sd">            color of the orbital tail, defaults to "red"</span>
+<span class="sd">        tau : double, optional</span>
+<span class="sd">            time constant for the exponential decay in the opacity of</span>
+<span class="sd">            the tail, defaults to 2</span>
+<span class="sd">        tail_length : double, optional</span>
+<span class="sd">            length of the tail in units of mino time, defaults to 5</span>
+<span class="sd">        lw : double, optional</span>
+<span class="sd">            linewidth of the orbital trajectory, defaults to 2</span>
+<span class="sd">        azimuthal_pan : function, optional</span>
+<span class="sd">            function defining the azimuthal angle of the camera in</span>
+<span class="sd">            degrees as a function of mino time, defaults to None</span>
+<span class="sd">        elevation_pan : function, optional</span>
+<span class="sd">            function defining the elevation angle of the camera in</span>
+<span class="sd">            degrees as a function of mino time, defaults to None</span>
+<span class="sd">        roll : function, optional</span>
+<span class="sd">            function defining the roll angle of the camera in degrees as</span>
+<span class="sd">            a function of mino time, defaults to None</span>
+<span class="sd">        axis_limit : function, optional</span>
+<span class="sd">            sets the axis limit as a function of mino time, defaults to</span>
+<span class="sd">            None</span>
+<span class="sd">        speed : double, optional</span>
+<span class="sd">            playback speed of the animation in units of mino time per</span>
+<span class="sd">            second (must be a multiple of 1/8), defaults to 1</span>
+<span class="sd">        background_color : str, optional</span>
+<span class="sd">            color of the background, defaults to None</span>
+<span class="sd">        plot_components : bool, optional</span>
+<span class="sd">            if true, plots the components of the trajectory in addition</span>
+<span class="sd">            to the trajectory itself, defaults to False</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">initial_phases</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">initial_phases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_phases</span>
+        <span class="n">trajectory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trajectory</span><span class="p">(</span><span class="n">initial_phases</span><span class="o">=</span><span class="n">initial_phases</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stable</span><span class="p">:</span>
+            <span class="n">txt</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="sa">fr</span><span class="s2">"$a = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="si">}</span><span class="s2">\quad p = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="si">}</span><span class="s2">\quad e = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="si">}</span><span class="s2">\quad x = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">\quad \lambda = </span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">$"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">txt</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="sa">fr</span><span class="s2">"$a = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="si">}</span><span class="s2">\quad E = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">E</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">\quad L = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">\quad Q = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">Q</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">\quad \lambda = </span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">$"</span>
+
+        <span class="n">animate</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span>
+            <span class="n">trajectory</span><span class="p">,</span>
+            <span class="n">filename</span><span class="p">,</span>
+            <span class="n">lambda0</span><span class="p">,</span>
+            <span class="n">lambda1</span><span class="p">,</span>
+            <span class="n">elevation</span><span class="p">,</span>
+            <span class="n">azimuth</span><span class="p">,</span>
+            <span class="n">grid</span><span class="p">,</span>
+            <span class="n">axes</span><span class="p">,</span>
+            <span class="n">color</span><span class="p">,</span>
+            <span class="n">tau</span><span class="p">,</span>
+            <span class="n">tail_length</span><span class="p">,</span>
+            <span class="n">lw</span><span class="p">,</span>
+            <span class="n">azimuthal_pan</span><span class="p">,</span>
+            <span class="n">elevation_pan</span><span class="p">,</span>
+            <span class="n">roll</span><span class="p">,</span>
+            <span class="n">speed</span><span class="p">,</span>
+            <span class="n">background_color</span><span class="p">,</span>
+            <span class="n">axis_limit</span><span class="p">,</span>
+            <span class="n">plot_components</span><span class="p">,</span>
+            <span class="n">txt</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Seyong Park
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Seyong Park.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
