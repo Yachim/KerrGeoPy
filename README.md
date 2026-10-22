@@ -13,7 +13,7 @@
 
 KerrGeoPy is a python implementation of the [KerrGeodesics](https://bhptoolkit.org/KerrGeodesics/) Mathematica library. It is intended for use in computing orbital trajectories for extreme-mass-ratio inspirals (EMRIs). It implements the analytical solutions for plunging orbits from [Dyson and van de Meent](https://arxiv.org/abs/2302.03704), as well as solutions for stable orbits from [Fujita and Hikida](https://arxiv.org/abs/0906.1420). The library also provides a set of methods for computing constants of motion and orbital frequencies.
 
-Additionally, analytical solutions for lightlike geodesics are provided. They are implemented from [Gralla and Lupsasca](https://arxiv.org/abs/1910.12881) with distant limit from [Podrápský](https://dspace.cuni.cz/handle/20.500.11956/193468). The library also includes utility class for rendering the black hole's shadow on stellar background.
+Additionally, analytical solutions for lightlike geodesics are provided. They are implemented from [Gralla and Lupsasca](https://arxiv.org/abs/1910.12881) with distant limit from [Podrápský](https://dspace.cuni.cz/handle/20.500.11956/193468). The library also includes a utility class for rendering the black hole's shadow on stellar background.
 
 See the [documentation](https://kerrgeopy.readthedocs.io/en/latest/) for more information.
 

@@ -7,8 +7,8 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name="kerrgeopy",
-    version="0.9.3",
-    author="Seyong Park",
+    version="0.10.0",
+    author="Seyong Park, Zach Nasipak, Jáchym Kohout, Vojtěch Witzany",
     description="Library for computing stable and plunging geodesics in Kerr spacetime",
     long_description=long_description,
     long_description_content_type='text/markdown',
