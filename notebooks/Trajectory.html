@@ -30,14 +30,14 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=3d024909"></script>
+    <script src="../_static/documentation_options.js?v=cb265169"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -412,8 +412,8 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="trajectory">
 <h1>Trajectory<a class="headerlink" href="#trajectory" title="Link to this heading">#</a></h1>
 <p>Trajectories are computed by solving the geodesic equation in Kerr spacetime, which in Boyer-Lindquist coordinates can be written as the following system of differential equations.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-63170c26-4c7a-41f6-b9ce-bc5c5aa0272c">
-<span class="eqno">(1)<a class="headerlink" href="#equation-63170c26-4c7a-41f6-b9ce-bc5c5aa0272c" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b47eff2c-9534-48c8-a153-977775638762">
+<span class="eqno">(1)<a class="headerlink" href="#equation-b47eff2c-9534-48c8-a153-977775638762" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \begin{aligned} &amp; \Sigma^2\left(\frac{\mathrm{d} r}{\mathrm{~d} \tau}\right)^2=\left(\mathcal{E}\left(r^2+a^2\right)-a \mathcal{L}\right)^2-\Delta\left(r^2+(a \mathcal{E}-\mathcal{L})^2+Q\right)\\ &amp; \Sigma^2\left(\frac{\mathrm{d} z}{\mathrm{d} \tau}\right)^2=Q-z^2\left(a^2\left(1-\mathcal{E}^2\right)\left(1-z^2\right)+\mathcal{L}^2+Q\right) \\ &amp; \Sigma \frac{\mathrm{d} t}{\mathrm{~d} \tau}=\frac{\left(r^2+a^2\right)}{\Delta}\left(\mathcal{E}\left(r^2+a^2\right)-a \mathcal{L}\right)-a^2 \mathcal{E}\left(1-z^2\right)+a \mathcal{L}\\ &amp; \Sigma \frac{\mathrm{d} \phi}{\mathrm{d} \tau}=\frac{a}{\Delta}\left(\mathcal{E}\left(r^2+a^2\right)-a \mathcal{L}\right)+\frac{\mathcal{L}}{1-z^2}-a \mathcal{E} 
 \end{aligned}
 \end{equation}\]</div>
@@ -424,8 +424,8 @@ document.write(`
 <section id="id1">
 <h3>Trajectory<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>To compute a trajectory, first construct a <a class="reference internal" href="../_autosummary/kerrgeopy.stable.StableOrbit.html#kerrgeopy.stable.StableOrbit" title="kerrgeopy.stable.StableOrbit"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">StableOrbit</span></code></span></a> by specifying a set of orbital parameters <span class="math notranslate nohighlight">\((a,p,e,x)\)</span>. Then use the <a class="reference internal" href="../_autosummary/kerrgeopy.stable.StableOrbit.html#kerrgeopy.stable.StableOrbit.trajectory" title="kerrgeopy.stable.StableOrbit.trajectory"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">trajectory()</span></code></span></a> method to compute the time, radial, polar and azimuthal components of the trajectory as a function of Mino time. Use the <code class="docutils literal notranslate"><span class="pre">initial_phases</span></code> option to set the initial phases <span class="math notranslate nohighlight">\((q_{t_0},q_{r_0},q_{\theta_0},q_{\phi_0})\)</span> of the orbit. Phases are defined as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6cfe403e-271f-471e-97e0-27000b9488c9">
-<span class="eqno">(2)<a class="headerlink" href="#equation-6cfe403e-271f-471e-97e0-27000b9488c9" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-7a2915bf-ef45-4592-9c14-e035e6eeef7a">
+<span class="eqno">(2)<a class="headerlink" href="#equation-7a2915bf-ef45-4592-9c14-e035e6eeef7a" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \begin{aligned}
 q_t &amp;= \Gamma \lambda\\
 q_r &amp;= \Upsilon_r \lambda \\
@@ -653,7 +653,7 @@ q_\phi &amp;= \Upsilon_\phi \lambda
   <div class="footer-item">
     
 <p class="component-author">
-By Seyong Park
+By Seyong Park, Zach Nasipak, Jáchym Kohout, Vojtěch Witzany
 </p>
 
   </div>
@@ -663,7 +663,7 @@ By Seyong Park
 
   <p class="copyright">
     
-      © Copyright 2023, Seyong Park.
+      © Copyright 2023, Seyong Park and contributors..
       <br/>
     
   </p>

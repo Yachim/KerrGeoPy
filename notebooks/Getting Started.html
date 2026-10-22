@@ -30,14 +30,14 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
 <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
   <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script src="../_static/documentation_options.js?v=3d024909"></script>
+    <script src="../_static/documentation_options.js?v=cb265169"></script>
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
@@ -413,7 +413,7 @@ document.write(`
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading">#</a></h1>
 <section id="stable-bound-orbits">
 <span id="stable-orbits"></span><h2>Stable Bound Orbits<a class="headerlink" href="#stable-bound-orbits" title="Link to this heading">#</a></h2>
-<p>Kerrgeopy computes orbits in Boyer-Lindquist coordinates <span class="math notranslate nohighlight">\((t,r,\theta,\phi)\)</span>. Let <span class="math notranslate nohighlight">\(M\)</span> to represent the mass of the primary body and let <span class="math notranslate nohighlight">\(J\)</span> represent its angular momentum. Working in geometrized units where <span class="math notranslate nohighlight">\(G=c=1\)</span>, stable bound orbits are parametrized using the following variables:</p>
+<p>Kerrgeopy computes orbits in Boyer-Lindquist coordinates <span class="math notranslate nohighlight">\((t,r,\theta,\phi)\)</span>. Let <span class="math notranslate nohighlight">\(M\)</span> represent the mass of the primary body and let <span class="math notranslate nohighlight">\(J\)</span> represent its angular momentum. Working in geometrized units where <span class="math notranslate nohighlight">\(G=c=1\)</span>, stable bound orbits are parametrized using the following variables:</p>
 <p><span class="math notranslate nohighlight">\(a\)</span> - spin of the primary body
 <br>
 <span class="math notranslate nohighlight">\(p\)</span> - orbital semilatus rectum
@@ -421,8 +421,8 @@ document.write(`
 <span class="math notranslate nohighlight">\(e\)</span> - orbital eccentricity
 <br>
 <span class="math notranslate nohighlight">\(x\)</span> - cosine of the orbital inclination</p>
-<div class="amsmath math notranslate nohighlight" id="equation-abc9c6ed-f364-4d13-9fee-8d2b7c965121">
-<span class="eqno">(1)<a class="headerlink" href="#equation-abc9c6ed-f364-4d13-9fee-8d2b7c965121" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-b40afa98-5a78-4dfc-898f-d6374aba3b10">
+<span class="eqno">(1)<a class="headerlink" href="#equation-b40afa98-5a78-4dfc-898f-d6374aba3b10" title="Permalink to this equation">#</a></span>\[\begin{equation}
 a = \frac{J}{M^2}, \quad\quad p = \frac{2r_{\text{min}}r_{\text{max}}}{M(r_{\text{min}}+r_{\text{max}})}, \quad\quad e = \frac{r_{\text{max}}-r_{\text{min}}}{r_{\text{max}}+r_{\text{min}}}, \quad\quad x = \cos{\theta_{\text{inc}}}
 \end{equation}\]</div>
 <p>Note that <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(x\)</span> are restricted to values between -1 and 1, while <span class="math notranslate nohighlight">\(e\)</span> is restricted to values between 0 and 1. Retrograde orbits are represented using a negative value for <span class="math notranslate nohighlight">\(a\)</span> or for <span class="math notranslate nohighlight">\(x\)</span>. Polar orbits, marginally bound orbits, and orbits around an extreme Kerr black hole are not supported.</p>
@@ -497,8 +497,8 @@ a = \frac{J}{M^2}, \quad\quad p = \frac{2r_{\text{min}}r_{\text{max}}}{M(r_{\tex
 <section id="orbital-properties">
 <span id="id1"></span><h2>Orbital Properties<a class="headerlink" href="#orbital-properties" title="Link to this heading">#</a></h2>
 <p>Use the <a class="reference internal" href="../_autosummary/kerrgeopy.stable.StableOrbit.html#kerrgeopy.stable.StableOrbit.constants_of_motion" title="kerrgeopy.stable.StableOrbit.constants_of_motion"><span class="xref myst py py-meth"><code class="docutils literal notranslate"><span class="pre">constants_of_motion()</span></code></span></a> method to compute the dimensionless energy, angular momentum and Carter constant. By default, constants of motion are given in geometrized units where <span class="math notranslate nohighlight">\(G=c=1\)</span> and are scale-invariant, meaning that they are normalized according to the masses of the two bodies as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-956a71e4-6365-4f8a-bbc4-ecc8401cb1e5">
-<span class="eqno">(2)<a class="headerlink" href="#equation-956a71e4-6365-4f8a-bbc4-ecc8401cb1e5" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-fc718a55-ccd0-4583-88cb-728c02813273">
+<span class="eqno">(2)<a class="headerlink" href="#equation-fc718a55-ccd0-4583-88cb-728c02813273" title="Permalink to this equation">#</a></span>\[\begin{equation}
 \mathcal{E} = \frac{E}{\mu}, \quad \mathcal{L} = \frac{L}{\mu M}, \quad \mathcal{Q} = \frac{Q}{\mu^2 M^2}
 \end{equation}\]</div>
 <p>Here, <span class="math notranslate nohighlight">\(M\)</span> is the mass of the primary body and <span class="math notranslate nohighlight">\(\mu\)</span> is the mass of the secondary body.</p>
@@ -558,8 +558,8 @@ a = \frac{J}{M^2}, \quad\quad p = \frac{2r_{\text{min}}r_{\text{max}}}{M(r_{\tex
 <span class="math notranslate nohighlight">\(\mathcal{Q}\)</span> - Carter constant
 <br></p>
 <p>It is assumed that all orbital parameters are given in geometrized units where <span class="math notranslate nohighlight">\(G=c=1\)</span> and are normalized according to the masses of the two bodies as follows:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-32b7dac1-66ae-43ed-8e07-6dd496938348">
-<span class="eqno">(3)<a class="headerlink" href="#equation-32b7dac1-66ae-43ed-8e07-6dd496938348" title="Permalink to this equation">#</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-7b6d6d17-38c9-407c-8028-6df716646755">
+<span class="eqno">(3)<a class="headerlink" href="#equation-7b6d6d17-38c9-407c-8028-6df716646755" title="Permalink to this equation">#</a></span>\[\begin{equation}
 a = \frac{J}{M^2}, \quad \mathcal{E} = \frac{E}{\mu}, \quad \mathcal{L} = \frac{L}{\mu M}, \quad \mathcal{Q} = \frac{Q}{\mu^2 M^2}
 \end{equation}\]</div>
 <p>Construct a <a class="reference internal" href="../_autosummary/kerrgeopy.plunge.PlungingOrbit.html#kerrgeopy.plunge.PlungingOrbit" title="kerrgeopy.plunge.PlungingOrbit"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">PlungingOrbit</span></code></span></a> by passing in these four parameters.</p>
@@ -684,10 +684,11 @@ a = \frac{J}{M^2}, \quad \mathcal{E} = \frac{E}{\mu}, \quad \mathcal{L} = \frac{
 <span class="math notranslate nohighlight">\(\eta\)</span> - Carter’s constant per squared energy
 <br>
 <span class="math notranslate nohighlight">\(\ell\)</span> - angular momentum per energy</p>
-<div class="amsmath math notranslate nohighlight" id="equation-585bf7c3-9853-482f-a3f2-0d7d9e638639">
-<span class="eqno">(4)<a class="headerlink" href="#equation-585bf7c3-9853-482f-a3f2-0d7d9e638639" title="Permalink to this equation">#</a></span>\[\begin{equation}
-a = \frac{J}{M^2}, \quad\quad \eta = \frac{Q}{E^2}, \quad\quad \ell = \frac{L}{E}
+<div class="amsmath math notranslate nohighlight" id="equation-f2732b6a-ac94-45d1-a598-fd33d3e22b58">
+<span class="eqno">(4)<a class="headerlink" href="#equation-f2732b6a-ac94-45d1-a598-fd33d3e22b58" title="Permalink to this equation">#</a></span>\[\begin{equation}
+a = \frac{J}{M^2}, \quad\quad \eta = \frac{Q}{E^2}, \quad\quad \ell = \frac{L}{E},
 \end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(E = -p_t\)</span> is the conserved energy observed at infinity, <span class="math notranslate nohighlight">\(L = p_\phi\)</span> is the conserved angular momentum observed at infinity and <span class="math notranslate nohighlight">\(Q\)</span> is the Carter’s constant.</p>
 <p>Construct a <a class="reference internal" href="../_autosummary/kerrgeopy.light.LightOrbit.html#kerrgeopy.light.LightOrbit" title="kerrgeopy.light.LightOrbit"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">LightOrbit</span></code></span></a> using the initial position and the initial momentum.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -766,9 +767,9 @@ a = \frac{J}{M^2}, \quad\quad \eta = \frac{Q}{E^2}, \quad\quad \ell = \frac{L}{E
 <p><span class="math notranslate nohighlight">\(a\)</span> - spin of the primary body
 <br>
 <span class="math notranslate nohighlight">\(\alpha, \beta\)</span> - Bardeen’s coordinates</p>
-<div class="amsmath math notranslate nohighlight" id="equation-47148d0e-cb65-462e-8050-7073d8817a63">
-<span class="eqno">(5)<a class="headerlink" href="#equation-47148d0e-cb65-462e-8050-7073d8817a63" title="Permalink to this equation">#</a></span>\[\begin{equation}
-a = \frac{J}{M^2}, \quad\quad \alpha = -\frac{\ell}{\sin \theta_0}, \quad\quad \beta = \text{sgn } p^\theta_0 \sqrt{\eta + a^2 \cos^2 \theta_0 - \ell^2 \cot^2 \theta_0}
+<div class="amsmath math notranslate nohighlight" id="equation-3f0b7ab8-ea4f-49cd-bf40-2088e6d818bd">
+<span class="eqno">(5)<a class="headerlink" href="#equation-3f0b7ab8-ea4f-49cd-bf40-2088e6d818bd" title="Permalink to this equation">#</a></span>\[\begin{equation}
+a = \frac{J}{M^2}, \quad\quad \alpha = -\frac{\ell}{\sin \theta_0}, \quad\quad \beta = \text{sgn } p^\theta_0 \sqrt{\eta + a^2 \cos^2 \theta_0 - \ell^2 \cot^2 \theta_0}.
 \end{equation}\]</div>
 <p>Construct a <a class="reference internal" href="../_autosummary/kerrgeopy.light.DistantLightOrbit.html#kerrgeopy.light.DistantLightOrbit" title="kerrgeopy.light.DistantLightOrbit"><span class="xref myst py py-class"><code class="docutils literal notranslate"><span class="pre">DistantLightOrbit</span></code></span></a> using the initial angular coordinates <span class="math notranslate nohighlight">\((\theta, \phi)\)</span> and Bardeen’s coordinates.</p>
 <div class="cell docutils container">
@@ -847,7 +848,7 @@ a = \frac{J}{M^2}, \quad\quad \alpha = -\frac{\ell}{\sin \theta_0}, \quad\quad \
   <div class="footer-item">
     
 <p class="component-author">
-By Seyong Park
+By Seyong Park, Zach Nasipak, Jáchym Kohout, Vojtěch Witzany
 </p>
 
   </div>
@@ -857,7 +858,7 @@ By Seyong Park
 
   <p class="copyright">
     
-      © Copyright 2023, Seyong Park.
+      © Copyright 2023, Seyong Park and contributors..
       <br/>
     
   </p>
