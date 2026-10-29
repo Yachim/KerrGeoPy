@@ -12,17 +12,20 @@ The library also provides a set of methods for computing constants of motion and
 
 Additionally, analytical solutions for lightlike geodesics are provided. They are implemented from `Gralla and Lupsasca <https://arxiv.org/abs/1910.12881>`_ with distant limit from `Podrápský <https://dspace.cuni.cz/handle/20.500.11956/193468>`_. The library also includes a utility class for rendering the black hole's shadow on stellar background.
 
-Acknowledgements
-----------------
-The work on lightlike geodesics was supported by the `Student Faculty Grants (SFG) <https://www.mff.cuni.cz/en/students/bc-mgr/sfg>`_ program at the Faculty of Mathematics and Physics, Charles University.
-
 .. image:: images/thumbnail.png
     :align: left
-    :width: 45%pip install conda-forge
+    :width: 45%
 
 .. image:: images/thumbnail.gif
     :align: right
     :width: 45%
+
+.. image:: images/shadow.png
+    :width: 100%
+
+Acknowledgements
+----------------
+The work on lightlike geodesics was supported by the `Student Faculty Grants (SFG) <https://www.mff.cuni.cz/en/students/bc-mgr/sfg>`_ program at the Faculty of Mathematics and Physics, Charles University.
 
 .. _Installation:
 
